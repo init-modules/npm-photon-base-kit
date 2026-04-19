@@ -1,0 +1,60 @@
+{
+  "name": "@init-modules/website-builder-base-kit",
+  "version": "0.1.0",
+  "description": "Base installable kit for the package-first website builder.",
+  "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.js",
+      "default": "./dist/themes/index.js"
+    },
+    "./profile-presets": {
+      "types": "./dist/profile-presets/index.d.ts",
+      "import": "./dist/profile-presets/index.js",
+      "default": "./dist/profile-presets/index.js"
+    },
+    "./documents": {
+      "types": "./dist/documents.d.ts",
+      "import": "./dist/documents.js",
+      "default": "./dist/documents.js"
+    }
+  },
+  "websiteBuilder": {
+    "installableKitExport": "baseWebsiteBuilderKit"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "@init-modules/website-builder": "^0.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "gsap": "^3.14.2",
+    "lucide-react": "^0.556.0",
+    "react-international-phone": "^4.8.0"
+  },
+  "devDependencies": {
+    "@init-modules/website-builder": "file:../website-builder",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  }
+}

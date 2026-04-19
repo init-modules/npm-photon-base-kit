@@ -1,0 +1,57 @@
+import { WebsiteBuilderInstallableKit, WebsiteBuilderModule } from '@init-modules/website-builder';
+export { BaseProfileStarterSource, MarketingDemoDesignTemplate, MarketingDemoDesignTemplateId, MarketingDemoLocale, MarketingDemoProfileStarterPreset, baseDesignTemplates, baseProfileStarterPresets, baseWebsiteBuilderDocuments, createBaseDesignTemplateDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createBaseWebsiteBuilderDocument, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingWebsiteBuilderDocuments } from './documents.js';
+export { M as MarketingDemoBlockType, a as MarketingDemoBlockVariant, b as MarketingDemoBlockVariantMap, c as MarketingDemoDesignPreset, d as MarketingDemoDesignPresetId, e as MarketingDemoVariantTheme, f as baseWebsiteBuilderThemes, g as createMarketingDemoVariantMap, h as getMarketingDemoFramelessBleedStyle, i as getMarketingDemoVariantTheme, j as isMarketingDemoFramelessVariant, m as marketingDemoBlockTypes, k as marketingDemoBlockVariantOptions, l as marketingDemoBlockVariants, n as marketingDemoDesignPresets, r as resolveMarketingDemoBlockVariant } from './design-presets-BaqZvTnN.js';
+export { marketingDemoVariantThemes } from './themes/index.js';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import { ReactNode, CSSProperties } from 'react';
+import '@init-modules/website-builder/server';
+
+declare const marketingWebsiteBuilderModule: WebsiteBuilderModule;
+
+declare const marketingWebsiteBuilderKit: WebsiteBuilderInstallableKit;
+declare const baseWebsiteBuilderModule: WebsiteBuilderModule;
+declare const baseWebsiteBuilderKit: WebsiteBuilderInstallableKit;
+
+declare const InitCheckListItem: ({ children }: {
+    children: ReactNode;
+}) => react_jsx_runtime.JSX.Element;
+
+declare const InitStatWidget: ({ atLeastLg, label, suffix, value, }: {
+    atLeastLg: boolean;
+    label: ReactNode;
+    suffix?: ReactNode;
+    value: number;
+}) => react_jsx_runtime.JSX.Element;
+
+declare const InitStatusPill: ({ children }: {
+    children: ReactNode;
+}) => react_jsx_runtime.JSX.Element;
+
+declare const InitTestimonialCard: ({ className, profile, quote, style, }: {
+    className?: string;
+    profile: ReactNode;
+    quote: ReactNode;
+    style?: CSSProperties;
+}) => react_jsx_runtime.JSX.Element;
+
+declare const InitTestimonialProfile: ({ initials, name, role, }: {
+    initials: ReactNode;
+    name: ReactNode;
+    role: ReactNode;
+}) => react_jsx_runtime.JSX.Element;
+
+declare const InitTypedText: ({ atLeastLg, texts, }: {
+    atLeastLg: boolean;
+    texts: string[];
+}) => react_jsx_runtime.JSX.Element;
+
+type RichTextProps = {
+    blockId: string;
+    path: string;
+    className?: string;
+    containerClassName?: string;
+    placeholder?: string;
+};
+declare const RichText: ({ blockId, path, className, containerClassName, placeholder, }: RichTextProps) => react_jsx_runtime.JSX.Element;
+
+export { InitCheckListItem, InitStatWidget, InitStatusPill, InitTestimonialCard, InitTestimonialProfile, InitTypedText, RichText, baseWebsiteBuilderKit, baseWebsiteBuilderModule, marketingWebsiteBuilderKit, marketingWebsiteBuilderModule };
