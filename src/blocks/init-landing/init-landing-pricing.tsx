@@ -10,6 +10,7 @@ import {
   type WebsiteBuilderField,
 } from "@init-modules/website-builder";
 import {
+  createInitLandingBlockLocalizationSchema,
   revealClassName,
   sectionFrameClassName,
   type InitLandingPricingPlan,
@@ -258,6 +259,7 @@ export const initLandingPricingDefinition =
     icon: "badge-dollar-sign",
     component: InitLandingPricingBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "pricing",
       eyebrow: createWebsiteBuilderLocalizedDefault({

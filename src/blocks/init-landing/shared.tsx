@@ -20,6 +20,9 @@ import {
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   WebsiteBuilderLink,
+  createWebsiteBuilderBlockLocalizationSchema,
+  type WebsiteBuilderBlockLocalizationSchema,
+  type WebsiteBuilderField,
   type WebsiteBuilderFieldOption,
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
@@ -61,6 +64,17 @@ export const initLandingIconFieldOptions: WebsiteBuilderFieldOption[] =
     label: key,
     value: key,
   }));
+
+export const createInitLandingBlockLocalizationSchema = (
+  fields: WebsiteBuilderField[],
+): WebsiteBuilderBlockLocalizationSchema => {
+  const schema = createWebsiteBuilderBlockLocalizationSchema(fields);
+
+  return {
+    localized: schema.localized,
+    shared: Array.from(new Set([...schema.shared, "variant"])).sort(),
+  };
+};
 
 export type InitLandingLinkItem = {
   href: string;

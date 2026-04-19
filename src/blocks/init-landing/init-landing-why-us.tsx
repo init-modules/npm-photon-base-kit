@@ -9,6 +9,7 @@ import {
   type WebsiteBuilderField,
 } from "@init-modules/website-builder";
 import {
+  createInitLandingBlockLocalizationSchema,
   initLandingIconFieldOptions,
   initLandingIcons,
   revealClassName,
@@ -202,6 +203,7 @@ export const initLandingWhyUsDefinition =
     icon: "shield",
     component: InitLandingWhyUsBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "why-us",
       eyebrow: createWebsiteBuilderLocalizedDefault({

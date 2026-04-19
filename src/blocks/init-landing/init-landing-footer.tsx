@@ -11,6 +11,7 @@ import {
 } from "@init-modules/website-builder";
 import {
   InitBrandMark,
+  createInitLandingBlockLocalizationSchema,
   type InitLandingFooterContact,
   type InitLandingLinkItem,
   useInitLandingSectionBleedStyle,
@@ -250,6 +251,7 @@ export const initLandingFooterDefinition =
     icon: "panel-bottom-open",
     component: InitLandingFooterBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       brandLabel: createWebsiteBuilderLocalizedDefault({
         en: "init",

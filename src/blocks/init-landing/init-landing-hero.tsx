@@ -14,6 +14,7 @@ import {
   ArrowRightIcon,
   InitLandingActionButton,
   InitLandingAction,
+  createInitLandingBlockLocalizationSchema,
   type InitLandingFeaturePill,
   type InitLandingStat,
   initLandingIconFieldOptions,
@@ -325,6 +326,7 @@ export const initLandingHeroDefinition =
     icon: "sparkles",
     component: InitLandingHeroBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       badge: createWebsiteBuilderLocalizedDefault({
         en: "Сайты без лишней сложности",

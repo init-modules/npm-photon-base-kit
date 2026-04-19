@@ -9,6 +9,7 @@ import {
   type WebsiteBuilderField,
 } from "@init-modules/website-builder";
 import {
+  createInitLandingBlockLocalizationSchema,
   initLandingIconFieldOptions,
   initLandingIcons,
   revealClassName,
@@ -160,6 +161,7 @@ export const initLandingServicesDefinition =
     icon: "layout-grid",
     component: InitLandingServicesBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "services",
       eyebrow: createWebsiteBuilderLocalizedDefault({

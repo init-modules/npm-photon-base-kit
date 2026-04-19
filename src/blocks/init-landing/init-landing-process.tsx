@@ -9,6 +9,7 @@ import {
   type WebsiteBuilderField,
 } from "@init-modules/website-builder";
 import {
+  createInitLandingBlockLocalizationSchema,
   revealClassName,
   sectionFrameClassName,
   type InitLandingProcessStep,
@@ -167,6 +168,7 @@ export const initLandingProcessDefinition =
     icon: "waypoints",
     component: InitLandingProcessBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "process",
       eyebrow: createWebsiteBuilderLocalizedDefault({

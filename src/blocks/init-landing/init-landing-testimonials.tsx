@@ -9,6 +9,7 @@ import {
   type WebsiteBuilderField,
 } from "@init-modules/website-builder";
 import {
+  createInitLandingBlockLocalizationSchema,
   revealClassName,
   sectionFrameClassName,
   type InitLandingTestimonial,
@@ -153,6 +154,7 @@ export const initLandingTestimonialsDefinition =
     icon: "messages-square",
     component: InitLandingTestimonialsBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "testimonials",
       eyebrow: createWebsiteBuilderLocalizedDefault({

@@ -924,6 +924,7 @@ import {
 import { useEffect as useEffect2, useRef as useRef2, useState as useState2 } from "react";
 import {
   WebsiteBuilderLink,
+  createWebsiteBuilderBlockLocalizationSchema,
   useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth4,
   useWebsiteBuilderStore as useWebsiteBuilderStore5
 } from "@init-modules/website-builder";
@@ -947,6 +948,13 @@ var initLandingIconFieldOptions = Object.keys(initLandingIcons).map((key) => ({
   label: key,
   value: key
 }));
+var createInitLandingBlockLocalizationSchema = (fields10) => {
+  const schema = createWebsiteBuilderBlockLocalizationSchema(fields10);
+  return {
+    localized: schema.localized,
+    shared: Array.from(/* @__PURE__ */ new Set([...schema.shared, "variant"])).sort()
+  };
+};
 var sectionFrameClassName = "mx-auto max-w-7xl px-6 lg:px-8";
 var useInitLandingSectionBleedStyle = () => {
   const renderDepth = useWebsiteBuilderRenderDepth4();
@@ -1189,6 +1197,7 @@ var initLandingCtaDefinition = defineWebsiteBuilderBlockDefinition4({
   icon: "megaphone",
   component: InitLandingCtaBlock,
   fields,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields),
   defaults: {
     sectionId: "contact",
     title: createWebsiteBuilderLocalizedDefault4({
@@ -1448,6 +1457,7 @@ var initLandingFooterDefinition = defineWebsiteBuilderBlockDefinition5({
   icon: "panel-bottom-open",
   component: InitLandingFooterBlock,
   fields: fields2,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields2),
   defaults: {
     brandLabel: createWebsiteBuilderLocalizedDefault5({
       en: "init",
@@ -1495,6 +1505,19 @@ import {
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
 import { Fragment as Fragment2, jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
+var appendCurrentSearchParams = (href) => {
+  if (typeof window === "undefined" || window.location.search === "") {
+    return href;
+  }
+  const url = new URL(href, window.location.origin);
+  const currentSearchParams = new URLSearchParams(window.location.search);
+  for (const [key, value] of currentSearchParams.entries()) {
+    if (!url.searchParams.has(key)) {
+      url.searchParams.append(key, value);
+    }
+  }
+  return `${url.pathname}${url.search}${url.hash}`;
+};
 var fields3 = [
   {
     path: "brandLabel",
@@ -1616,7 +1639,9 @@ var InitLandingLocaleSelect = ({
             onSelect: (event) => {
               event.preventDefault();
               if (typeof window !== "undefined") {
-                window.location.assign(buildLocaleHref(item.code));
+                window.location.assign(
+                  appendCurrentSearchParams(buildLocaleHref(item.code))
+                );
               }
             },
             children: [
@@ -1804,6 +1829,7 @@ var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition6({
   icon: "panels-top-left",
   component: InitLandingHeaderBlock,
   fields: fields3,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields3),
   defaults: {
     brandLabel: createWebsiteBuilderLocalizedDefault6({
       en: "init",
@@ -2994,6 +3020,7 @@ var initLandingHeroDefinition = defineWebsiteBuilderBlockDefinition7({
   icon: "sparkles",
   component: InitLandingHeroBlock,
   fields: fields4,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields4),
   defaults: {
     badge: createWebsiteBuilderLocalizedDefault7({
       en: "\u0421\u0430\u0439\u0442\u044B \u0431\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0439 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438",
@@ -3288,6 +3315,7 @@ var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition8({
   icon: "badge-dollar-sign",
   component: InitLandingPricingBlock,
   fields: fields5,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields5),
   defaults: {
     sectionId: "pricing",
     eyebrow: createWebsiteBuilderLocalizedDefault8({
@@ -3518,6 +3546,7 @@ var initLandingProcessDefinition = defineWebsiteBuilderBlockDefinition9({
   icon: "waypoints",
   component: InitLandingProcessBlock,
   fields: fields6,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields6),
   defaults: {
     sectionId: "process",
     eyebrow: createWebsiteBuilderLocalizedDefault9({
@@ -3712,6 +3741,7 @@ var initLandingServicesDefinition = defineWebsiteBuilderBlockDefinition10({
   icon: "layout-grid",
   component: InitLandingServicesBlock,
   fields: fields7,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields7),
   defaults: {
     sectionId: "services",
     eyebrow: createWebsiteBuilderLocalizedDefault10({
@@ -3901,6 +3931,7 @@ var initLandingTestimonialsDefinition = defineWebsiteBuilderBlockDefinition11({
   icon: "messages-square",
   component: InitLandingTestimonialsBlock,
   fields: fields8,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields8),
   defaults: {
     sectionId: "testimonials",
     eyebrow: createWebsiteBuilderLocalizedDefault11({
@@ -4131,6 +4162,7 @@ var initLandingWhyUsDefinition = defineWebsiteBuilderBlockDefinition12({
   icon: "shield",
   component: InitLandingWhyUsBlock,
   fields: fields9,
+  localizationSchema: createInitLandingBlockLocalizationSchema(fields9),
   defaults: {
     sectionId: "why-us",
     eyebrow: createWebsiteBuilderLocalizedDefault12({

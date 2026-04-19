@@ -17,6 +17,7 @@ import {
   InitBrandMark,
   InitLandingActionButton,
   InitLandingNavLink,
+  createInitLandingBlockLocalizationSchema,
   type InitLandingAction,
   type InitLandingHeaderNavItem,
   useInitLandingMobileMenu,
@@ -28,6 +29,23 @@ const INIT_LANDING_DROPDOWN_SURFACE = "#fffdf9";
 const INIT_LANDING_DROPDOWN_TEXT = "#211916";
 const INIT_LANDING_DROPDOWN_MUTED = "#6b5f59";
 const INIT_LANDING_DROPDOWN_BORDER = "#e6ddd4";
+
+const appendCurrentSearchParams = (href: string) => {
+  if (typeof window === "undefined" || window.location.search === "") {
+    return href;
+  }
+
+  const url = new URL(href, window.location.origin);
+  const currentSearchParams = new URLSearchParams(window.location.search);
+
+  for (const [key, value] of currentSearchParams.entries()) {
+    if (!url.searchParams.has(key)) {
+      url.searchParams.append(key, value);
+    }
+  }
+
+  return `${url.pathname}${url.search}${url.hash}`;
+};
 
 export type InitLandingHeaderProps = {
   brandLabel: string;
@@ -174,7 +192,9 @@ const InitLandingLocaleSelect = ({
                 event.preventDefault();
 
                 if (typeof window !== "undefined") {
-                  window.location.assign(buildLocaleHref(item.code));
+                  window.location.assign(
+                    appendCurrentSearchParams(buildLocaleHref(item.code)),
+                  );
                 }
               }}
             >
@@ -376,6 +396,7 @@ export const initLandingHeaderDefinition =
     icon: "panels-top-left",
     component: InitLandingHeaderBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       brandLabel: createWebsiteBuilderLocalizedDefault({
         en: "init",

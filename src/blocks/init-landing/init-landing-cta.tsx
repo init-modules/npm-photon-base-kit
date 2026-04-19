@@ -13,6 +13,7 @@ import {
   ArrowRightIcon,
   InitLandingAction,
   InitLandingActionButton,
+  createInitLandingBlockLocalizationSchema,
   revealClassName,
   sectionFrameClassName,
   useInitLandingReveal,
@@ -166,6 +167,7 @@ export const initLandingCtaDefinition =
     icon: "megaphone",
     component: InitLandingCtaBlock,
     fields,
+    localizationSchema: createInitLandingBlockLocalizationSchema(fields),
     defaults: {
       sectionId: "contact",
       title: createWebsiteBuilderLocalizedDefault({
