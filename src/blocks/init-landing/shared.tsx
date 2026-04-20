@@ -16,8 +16,15 @@ import {
   Workflow,
   X,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import {
   WebsiteBuilderLink,
   createWebsiteBuilderBlockLocalizationSchema,
@@ -44,7 +51,7 @@ export type InitLandingIconKey =
   | "workflow"
   | "zap";
 
-export const initLandingIcons = {
+export const initLandingIcons: Record<InitLandingIconKey, LucideIcon> = {
   award: Award,
   barChart3: BarChart3,
   blocks: Blocks,
@@ -147,7 +154,7 @@ export const headingEyebrowClassName =
 export const secondaryCardClassName =
   "rounded-[1.75rem] border border-[color-mix(in_srgb,var(--wb-site-border)_88%,white)] bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)] shadow-[0_20px_60px_-30px_rgba(32,22,18,0.18)]";
 
-export const useInitLandingSectionBleedStyle = () => {
+export const useInitLandingSectionBleedStyle = (): CSSProperties | undefined => {
   const renderDepth = useWebsiteBuilderRenderDepth();
 
   return renderDepth === 0
@@ -269,7 +276,12 @@ export const usePreviewSurface = () => {
   return mode === "preview";
 };
 
-export const useInitLandingMobileMenu = () => {
+export const useInitLandingMobileMenu = (): {
+  close: () => void;
+  icon: LucideIcon;
+  isOpen: boolean;
+  toggle: () => void;
+} => {
   const [isOpen, setIsOpen] = useState(false);
   return {
     close: () => setIsOpen(false),
@@ -279,4 +291,4 @@ export const useInitLandingMobileMenu = () => {
   };
 };
 
-export const ArrowRightIcon = ArrowRight;
+export const ArrowRightIcon: LucideIcon = ArrowRight;

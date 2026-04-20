@@ -1,4 +1,5 @@
 export * from "./command-center-cta";
+export * from "./breadcrumbs";
 export * from "./feature-grid";
 export * from "./hero-spotlight";
 export * from "./init-landing/init-landing-cta";

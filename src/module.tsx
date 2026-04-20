@@ -16,6 +16,7 @@ import {
 } from "./documents";
 import {
   commandCenterCtaDefinition,
+  breadcrumbsDefinition,
   featureGridDefinition,
   heroSpotlightDefinition,
   initLandingCtaDefinition,
@@ -49,6 +50,7 @@ export const marketingWebsiteBuilderModule: WebsiteBuilderModule = {
     richTextDefinition,
     publicationSpotlightDefinition,
     commandCenterCtaDefinition,
+    breadcrumbsDefinition,
     initLandingHeaderDefinition,
     initLandingHeroDefinition,
     initLandingServicesDefinition,
