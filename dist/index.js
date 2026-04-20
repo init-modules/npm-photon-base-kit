@@ -17,7 +17,7 @@ import {
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingWebsiteBuilderDocuments
-} from "./chunk-MHZK2DPT.js";
+} from "./chunk-CWBMGFDG.js";
 import {
   baseWebsiteBuilderThemes,
   createMarketingDemoVariantMap,
@@ -1957,7 +1957,7 @@ var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition7({
       ru: "\u041F\u043E\u0438\u0441\u043A \u043F\u043E \u0441\u0430\u0439\u0442\u0443"
     }),
     showLocaleSwitcher: true,
-    showLoginAction: true,
+    showLoginAction: false,
     loginLabel: createWebsiteBuilderLocalizedDefault7({
       en: "Admin sign in",
       ru: "\u0412\u0445\u043E\u0434 \u0434\u043B\u044F \u0430\u0434\u043C\u0438\u043D\u0430"

@@ -415,7 +415,7 @@ export const initLandingHeaderDefinition =
         ru: "Поиск по сайту",
       }),
       showLocaleSwitcher: true,
-      showLoginAction: true,
+      showLoginAction: false,
       loginLabel: createWebsiteBuilderLocalizedDefault({
         en: "Admin sign in",
         ru: "Вход для админа",

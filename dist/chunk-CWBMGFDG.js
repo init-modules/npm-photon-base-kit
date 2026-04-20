@@ -989,7 +989,7 @@ var createDefaultSiteRegionEntries = (locale, document) => {
               primaryCtaHref: "/contacts",
               secondaryCtaLabel: "WhatsApp",
               secondaryCtaHref: "https://wa.me/77070404343",
-              showLoginAction: true,
+              showLoginAction: false,
               loginLabel: locale === "ru" ? "\u0412\u0445\u043E\u0434 \u0434\u043B\u044F \u0430\u0434\u043C\u0438\u043D\u0430" : "Admin sign in",
               sticky: true,
               compactOnScroll: true,

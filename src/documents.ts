@@ -548,7 +548,7 @@ const createDefaultSiteRegionEntries = (
               primaryCtaHref: "/contacts",
               secondaryCtaLabel: "WhatsApp",
               secondaryCtaHref: "https://wa.me/77070404343",
-              showLoginAction: true,
+              showLoginAction: false,
               loginLabel: locale === "ru" ? "Вход для админа" : "Admin sign in",
               sticky: true,
               compactOnScroll: true,
