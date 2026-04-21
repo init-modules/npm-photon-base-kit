@@ -6,8 +6,8 @@ import {
 	type WebsiteBuilderModule,
 } from "@init-modules/website-builder/public";
 import {
-	commandCenterCtaDefinition,
 	breadcrumbsDefinition,
+	commandCenterCtaDefinition,
 	featureGridDefinition,
 	heroSpotlightDefinition,
 	initLandingCtaDefinition,

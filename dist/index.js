@@ -24,7 +24,7 @@ import {
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-OV7J4UH6.js";
+} from "./chunk-7JTRUFAR.js";
 import "./chunk-JF3FEQHL.js";
 import {
   baseDesignTemplates,
@@ -44,12 +44,12 @@ import {
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingWebsiteBuilderDocuments
-} from "./chunk-5FA5I5NM.js";
+} from "./chunk-EPIILNDN.js";
 import {
   baseWebsiteBuilderThemes,
   marketingDemoDesignPresets,
   resolveMarketingDemoBlockVariant
-} from "./chunk-7VB5UP22.js";
+} from "./chunk-UMLVE55O.js";
 import {
   airMarketingDemoVariantTheme,
   createMarketingDemoVariantMap,

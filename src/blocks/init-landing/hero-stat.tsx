@@ -49,7 +49,9 @@ export const InitLandingHeroStat = ({
 				{displayValue}
 				{suffix}
 			</div>
-			<div className="mt-1 text-sm text-[var(--wb-site-muted-text)]">{label}</div>
+			<div className="mt-1 text-sm text-[var(--wb-site-muted-text)]">
+				{label}
+			</div>
 		</div>
 	);
 };

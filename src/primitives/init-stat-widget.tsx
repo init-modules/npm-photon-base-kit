@@ -1,7 +1,7 @@
 "use client";
 
 import gsap from "gsap";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 export const InitStatWidget = ({
 	atLeastLg,
@@ -49,7 +49,9 @@ export const InitStatWidget = ({
 				{displayValue}
 				{suffix}
 			</div>
-			<div className="mt-1 text-sm text-[var(--wb-site-muted-text)]">{label}</div>
+			<div className="mt-1 text-sm text-[var(--wb-site-muted-text)]">
+				{label}
+			</div>
 		</div>
 	);
 };

@@ -1,138 +1,135 @@
 import {
-  getWebsiteBuilderSiteDesignPreset,
-  websiteBuilderSiteDesignPresets,
-  type WebsiteBuilderSiteDesignAppearance,
-  type WebsiteBuilderSiteDesignPresetDefinition,
+	getWebsiteBuilderSiteDesignPreset,
+	type WebsiteBuilderSiteDesignAppearance,
+	type WebsiteBuilderSiteDesignPresetDefinition,
+	websiteBuilderSiteDesignPresets,
 } from "@init-modules/website-builder/server";
 import {
-  getMarketingDemoVariantTheme,
-  isMarketingDemoFramelessVariant,
-  marketingDemoBlockTypes,
-  marketingDemoBlockVariants,
-  resolveMarketingDemoSiteVariant,
-  type MarketingDemoBlockVariant,
-  type MarketingDemoBlockVariantMap,
+	getMarketingDemoVariantTheme,
+	isMarketingDemoFramelessVariant,
+	type MarketingDemoBlockVariant,
+	type MarketingDemoBlockVariantMap,
+	marketingDemoBlockTypes,
+	marketingDemoBlockVariants,
+	resolveMarketingDemoSiteVariant,
 } from "../runtime-theme";
 
 const marketingDemoVariantSet = new Set<string>(marketingDemoBlockVariants);
 
 const marketingDemoVariantFallbackByPresetId: Record<
-  string,
-  MarketingDemoBlockVariant
+	string,
+	MarketingDemoBlockVariant
 > = {
-  "aurora-current": "default",
-  "init-landing": "air",
-  "paper-flow": "air",
+	"aurora-current": "default",
+	"init-landing": "air",
+	"paper-flow": "air",
 };
 
 type MarketingDemoSiteDesignCandidate = {
-  presetId?: unknown;
-  componentVariants?: Record<string, unknown>;
+	presetId?: unknown;
+	componentVariants?: Record<string, unknown>;
 };
 
 const readSiteDesignCandidate = (
-  value: unknown,
+	value: unknown,
 ): MarketingDemoSiteDesignCandidate =>
-  typeof value === "object" && value !== null
-    ? (value as MarketingDemoSiteDesignCandidate)
-    : {};
+	typeof value === "object" && value !== null
+		? (value as MarketingDemoSiteDesignCandidate)
+		: {};
 
 const resolvePresetVariantMap = (
-  preset: Pick<
-    WebsiteBuilderSiteDesignPresetDefinition,
-    "id" | "componentVariants"
-  >,
+	preset: Pick<
+		WebsiteBuilderSiteDesignPresetDefinition,
+		"id" | "componentVariants"
+	>,
 ): MarketingDemoBlockVariantMap | null => {
-  const fallbackVariant = marketingDemoVariantFallbackByPresetId[preset.id];
-  const entries = marketingDemoBlockTypes.map((blockType) => {
-    const resolvedVariant = resolveMarketingDemoSiteVariant(
-      preset.componentVariants,
-      blockType,
-    );
+	const fallbackVariant = marketingDemoVariantFallbackByPresetId[preset.id];
+	const entries = marketingDemoBlockTypes.map((blockType) => {
+		const resolvedVariant = resolveMarketingDemoSiteVariant(
+			preset.componentVariants,
+			blockType,
+		);
 
-    return [blockType, resolvedVariant ?? fallbackVariant] as const;
-  });
+		return [blockType, resolvedVariant ?? fallbackVariant] as const;
+	});
 
-  if (entries.some(([, variant]) => variant === undefined)) {
-    return null;
-  }
+	if (entries.some(([, variant]) => variant === undefined)) {
+		return null;
+	}
 
-  return Object.fromEntries(entries) as MarketingDemoBlockVariantMap;
+	return Object.fromEntries(entries) as MarketingDemoBlockVariantMap;
 };
 
 export type MarketingDemoDesignPreset = {
-  id: string;
-  label: string;
-  appearance: WebsiteBuilderSiteDesignAppearance;
-  description: string;
-  componentVariants: MarketingDemoBlockVariantMap;
+	id: string;
+	label: string;
+	appearance: WebsiteBuilderSiteDesignAppearance;
+	description: string;
+	componentVariants: MarketingDemoBlockVariantMap;
 };
 
 export const marketingDemoDesignPresets: MarketingDemoDesignPreset[] =
-  websiteBuilderSiteDesignPresets
-    .map((preset) => {
-      const componentVariants = resolvePresetVariantMap(preset);
+	websiteBuilderSiteDesignPresets
+		.map((preset) => {
+			const componentVariants = resolvePresetVariantMap(preset);
 
-      if (!componentVariants) {
-        return null;
-      }
+			if (!componentVariants) {
+				return null;
+			}
 
-      return {
-        id: preset.id,
-        label: preset.label,
-        appearance: preset.appearance,
-        description: preset.description,
-        componentVariants,
-      };
-    })
-    .filter((preset): preset is MarketingDemoDesignPreset => preset !== null);
+			return {
+				id: preset.id,
+				label: preset.label,
+				appearance: preset.appearance,
+				description: preset.description,
+				componentVariants,
+			};
+		})
+		.filter((preset): preset is MarketingDemoDesignPreset => preset !== null);
 
 export type MarketingDemoDesignPresetId = MarketingDemoDesignPreset["id"];
 
 export const resolveMarketingDemoBlockVariant = ({
-  blockType,
-  explicitVariant,
-  siteDesign,
+	blockType,
+	explicitVariant,
+	siteDesign,
 }: {
-  blockType: string;
-  explicitVariant?: unknown;
-  siteDesign?: unknown;
+	blockType: string;
+	explicitVariant?: unknown;
+	siteDesign?: unknown;
 }): MarketingDemoBlockVariant => {
-  if (
-    typeof explicitVariant === "string" &&
-    explicitVariant !== "default" &&
-    marketingDemoVariantSet.has(explicitVariant)
-  ) {
-    return explicitVariant as MarketingDemoBlockVariant;
-  }
+	if (
+		typeof explicitVariant === "string" &&
+		explicitVariant !== "default" &&
+		marketingDemoVariantSet.has(explicitVariant)
+	) {
+		return explicitVariant as MarketingDemoBlockVariant;
+	}
 
-  const candidate = readSiteDesignCandidate(siteDesign);
-  const mappedVariant = resolveMarketingDemoSiteVariant(
-    candidate.componentVariants,
-    blockType,
-  );
+	const candidate = readSiteDesignCandidate(siteDesign);
+	const mappedVariant = resolveMarketingDemoSiteVariant(
+		candidate.componentVariants,
+		blockType,
+	);
 
-  if (mappedVariant) {
-    return mappedVariant;
-  }
+	if (mappedVariant) {
+		return mappedVariant;
+	}
 
-  if (typeof candidate.presetId === "string") {
-    const preset = getWebsiteBuilderSiteDesignPreset(candidate.presetId);
-    const presetVariantMap = preset
-      ? resolvePresetVariantMap(preset)
-      : undefined;
+	if (typeof candidate.presetId === "string") {
+		const preset = getWebsiteBuilderSiteDesignPreset(candidate.presetId);
+		const presetVariantMap = preset
+			? resolvePresetVariantMap(preset)
+			: undefined;
 
-    if (presetVariantMap) {
-      return presetVariantMap[blockType] ?? "default";
-    }
-  }
+		if (presetVariantMap) {
+			return presetVariantMap[blockType] ?? "default";
+		}
+	}
 
-  return "default";
+	return "default";
 };
 
 export const baseWebsiteBuilderThemes = marketingDemoDesignPresets;
 
-export {
-  getMarketingDemoVariantTheme,
-  isMarketingDemoFramelessVariant,
-};
+export { getMarketingDemoVariantTheme, isMarketingDemoFramelessVariant };

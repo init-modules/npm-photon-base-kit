@@ -5,18 +5,134 @@ import {
   resolveMarketingDemoBlockVariant
 } from "./chunk-ZZUPCLBS.js";
 
-// src/blocks/command-center-cta.tsx
+// src/blocks/breadcrumbs.tsx
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@init-modules/ui";
 import {
   createWebsiteBuilderLocalizedDefault,
   defineWebsiteBuilderBlockDefinition,
-  EditableRepeaterValue,
   EditableText,
-  EditableTextarea,
-  WebsiteBuilderLink,
-  useWebsiteBuilderRenderDepth,
-  useWebsiteBuilderStore
+  WebsiteBuilderLink
 } from "@init-modules/website-builder/public";
 import { jsx, jsxs } from "react/jsx-runtime";
+var normalizeItems = (items) => Array.isArray(items) ? items.flatMap((item) => {
+  if (typeof item !== "object" || item === null) {
+    return [];
+  }
+  const candidate = item;
+  const label = typeof candidate.label === "string" || typeof candidate.label === "object" && candidate.label !== null ? candidate.label : null;
+  if (!label) {
+    return [];
+  }
+  return [
+    {
+      label,
+      href: typeof candidate.href === "string" && candidate.href ? candidate.href : "#",
+      current: Boolean(candidate.current)
+    }
+  ];
+}) : [];
+var BreadcrumbsBlock = ({
+  block
+}) => {
+  const items = normalizeItems(block.props.items);
+  if (items.length === 0) {
+    return null;
+  }
+  return /* @__PURE__ */ jsx("section", { className: "bg-[var(--wb-site-background)] px-5 pt-8 text-[var(--wb-site-text)] sm:px-8", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-[96rem]", children: /* @__PURE__ */ jsx(Breadcrumb, { children: /* @__PURE__ */ jsx(BreadcrumbList, { children: items.map((item, index) => {
+    const current = item.current || index === items.length - 1;
+    return /* @__PURE__ */ jsxs(BreadcrumbItem, { children: [
+      current ? /* @__PURE__ */ jsx(BreadcrumbPage, { children: /* @__PURE__ */ jsx(
+        EditableText,
+        {
+          blockId: block.id,
+          path: `items.${index}.label`
+        }
+      ) }) : /* @__PURE__ */ jsx(
+        WebsiteBuilderLink,
+        {
+          href: item.href,
+          className: "transition hover:text-[var(--wb-site-text)]",
+          children: /* @__PURE__ */ jsx(
+            EditableText,
+            {
+              blockId: block.id,
+              path: `items.${index}.label`
+            }
+          )
+        }
+      ),
+      index < items.length - 1 ? /* @__PURE__ */ jsx(BreadcrumbSeparator, {}) : null
+    ] }, `${item.href}:${index}`);
+  }) }) }) }) });
+};
+var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
+  type: "breadcrumbs",
+  label: "Breadcrumbs",
+  labelKey: "marketingDemoKit.breadcrumbs.label",
+  description: "Compact navigation trail for pages and flows.",
+  descriptionKey: "marketingDemoKit.breadcrumbs.description",
+  category: "Navigation",
+  icon: "chevrons-right",
+  defaults: {
+    items: [
+      {
+        label: createWebsiteBuilderLocalizedDefault({
+          en: "Home",
+          ru: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F"
+        }),
+        href: "/",
+        current: false
+      },
+      {
+        label: createWebsiteBuilderLocalizedDefault({
+          en: "Current page",
+          ru: "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430"
+        }),
+        href: "#",
+        current: true
+      }
+    ]
+  },
+  fields: [
+    {
+      path: "items",
+      label: "Items",
+      kind: "repeater",
+      group: "content",
+      localization: "localized",
+      itemFields: [
+        { path: "label", label: "Label", kind: "text" },
+        { path: "href", label: "Href", kind: "url", localization: "shared" },
+        {
+          path: "current",
+          label: "Current",
+          kind: "toggle",
+          localization: "shared"
+        }
+      ]
+    }
+  ],
+  component: BreadcrumbsBlock
+});
+
+// src/blocks/command-center-cta.tsx
+import {
+  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault2,
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition2,
+  EditableRepeaterValue,
+  EditableText as EditableText2,
+  EditableTextarea,
+  useWebsiteBuilderRenderDepth,
+  useWebsiteBuilderStore,
+  WebsiteBuilderLink as WebsiteBuilderLink2
+} from "@init-modules/website-builder/public";
+import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
 var CommandCenterCta = ({
   block
 }) => {
@@ -32,7 +148,7 @@ var CommandCenterCta = ({
   const renderDepth = useWebsiteBuilderRenderDepth();
   const centered = variant === "air";
   const framelessCta = theme.surfaceStyle === "frameless";
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx2(
     "section",
     {
       className: `${theme.heroSurface} px-5 py-7 sm:px-6 sm:py-8`,
@@ -43,22 +159,22 @@ var CommandCenterCta = ({
       "data-testid": "marketing-demo-command-center-cta",
       "data-marketing-demo-variant": variant,
       "data-marketing-demo-surface-style": theme.surfaceStyle,
-      children: /* @__PURE__ */ jsxs(
+      children: /* @__PURE__ */ jsxs2(
         "div",
         {
           className: `grid min-w-0 gap-6 items-center ${centered ? "mx-auto max-w-5xl lg:grid-cols-[minmax(0,1fr)]" : "[grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))]"}`,
           children: [
-            /* @__PURE__ */ jsxs("div", { className: `min-w-0 ${centered ? "text-center" : ""}`, children: [
-              /* @__PURE__ */ jsx(
-                EditableText,
+            /* @__PURE__ */ jsxs2("div", { className: `min-w-0 ${centered ? "text-center" : ""}`, children: [
+              /* @__PURE__ */ jsx2(
+                EditableText2,
                 {
                   blockId: block.id,
                   path: "badge",
                   className: `${theme.pill} ${centered ? "mx-auto" : ""}`
                 }
               ),
-              /* @__PURE__ */ jsx(
-                EditableText,
+              /* @__PURE__ */ jsx2(
+                EditableText2,
                 {
                   blockId: block.id,
                   path: "title",
@@ -66,7 +182,7 @@ var CommandCenterCta = ({
                   className: `mt-4 block text-balance text-3xl font-semibold leading-[1.03] tracking-[-0.05em] ${centered ? "sm:text-5xl" : "sm:text-4xl xl:text-5xl"} ${theme.emphasisText}`
                 }
               ),
-              /* @__PURE__ */ jsx(
+              /* @__PURE__ */ jsx2(
                 EditableTextarea,
                 {
                   blockId: block.id,
@@ -74,18 +190,18 @@ var CommandCenterCta = ({
                   className: `mt-5 max-w-2xl ${theme.body} ${centered ? "mx-auto" : ""}`
                 }
               ),
-              /* @__PURE__ */ jsxs(
+              /* @__PURE__ */ jsxs2(
                 "div",
                 {
                   className: `mt-7 flex gap-3 ${centered ? "justify-center flex-wrap" : "flex-col sm:flex-row"}`,
                   children: [
-                    /* @__PURE__ */ jsx(
-                      WebsiteBuilderLink,
+                    /* @__PURE__ */ jsx2(
+                      WebsiteBuilderLink2,
                       {
                         href: String(block.props.primaryHref),
                         className: theme.primaryButton,
-                        children: /* @__PURE__ */ jsx(
-                          EditableText,
+                        children: /* @__PURE__ */ jsx2(
+                          EditableText2,
                           {
                             blockId: block.id,
                             path: "primaryLabel",
@@ -94,13 +210,13 @@ var CommandCenterCta = ({
                         )
                       }
                     ),
-                    /* @__PURE__ */ jsx(
-                      WebsiteBuilderLink,
+                    /* @__PURE__ */ jsx2(
+                      WebsiteBuilderLink2,
                       {
                         href: String(block.props.secondaryHref),
                         className: theme.secondaryButton,
-                        children: /* @__PURE__ */ jsx(
-                          EditableText,
+                        children: /* @__PURE__ */ jsx2(
+                          EditableText2,
                           {
                             blockId: block.id,
                             path: "secondaryLabel",
@@ -113,25 +229,25 @@ var CommandCenterCta = ({
                 }
               )
             ] }),
-            /* @__PURE__ */ jsxs(
+            /* @__PURE__ */ jsxs2(
               "div",
               {
                 className: `${theme.panel} min-w-0 ${framelessCta ? "px-0 py-5 sm:pl-6 sm:pr-0" : "p-5"}`,
                 children: [
-                  /* @__PURE__ */ jsx("div", { className: theme.label, children: /* @__PURE__ */ jsx(EditableText, { blockId: block.id, path: "panelEyebrow" }) }),
-                  /* @__PURE__ */ jsx(
-                    EditableText,
+                  /* @__PURE__ */ jsx2("div", { className: theme.label, children: /* @__PURE__ */ jsx2(EditableText2, { blockId: block.id, path: "panelEyebrow" }) }),
+                  /* @__PURE__ */ jsx2(
+                    EditableText2,
                     {
                       blockId: block.id,
                       path: "panelLabel",
                       className: `mt-4 block text-2xl font-semibold tracking-[-0.04em] ${theme.emphasisText}`
                     }
                   ),
-                  /* @__PURE__ */ jsx("div", { className: "mt-6 space-y-3", children: block.props.panelItems.map((_, index) => /* @__PURE__ */ jsx(
+                  /* @__PURE__ */ jsx2("div", { className: "mt-6 space-y-3", children: block.props.panelItems.map((_, index) => /* @__PURE__ */ jsx2(
                     "div",
                     {
                       className: `rounded-2xl px-4 py-3 text-sm leading-6 ${theme.listItem}`,
-                      children: /* @__PURE__ */ jsx(
+                      children: /* @__PURE__ */ jsx2(
                         EditableRepeaterValue,
                         {
                           blockId: block.id,
@@ -152,7 +268,7 @@ var CommandCenterCta = ({
     }
   );
 };
-var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition({
+var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition2({
   type: "command-center-cta",
   label: "Command Center CTA",
   labelKey: "marketingDemoKit.blocks.commandCenterCta.label",
@@ -163,37 +279,37 @@ var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition({
   component: CommandCenterCta,
   defaults: {
     variant: "default",
-    badge: createWebsiteBuilderLocalizedDefault({
+    badge: createWebsiteBuilderLocalizedDefault2({
       en: "MVP control room",
       ru: "MVP control room"
     }),
-    title: createWebsiteBuilderLocalizedDefault({
+    title: createWebsiteBuilderLocalizedDefault2({
       en: "Ship the foundation now, then let domain packages plug into it cleanly",
       ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u043F\u0443\u0441\u0442\u0438\u0442\u0435 foundation, \u0430 \u0437\u0430\u0442\u0435\u043C \u0434\u0430\u0439\u0442\u0435 \u0434\u043E\u043C\u0435\u043D\u043D\u044B\u043C \u043F\u0430\u043A\u0435\u0442\u0430\u043C \u0447\u0438\u0441\u0442\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0430\u0442\u044C\u0441\u044F \u043A \u043D\u0435\u043C\u0443"
     }),
-    body: createWebsiteBuilderLocalizedDefault({
+    body: createWebsiteBuilderLocalizedDefault2({
       en: "This is the pragmatic path: establish the contract, show the editing experience on the real site, and leave enough extension points so future packages can register blocks without editing the core app every time.",
       ru: "\u042D\u0442\u043E \u043F\u0440\u0430\u0433\u043C\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043F\u0443\u0442\u044C: \u0437\u0430\u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442, \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u043F\u044B\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F \u043D\u0430 \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C \u0441\u0430\u0439\u0442\u0435 \u0438 \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E extension points, \u0447\u0442\u043E\u0431\u044B \u0431\u0443\u0434\u0443\u0449\u0438\u0435 \u043F\u0430\u043A\u0435\u0442\u044B \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043B\u0438 \u0431\u043B\u043E\u043A\u0438 \u0431\u0435\u0437 \u043F\u0440\u0430\u0432\u043E\u043A core app \u043A\u0430\u0436\u0434\u044B\u0439 \u0440\u0430\u0437."
     }),
-    primaryLabel: createWebsiteBuilderLocalizedDefault({
+    primaryLabel: createWebsiteBuilderLocalizedDefault2({
       en: "Publish foundation packages",
       ru: "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C foundation packages"
     }),
     primaryHref: "#publish",
-    secondaryLabel: createWebsiteBuilderLocalizedDefault({
+    secondaryLabel: createWebsiteBuilderLocalizedDefault2({
       en: "Read manual",
       ru: "\u0427\u0438\u0442\u0430\u0442\u044C manual"
     }),
     secondaryHref: "#manual",
-    panelEyebrow: createWebsiteBuilderLocalizedDefault({
+    panelEyebrow: createWebsiteBuilderLocalizedDefault2({
       en: "System mode",
       ru: "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C"
     }),
-    panelLabel: createWebsiteBuilderLocalizedDefault({
+    panelLabel: createWebsiteBuilderLocalizedDefault2({
       en: "Builder chrome online",
       ru: "Builder chrome \u0432 \u043E\u043D\u043B\u0430\u0439\u043D\u0435"
     }),
-    panelItems: createWebsiteBuilderLocalizedDefault({
+    panelItems: createWebsiteBuilderLocalizedDefault2({
       en: [
         "Content editor turns the live site into inputs, uploads and textareas.",
         "Builder mode exposes real layout chrome with drag-and-drop blocks.",
@@ -291,111 +407,6 @@ var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition({
   ]
 });
 
-// src/blocks/breadcrumbs.tsx
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@init-modules/ui";
-import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault2,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition2,
-  EditableText as EditableText2,
-  WebsiteBuilderLink as WebsiteBuilderLink2
-} from "@init-modules/website-builder/public";
-import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
-var normalizeItems = (items) => Array.isArray(items) ? items.flatMap((item) => {
-  if (typeof item !== "object" || item === null) {
-    return [];
-  }
-  const candidate = item;
-  const label = typeof candidate.label === "string" || typeof candidate.label === "object" && candidate.label !== null ? candidate.label : null;
-  if (!label) {
-    return [];
-  }
-  return [
-    {
-      label,
-      href: typeof candidate.href === "string" && candidate.href ? candidate.href : "#",
-      current: Boolean(candidate.current)
-    }
-  ];
-}) : [];
-var BreadcrumbsBlock = ({
-  block
-}) => {
-  const items = normalizeItems(block.props.items);
-  if (items.length === 0) {
-    return null;
-  }
-  return /* @__PURE__ */ jsx2("section", { className: "bg-[var(--wb-site-background)] px-5 pt-8 text-[var(--wb-site-text)] sm:px-8", children: /* @__PURE__ */ jsx2("div", { className: "mx-auto max-w-[96rem]", children: /* @__PURE__ */ jsx2(Breadcrumb, { children: /* @__PURE__ */ jsx2(BreadcrumbList, { children: items.map((item, index) => {
-    const current = item.current || index === items.length - 1;
-    return /* @__PURE__ */ jsxs2(BreadcrumbItem, { children: [
-      current ? /* @__PURE__ */ jsx2(BreadcrumbPage, { children: /* @__PURE__ */ jsx2(
-        EditableText2,
-        {
-          blockId: block.id,
-          path: `items.${index}.label`
-        }
-      ) }) : /* @__PURE__ */ jsx2(
-        WebsiteBuilderLink2,
-        {
-          href: item.href,
-          className: "transition hover:text-[var(--wb-site-text)]",
-          children: /* @__PURE__ */ jsx2(
-            EditableText2,
-            {
-              blockId: block.id,
-              path: `items.${index}.label`
-            }
-          )
-        }
-      ),
-      index < items.length - 1 ? /* @__PURE__ */ jsx2(BreadcrumbSeparator, {}) : null
-    ] }, `${item.href}:${index}`);
-  }) }) }) }) });
-};
-var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition2({
-  type: "breadcrumbs",
-  label: "Breadcrumbs",
-  labelKey: "marketingDemoKit.breadcrumbs.label",
-  description: "Compact navigation trail for pages and flows.",
-  descriptionKey: "marketingDemoKit.breadcrumbs.description",
-  category: "Navigation",
-  icon: "chevrons-right",
-  defaults: {
-    items: [
-      {
-        label: createWebsiteBuilderLocalizedDefault2({
-          en: "Home",
-          ru: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F"
-        }),
-        href: "/",
-        current: false
-      },
-      {
-        label: createWebsiteBuilderLocalizedDefault2({
-          en: "Current page",
-          ru: "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430"
-        }),
-        href: "#",
-        current: true
-      }
-    ]
-  },
-  fields: [
-    {
-      path: "items",
-      label: "Items",
-      kind: "repeater",
-      group: "content",
-      localization: "localized",
-      itemFields: [
-        { path: "label", label: "Label", kind: "text" },
-        { path: "href", label: "Href", kind: "url", localization: "shared" },
-        { path: "current", label: "Current", kind: "toggle", localization: "shared" }
-      ]
-    }
-  ],
-  component: BreadcrumbsBlock
-});
-
 // src/blocks/feature-grid.tsx
 import {
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault3,
@@ -408,8 +419,8 @@ import {
 } from "@init-modules/website-builder/public";
 
 // src/hooks/use-surface-breakpoints.ts
-import { useEffect, useRef, useState } from "react";
 import { useWebsiteBuilderStore as useWebsiteBuilderStore2 } from "@init-modules/website-builder/public";
+import { useEffect, useRef, useState } from "react";
 var createSurfaceBreakpoints = (width) => ({
   width,
   atLeastSm: width >= 640,
@@ -657,9 +668,9 @@ import {
   EditableImage,
   EditableText as EditableText4,
   EditableTextarea as EditableTextarea3,
-  WebsiteBuilderLink as WebsiteBuilderLink3,
   useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth3,
-  useWebsiteBuilderStore as useWebsiteBuilderStore4
+  useWebsiteBuilderStore as useWebsiteBuilderStore4,
+  WebsiteBuilderLink as WebsiteBuilderLink3
 } from "@init-modules/website-builder/public";
 import { jsx as jsx4, jsxs as jsxs4 } from "react/jsx-runtime";
 var HeroSpotlight = ({
@@ -971,17 +982,24 @@ var heroSpotlightDefinition = defineWebsiteBuilderBlockDefinition4({
 
 // src/blocks/init-landing/init-landing-cta.tsx
 import {
-  EditableText as EditableText5,
-  EditableTextarea as EditableTextarea4,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault5,
   defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition5,
+  EditableText as EditableText5,
+  EditableTextarea as EditableTextarea4,
   useWebsiteBuilderStore as useWebsiteBuilderStore6
 } from "@init-modules/website-builder/public";
 
 // src/blocks/init-landing/shared.tsx
 import {
-  Award,
+  createWebsiteBuilderBlockLocalizationSchema,
+  getWebsiteBuilderSurfaceModeStyle,
+  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth4,
+  useWebsiteBuilderStore as useWebsiteBuilderStore5,
+  WebsiteBuilderLink as WebsiteBuilderLink4
+} from "@init-modules/website-builder/public";
+import {
   ArrowRight,
+  Award,
   BarChart3,
   Blocks,
   Globe,
@@ -1001,13 +1019,6 @@ import {
   useRef as useRef2,
   useState as useState2
 } from "react";
-import {
-  WebsiteBuilderLink as WebsiteBuilderLink4,
-  createWebsiteBuilderBlockLocalizationSchema,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth4,
-  useWebsiteBuilderStore as useWebsiteBuilderStore5
-} from "@init-modules/website-builder/public";
-import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/public";
 import { Fragment, jsx as jsx5, jsxs as jsxs5 } from "react/jsx-runtime";
 var initLandingIcons = {
   award: Award,
@@ -1298,11 +1309,11 @@ var initLandingCtaDefinition = defineWebsiteBuilderBlockDefinition5({
 
 // src/blocks/init-landing/init-landing-footer.tsx
 import {
+  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault6,
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition6,
   EditableText as EditableText6,
   EditableTextarea as EditableTextarea5,
-  WebsiteBuilderLink as WebsiteBuilderLink5,
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault6,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition6
+  WebsiteBuilderLink as WebsiteBuilderLink5
 } from "@init-modules/website-builder/public";
 import { jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
 var fields2 = [
@@ -1573,13 +1584,13 @@ var initLandingFooterDefinition = defineWebsiteBuilderBlockDefinition6({
 
 // src/blocks/init-landing/init-landing-header.tsx
 import {
-  EditableText as EditableText7,
-  WebsiteBuilderLink as WebsiteBuilderLink6,
-  WebsiteBuilderSiteSearch,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault7,
   defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition7,
+  EditableText as EditableText7,
   useWebsiteBuilderI18n,
-  useWebsiteBuilderStore as useWebsiteBuilderStore7
+  useWebsiteBuilderStore as useWebsiteBuilderStore7,
+  WebsiteBuilderLink as WebsiteBuilderLink6,
+  WebsiteBuilderSiteSearch
 } from "@init-modules/website-builder/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
@@ -1690,13 +1701,7 @@ var InitLandingLocaleSelect = ({
         className: "inline-flex h-12 cursor-pointer items-center justify-between gap-3 rounded-[1.2rem] border border-[#e6ddd4] bg-[#fffdf9] px-4 text-sm font-medium text-[#211916] opacity-100 shadow-[0_10px_30px_-20px_rgba(32,22,18,0.16)] transition-all duration-300",
         children: [
           /* @__PURE__ */ jsxs8("span", { className: "flex min-w-0 items-center gap-2.5", children: [
-            /* @__PURE__ */ jsx8(
-              "span",
-              {
-                className: "text-[10px] uppercase tracking-[0.24em] text-[#6b5f59]",
-                children: label
-              }
-            ),
+            /* @__PURE__ */ jsx8("span", { className: "text-[10px] uppercase tracking-[0.24em] text-[#6b5f59]", children: label }),
             /* @__PURE__ */ jsx8("span", { className: "truncate uppercase", children: activeLocale.label })
           ] }),
           /* @__PURE__ */ jsx8(ChevronDown, { className: "h-4 w-4 shrink-0 text-[#6b5f59]" })
@@ -2161,10 +2166,10 @@ var RichText = ({
 
 // src/blocks/init-landing/init-landing-hero.tsx
 import {
-  EditableText as EditableText8,
-  useWebsiteBuilderStore as useWebsiteBuilderStore8,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault8,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition8
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition8,
+  EditableText as EditableText8,
+  useWebsiteBuilderStore as useWebsiteBuilderStore8
 } from "@init-modules/website-builder/public";
 
 // src/blocks/init-landing/hero-grid-canvas.tsx
@@ -2183,7 +2188,9 @@ var distance = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
 var buildLengths = (points) => {
   const lengths = [0];
   for (let index = 1; index < points.length; index += 1) {
-    lengths.push(lengths[index - 1] + distance(points[index - 1], points[index]));
+    lengths.push(
+      lengths[index - 1] + distance(points[index - 1], points[index])
+    );
   }
   return lengths;
 };
@@ -2585,7 +2592,9 @@ var InitLandingHeroGridCanvas = () => {
               hotspot.seed + Math.floor(age / 90)
             );
             const redMix = clamp(1 - dist / coreRadius, 0, 1);
-            const red = Math.round((hotspot.persistent ? 100 : 110) + redMix * 90);
+            const red = Math.round(
+              (hotspot.persistent ? 100 : 110) + redMix * 90
+            );
             const green = Math.round(
               (hotspot.persistent ? 102 : 112) - redMix * 42
             );
@@ -3142,11 +3151,11 @@ var initLandingHeroDefinition = defineWebsiteBuilderBlockDefinition8({
 
 // src/blocks/init-landing/init-landing-pricing.tsx
 import {
+  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault9,
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition9,
   EditableText as EditableText9,
   EditableTextarea as EditableTextarea6,
-  WebsiteBuilderLink as WebsiteBuilderLink7,
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault9,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition9
+  WebsiteBuilderLink as WebsiteBuilderLink7
 } from "@init-modules/website-builder/public";
 import { jsx as jsx19, jsxs as jsxs17 } from "react/jsx-runtime";
 var fields5 = [
@@ -3464,10 +3473,10 @@ var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition9({
 
 // src/blocks/init-landing/init-landing-process.tsx
 import {
-  EditableText as EditableText10,
-  EditableTextarea as EditableTextarea7,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault10,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition10
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition10,
+  EditableText as EditableText10,
+  EditableTextarea as EditableTextarea7
 } from "@init-modules/website-builder/public";
 import { jsx as jsx20, jsxs as jsxs18 } from "react/jsx-runtime";
 var fields6 = [
@@ -3667,10 +3676,10 @@ var initLandingProcessDefinition = defineWebsiteBuilderBlockDefinition10({
 
 // src/blocks/init-landing/init-landing-services.tsx
 import {
-  EditableText as EditableText11,
-  EditableTextarea as EditableTextarea8,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault11,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition11
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition11,
+  EditableText as EditableText11,
+  EditableTextarea as EditableTextarea8
 } from "@init-modules/website-builder/public";
 import { jsx as jsx21, jsxs as jsxs19 } from "react/jsx-runtime";
 var fields7 = [
@@ -3862,10 +3871,10 @@ var initLandingServicesDefinition = defineWebsiteBuilderBlockDefinition11({
 
 // src/blocks/init-landing/init-landing-testimonials.tsx
 import {
-  EditableText as EditableText12,
-  EditableTextarea as EditableTextarea9,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault12,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition12
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition12,
+  EditableText as EditableText12,
+  EditableTextarea as EditableTextarea9
 } from "@init-modules/website-builder/public";
 import { jsx as jsx22, jsxs as jsxs20 } from "react/jsx-runtime";
 var fields8 = [
@@ -4046,10 +4055,10 @@ var initLandingTestimonialsDefinition = defineWebsiteBuilderBlockDefinition12({
 
 // src/blocks/init-landing/init-landing-why-us.tsx
 import {
-  EditableText as EditableText13,
-  EditableTextarea as EditableTextarea10,
   createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault13,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition13
+  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition13,
+  EditableText as EditableText13,
+  EditableTextarea as EditableTextarea10
 } from "@init-modules/website-builder/public";
 import { jsx as jsx23, jsxs as jsxs21 } from "react/jsx-runtime";
 var fields9 = [
@@ -4901,9 +4910,9 @@ import {
   EditableImage as EditableImage3,
   EditableText as EditableText17,
   EditableTextarea as EditableTextarea13,
-  WebsiteBuilderLink as WebsiteBuilderLink8,
   useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth8,
-  useWebsiteBuilderStore as useWebsiteBuilderStore12
+  useWebsiteBuilderStore as useWebsiteBuilderStore12,
+  WebsiteBuilderLink as WebsiteBuilderLink8
 } from "@init-modules/website-builder/public";
 import { jsx as jsx27, jsxs as jsxs25 } from "react/jsx-runtime";
 var PublicationSpotlight = ({
@@ -5212,8 +5221,8 @@ var richTextDefinition = defineWebsiteBuilderBlockDefinition18({
 });
 
 export {
-  commandCenterCtaDefinition,
   breadcrumbsDefinition,
+  commandCenterCtaDefinition,
   featureGridDefinition,
   heroSpotlightDefinition,
   initLandingCtaDefinition,

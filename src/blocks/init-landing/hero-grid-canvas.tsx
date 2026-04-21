@@ -65,7 +65,9 @@ const buildLengths = (points: Point[]) => {
 	const lengths = [0];
 
 	for (let index = 1; index < points.length; index += 1) {
-		lengths.push(lengths[index - 1] + distance(points[index - 1], points[index]));
+		lengths.push(
+			lengths[index - 1] + distance(points[index - 1], points[index]),
+		);
 	}
 
 	return lengths;
@@ -342,7 +344,10 @@ export const InitLandingHeroGridCanvas = () => {
 
 			upsertPersistentHotspot(x, y, now);
 
-			if (!lastPointer || Math.hypot(x - lastPointer.x, y - lastPointer.y) > 18) {
+			if (
+				!lastPointer ||
+				Math.hypot(x - lastPointer.x, y - lastPointer.y) > 18
+			) {
 				pushHotspot(x, y, now);
 			} else if (hotspots.length > 0) {
 				hotspots[hotspots.length - 1] = {
@@ -390,8 +395,7 @@ export const InitLandingHeroGridCanvas = () => {
 				const wave = (Math.sin(now * 0.0012 + index * 1.7) + 1) / 2;
 				const x = center.x + Math.cos(angle) * radiusX * (0.4 + wave * 0.6);
 				const y =
-					center.y +
-					Math.sin(angle * 1.17) * radiusY * (0.35 + wave * 0.65);
+					center.y + Math.sin(angle * 1.17) * radiusY * (0.35 + wave * 0.65);
 				const alpha = 0.015 + wave * 0.018;
 
 				context.beginPath();
@@ -540,7 +544,9 @@ export const InitLandingHeroGridCanvas = () => {
 					? 0
 					: clamp(age / hotspot.duration, 0, 1);
 				const radius = hotspot.persistent ? GRID_SIZE * 2.75 : GRID_SIZE * 2.6;
-				const coreRadius = hotspot.persistent ? GRID_SIZE * 1.1 : GRID_SIZE * 0.95;
+				const coreRadius = hotspot.persistent
+					? GRID_SIZE * 1.1
+					: GRID_SIZE * 0.95;
 				const minGridX = Math.floor((hotspot.x - radius) / GRID_SIZE);
 				const maxGridX = Math.ceil((hotspot.x + radius) / GRID_SIZE);
 				const minGridY = Math.floor((hotspot.y - radius) / GRID_SIZE);
@@ -568,7 +574,9 @@ export const InitLandingHeroGridCanvas = () => {
 							hotspot.seed + Math.floor(age / 90),
 						);
 						const redMix = clamp(1 - dist / coreRadius, 0, 1);
-						const red = Math.round((hotspot.persistent ? 100 : 110) + redMix * 90);
+						const red = Math.round(
+							(hotspot.persistent ? 100 : 110) + redMix * 90,
+						);
 						const green = Math.round(
 							(hotspot.persistent ? 102 : 112) - redMix * 42,
 						);
@@ -630,9 +638,7 @@ export const InitLandingHeroGridCanvas = () => {
 				);
 				const trailFade = (index + 1) / (pathSlice.length - 1);
 				const alpha =
-					(1 - centerFade * 0.95) *
-					trailFade *
-					(pulse.priority ? 0.92 : 0.72);
+					(1 - centerFade * 0.95) * trailFade * (pulse.priority ? 0.92 : 0.72);
 
 				context.beginPath();
 				context.moveTo(current.x + 0.5, current.y + 0.5);

@@ -20,7 +20,9 @@ export const InitTestimonialCard = ({
 		<div className="mb-4 font-serif text-5xl text-[color-mix(in_srgb,var(--wb-site-accent)_20%,transparent)] transition-colors group-hover:text-[color-mix(in_srgb,var(--wb-site-accent)_30%,transparent)]">
 			&ldquo;
 		</div>
-		<div className="mb-6 leading-relaxed text-[var(--wb-site-muted-text)]">{quote}</div>
+		<div className="mb-6 leading-relaxed text-[var(--wb-site-muted-text)]">
+			{quote}
+		</div>
 		{profile}
 	</div>
 );

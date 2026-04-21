@@ -1,6 +1,6 @@
 import {
   marketingDemoDesignPresets
-} from "./chunk-7VB5UP22.js";
+} from "./chunk-UMLVE55O.js";
 
 // src/documents.ts
 import {
@@ -13,43 +13,6 @@ import { applyWebsiteBuilderSiteDesignPreset } from "@init-modules/website-build
 import {
   cloneWebsiteBuilderValue as cloneWebsiteBuilderValue2
 } from "@init-modules/website-builder/server";
-
-// src/profile-presets/shared.ts
-import {
-  cloneWebsiteBuilderValue
-} from "@init-modules/website-builder/server";
-var cloneDocumentBlockById = (document, blockId) => {
-  const block = document.blocks.find((item) => item.id === blockId);
-  if (!block) {
-    throw new Error(`Missing marketing demo block: ${blockId}`);
-  }
-  return cloneWebsiteBuilderValue(block);
-};
-var cloneSplitAreaBlock = (document, blockId, areaIndex, blockIndex) => {
-  const splitBlock = cloneDocumentBlockById(document, blockId);
-  const nestedBlock = splitBlock.areas?.[areaIndex]?.blocks?.[blockIndex];
-  if (!nestedBlock) {
-    throw new Error(
-      `Missing nested marketing demo block: ${blockId}.areas[${areaIndex}].blocks[${blockIndex}]`
-    );
-  }
-  return cloneWebsiteBuilderValue(nestedBlock);
-};
-var patchBlockProps = (block, props) => ({
-  ...block,
-  props: {
-    ...typeof block.props === "object" && block.props !== null ? block.props : {},
-    ...props
-  }
-});
-var patchSplitLayoutAreas = (block, areas) => ({
-  ...block,
-  areas: (block.areas ?? []).map((area) => ({
-    ...area,
-    blocks: areas[area.id] ?? area.blocks
-  }))
-});
-var cloneBaseDocument = (baseDocument) => cloneWebsiteBuilderValue(baseDocument);
 
 // src/profile-presets/init-landing-content.ts
 var initLandingContent = {
@@ -314,6 +277,43 @@ var initLandingContent = {
     homeHref: "/"
   }
 };
+
+// src/profile-presets/shared.ts
+import {
+  cloneWebsiteBuilderValue
+} from "@init-modules/website-builder/server";
+var cloneDocumentBlockById = (document, blockId) => {
+  const block = document.blocks.find((item) => item.id === blockId);
+  if (!block) {
+    throw new Error(`Missing marketing demo block: ${blockId}`);
+  }
+  return cloneWebsiteBuilderValue(block);
+};
+var cloneSplitAreaBlock = (document, blockId, areaIndex, blockIndex) => {
+  const splitBlock = cloneDocumentBlockById(document, blockId);
+  const nestedBlock = splitBlock.areas?.[areaIndex]?.blocks?.[blockIndex];
+  if (!nestedBlock) {
+    throw new Error(
+      `Missing nested marketing demo block: ${blockId}.areas[${areaIndex}].blocks[${blockIndex}]`
+    );
+  }
+  return cloneWebsiteBuilderValue(nestedBlock);
+};
+var patchBlockProps = (block, props) => ({
+  ...block,
+  props: {
+    ...typeof block.props === "object" && block.props !== null ? block.props : {},
+    ...props
+  }
+});
+var patchSplitLayoutAreas = (block, areas) => ({
+  ...block,
+  areas: (block.areas ?? []).map((area) => ({
+    ...area,
+    blocks: areas[area.id] ?? area.blocks
+  }))
+});
+var cloneBaseDocument = (baseDocument) => cloneWebsiteBuilderValue(baseDocument);
 
 // src/profile-presets/scenarios/init-landing.ts
 var createInitLandingDocument = (_baseDocument, _locale) => ({

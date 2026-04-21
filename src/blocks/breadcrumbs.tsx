@@ -1,13 +1,19 @@
 "use client";
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@init-modules/ui";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@init-modules/ui";
 import {
 	createWebsiteBuilderLocalizedDefault,
 	defineWebsiteBuilderBlockDefinition,
 	EditableText,
-	WebsiteBuilderLink,
 	type WebsiteBuilderBlockComponentProps,
 	type WebsiteBuilderBlockDefinition,
+	WebsiteBuilderLink,
 } from "@init-modules/website-builder/public";
 
 type BreadcrumbItemProps = {
@@ -138,7 +144,12 @@ export const breadcrumbsDefinition: WebsiteBuilderBlockDefinition<BreadcrumbsBlo
 				itemFields: [
 					{ path: "label", label: "Label", kind: "text" },
 					{ path: "href", label: "Href", kind: "url", localization: "shared" },
-					{ path: "current", label: "Current", kind: "toggle", localization: "shared" },
+					{
+						path: "current",
+						label: "Current",
+						kind: "toggle",
+						localization: "shared",
+					},
 				],
 			},
 		],
