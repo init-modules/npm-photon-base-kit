@@ -1,6 +1,6 @@
 "use client";
 
-import { EditableRichText } from "@init-modules/website-builder";
+import { EditableRichText } from "@init-modules/website-builder/public";
 
 type RichTextProps = {
   blockId: string;

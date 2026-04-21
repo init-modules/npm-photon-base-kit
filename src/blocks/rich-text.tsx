@@ -6,14 +6,14 @@ import {
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
   type WebsiteBuilderBlock,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   getMarketingDemoVariantTheme,
   getMarketingDemoFramelessBleedStyle,
-  marketingDemoBlockVariantOptions,
   resolveMarketingDemoBlockVariant,
   type MarketingDemoBlockVariant,
-} from "../themes";
+} from "../runtime-theme";
+import { marketingDemoBlockVariantOptions } from "../block-options";
 import { RichText } from "../primitives";
 
 type RichTextProps = {

@@ -6,17 +6,18 @@ import {
   EditableRepeaterValue,
   EditableText,
   EditableTextarea,
+  WebsiteBuilderLink,
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
   type WebsiteBuilderBlock,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   getMarketingDemoVariantTheme,
   getMarketingDemoFramelessBleedStyle,
-  marketingDemoBlockVariantOptions,
   resolveMarketingDemoBlockVariant,
   type MarketingDemoBlockVariant,
-} from "../themes";
+} from "../runtime-theme";
+import { marketingDemoBlockVariantOptions } from "../block-options";
 
 type CommandCenterCtaProps = {
   variant?: MarketingDemoBlockVariant;
@@ -95,7 +96,7 @@ export const CommandCenterCta = ({
               centered ? "justify-center flex-wrap" : "flex-col sm:flex-row"
             }`}
           >
-            <a
+            <WebsiteBuilderLink
               href={String(block.props.primaryHref)}
               className={theme.primaryButton}
             >
@@ -104,8 +105,8 @@ export const CommandCenterCta = ({
                 path="primaryLabel"
                 className="text-sm font-semibold"
               />
-            </a>
-            <a
+            </WebsiteBuilderLink>
+            <WebsiteBuilderLink
               href={String(block.props.secondaryHref)}
               className={theme.secondaryButton}
             >
@@ -114,7 +115,7 @@ export const CommandCenterCta = ({
                 path="secondaryLabel"
                 className="text-sm font-semibold"
               />
-            </a>
+            </WebsiteBuilderLink>
           </div>
         </div>
 

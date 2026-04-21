@@ -1,10 +1,6 @@
-// src/themes/shared.ts
-import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/shared";
+// src/runtime-theme.ts
+import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/public";
 var marketingDemoBlockVariants = ["default", "air"];
-var marketingDemoBlockVariantOptions = [
-  { label: "Aurora current", value: "default" },
-  { label: "Paper flow", value: "air" }
-];
 var getMarketingDemoFramelessBleedStyle = (frameless, allowBleed = true) => frameless && allowBleed ? getWebsiteBuilderSurfaceModeStyle("bleed") : void 0;
 var marketingDemoBlockTypes = [
   "hero-spotlight",
@@ -21,33 +17,6 @@ var createMarketingDemoVariantMap = (variant) => ({
     marketingDemoBlockTypes.map((blockType) => [blockType, variant])
   )
 });
-
-// src/themes/variants/air.ts
-var airMarketingDemoVariantTheme = {
-  surfaceStyle: "frameless",
-  surface: "min-w-0 bg-transparent text-stone-950 shadow-none",
-  heroSurface: "min-w-0 bg-[radial-gradient(circle_at_top_left,rgba(15,118,110,0.08),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.32),rgba(238,246,243,0.9))] text-stone-950 shadow-none",
-  panel: "min-w-0 rounded-none border-0 bg-transparent shadow-none",
-  mediaFrame: "min-w-0 overflow-hidden rounded-[32px] bg-[#eef4f1] shadow-[0_18px_50px_rgba(70,87,84,0.08)]",
-  heroOverlay: "bg-[linear-gradient(120deg,rgba(255,255,255,0.55),transparent_34%,rgba(15,118,110,0.06)_100%)]",
-  eyebrow: "text-[11px] font-semibold uppercase tracking-[0.34em] text-teal-700/72",
-  pill: "inline-flex rounded-full bg-white/88 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-teal-700 shadow-[0_8px_22px_rgba(15,118,110,0.08)]",
-  title: "block text-balance font-serif text-3xl font-medium leading-[1] tracking-[-0.05em] text-stone-950 sm:text-5xl xl:text-[4rem]",
-  body: "text-base leading-8 text-stone-700",
-  mutedBody: "text-sm leading-7 text-stone-700/85",
-  label: "text-[11px] font-semibold uppercase tracking-[0.3em] text-stone-500",
-  emphasisText: "font-serif text-stone-950",
-  metaText: "text-teal-700/76",
-  metaDivider: "text-stone-300",
-  listItem: "bg-transparent text-stone-700",
-  primaryButton: "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 shadow-[0_16px_40px_rgba(28,25,23,0.12)]",
-  secondaryButton: "inline-flex items-center justify-center rounded-full bg-white/82 px-5 py-3 text-sm font-semibold text-stone-700 shadow-[0_10px_28px_rgba(120,113,108,0.08)]",
-  numberBadge: "mb-6 flex h-11 w-11 items-center justify-center rounded-full bg-white text-lg font-semibold text-teal-700 shadow-[0_10px_28px_rgba(15,118,110,0.08)]",
-  divider: "border-stone-200/55",
-  richText: "min-w-0 text-base text-stone-800"
-};
-
-// src/themes/variants/default.ts
 var defaultMarketingDemoVariantTheme = {
   surfaceStyle: "framed",
   surface: "min-w-0 rounded-[36px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.1),transparent_44%),linear-gradient(180deg,rgba(8,17,30,0.95),rgba(5,11,20,0.99))] text-white shadow-[0_28px_84px_rgba(2,12,27,0.28)]",
@@ -71,26 +40,36 @@ var defaultMarketingDemoVariantTheme = {
   divider: "border-white/10",
   richText: "min-w-0 text-base text-slate-200"
 };
-
-// src/themes/variant-themes.ts
+var airMarketingDemoVariantTheme = {
+  surfaceStyle: "frameless",
+  surface: "min-w-0 bg-transparent text-stone-950 shadow-none",
+  heroSurface: "min-w-0 bg-[radial-gradient(circle_at_top_left,rgba(15,118,110,0.08),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.32),rgba(238,246,243,0.9))] text-stone-950 shadow-none",
+  panel: "min-w-0 rounded-none border-0 bg-transparent shadow-none",
+  mediaFrame: "min-w-0 overflow-hidden rounded-[32px] bg-[#eef4f1] shadow-[0_18px_50px_rgba(70,87,84,0.08)]",
+  heroOverlay: "bg-[linear-gradient(120deg,rgba(255,255,255,0.55),transparent_34%,rgba(15,118,110,0.06)_100%)]",
+  eyebrow: "text-[11px] font-semibold uppercase tracking-[0.34em] text-teal-700/72",
+  pill: "inline-flex rounded-full bg-white/88 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-teal-700 shadow-[0_8px_22px_rgba(15,118,110,0.08)]",
+  title: "block text-balance font-serif text-3xl font-medium leading-[1] tracking-[-0.05em] text-stone-950 sm:text-5xl xl:text-[4rem]",
+  body: "text-base leading-8 text-stone-700",
+  mutedBody: "text-sm leading-7 text-stone-700/85",
+  label: "text-[11px] font-semibold uppercase tracking-[0.3em] text-stone-500",
+  emphasisText: "font-serif text-stone-950",
+  metaText: "text-teal-700/76",
+  metaDivider: "text-stone-300",
+  listItem: "bg-transparent text-stone-700",
+  primaryButton: "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 shadow-[0_16px_40px_rgba(28,25,23,0.12)]",
+  secondaryButton: "inline-flex items-center justify-center rounded-full bg-white/82 px-5 py-3 text-sm font-semibold text-stone-700 shadow-[0_10px_28px_rgba(120,113,108,0.08)]",
+  numberBadge: "mb-6 flex h-11 w-11 items-center justify-center rounded-full bg-white text-lg font-semibold text-teal-700 shadow-[0_10px_28px_rgba(15,118,110,0.08)]",
+  divider: "border-stone-200/55",
+  richText: "min-w-0 text-base text-stone-800"
+};
 var marketingDemoVariantThemes = {
   default: defaultMarketingDemoVariantTheme,
   air: airMarketingDemoVariantTheme
 };
-
-// src/themes/design-presets.ts
-import {
-  getWebsiteBuilderSiteDesignPreset,
-  websiteBuilderSiteDesignPresets
-} from "@init-modules/website-builder/server";
 var marketingDemoVariantSet = new Set(marketingDemoBlockVariants);
-var marketingDemoVariantFallbackByPresetId = {
-  "aurora-current": "default",
-  "init-landing": "air",
-  "paper-flow": "air"
-};
 var readSiteDesignCandidate = (value) => typeof value === "object" && value !== null ? value : {};
-var resolveSiteVariant = (componentVariants, blockType) => {
+var resolveMarketingDemoSiteVariant = (componentVariants, blockType) => {
   if (!componentVariants) {
     return null;
   }
@@ -107,33 +86,6 @@ var resolveSiteVariant = (componentVariants, blockType) => {
   }
   return null;
 };
-var resolvePresetVariantMap = (preset) => {
-  const fallbackVariant = marketingDemoVariantFallbackByPresetId[preset.id];
-  const entries = marketingDemoBlockTypes.map((blockType) => {
-    const resolvedVariant = resolveSiteVariant(
-      preset.componentVariants,
-      blockType
-    );
-    return [blockType, resolvedVariant ?? fallbackVariant];
-  });
-  if (entries.some(([, variant]) => variant === void 0)) {
-    return null;
-  }
-  return Object.fromEntries(entries);
-};
-var marketingDemoDesignPresets = websiteBuilderSiteDesignPresets.map((preset) => {
-  const componentVariants = resolvePresetVariantMap(preset);
-  if (!componentVariants) {
-    return null;
-  }
-  return {
-    id: preset.id,
-    label: preset.label,
-    appearance: preset.appearance,
-    description: preset.description,
-    componentVariants
-  };
-}).filter((preset) => preset !== null);
 var getMarketingDemoVariantTheme = (variant) => marketingDemoVariantThemes[variant];
 var isMarketingDemoFramelessVariant = (variant) => marketingDemoVariantThemes[variant].surfaceStyle === "frameless";
 var resolveMarketingDemoBlockVariant = ({
@@ -145,34 +97,30 @@ var resolveMarketingDemoBlockVariant = ({
     return explicitVariant;
   }
   const candidate = readSiteDesignCandidate(siteDesign);
-  const mappedVariant = resolveSiteVariant(
+  const mappedVariant = resolveMarketingDemoSiteVariant(
     candidate.componentVariants,
     blockType
   );
-  if (mappedVariant) {
-    return mappedVariant;
-  }
-  if (typeof candidate.presetId === "string") {
-    const preset = getWebsiteBuilderSiteDesignPreset(candidate.presetId);
-    const presetVariantMap = preset ? resolvePresetVariantMap(preset) : void 0;
-    if (presetVariantMap) {
-      return presetVariantMap[blockType] ?? "default";
-    }
-  }
-  return "default";
+  return mappedVariant ?? "default";
 };
-var baseWebsiteBuilderThemes = marketingDemoDesignPresets;
+
+// src/block-options.ts
+var marketingDemoBlockVariantOptions = [
+  { label: "Aurora current", value: "default" },
+  { label: "Paper flow", value: "air" }
+];
 
 export {
   marketingDemoBlockVariants,
-  marketingDemoBlockVariantOptions,
   getMarketingDemoFramelessBleedStyle,
   marketingDemoBlockTypes,
   createMarketingDemoVariantMap,
+  defaultMarketingDemoVariantTheme,
+  airMarketingDemoVariantTheme,
   marketingDemoVariantThemes,
-  marketingDemoDesignPresets,
+  resolveMarketingDemoSiteVariant,
   getMarketingDemoVariantTheme,
   isMarketingDemoFramelessVariant,
   resolveMarketingDemoBlockVariant,
-  baseWebsiteBuilderThemes
+  marketingDemoBlockVariantOptions
 };

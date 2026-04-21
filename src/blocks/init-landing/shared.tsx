@@ -33,8 +33,8 @@ import {
   type WebsiteBuilderFieldOption,
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
-} from "@init-modules/website-builder";
-import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/shared";
+} from "@init-modules/website-builder/public";
+import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/public";
 import { useSurfaceBreakpoints } from "../../hooks/use-surface-breakpoints";
 
 export type InitLandingIconKey =

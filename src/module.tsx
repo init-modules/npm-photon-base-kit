@@ -4,7 +4,7 @@ import {
   createWebsiteBuilderKit,
   type WebsiteBuilderInstallableKit,
   type WebsiteBuilderModule,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   createMarketingDemoDocument,
   createMarketingDemoDesignTemplateDocument,

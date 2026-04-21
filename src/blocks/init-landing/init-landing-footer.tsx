@@ -8,7 +8,7 @@ import {
   defineWebsiteBuilderBlockDefinition,
   type WebsiteBuilderBlockComponentProps,
   type WebsiteBuilderField,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   InitBrandMark,
   createInitLandingBlockLocalizationSchema,
@@ -194,20 +194,20 @@ const InitLandingFooterBlock = ({
             </h3>
             <ul className="space-y-3">
               <li>
-                <a
+                <WebsiteBuilderLink
                   href={`mailto:${block.props.contact.email}`}
                   className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
                 >
                   <EditableText blockId={block.id} path="contact.email" />
-                </a>
+                </WebsiteBuilderLink>
               </li>
               <li>
-                <a
+                <WebsiteBuilderLink
                   href={`tel:${block.props.contact.phone}`}
                   className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
                 >
                   <EditableText blockId={block.id} path="contact.phone" />
-                </a>
+                </WebsiteBuilderLink>
               </li>
               <li className="text-sm text-[var(--wb-site-muted-text)]">
                 <EditableText blockId={block.id} path="contact.location" />

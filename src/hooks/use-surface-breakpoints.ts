@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useWebsiteBuilderStore } from "@init-modules/website-builder";
+import { useWebsiteBuilderStore } from "@init-modules/website-builder/public";
 
 export type SurfaceBreakpoints = {
   width: number;

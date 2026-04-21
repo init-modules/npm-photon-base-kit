@@ -1,12 +1,8 @@
-import { CSSProperties } from 'react';
 import { WebsiteBuilderSiteDesignAppearance } from '@init-modules/website-builder/server';
+import { CSSProperties } from 'react';
 
 declare const marketingDemoBlockVariants: readonly ["default", "air"];
 type MarketingDemoBlockVariant = (typeof marketingDemoBlockVariants)[number];
-declare const marketingDemoBlockVariantOptions: {
-    label: string;
-    value: string;
-}[];
 type MarketingDemoVariantTheme = {
     surfaceStyle: "framed" | "frameless";
     surface: string;
@@ -35,6 +31,12 @@ type MarketingDemoBlockVariantMap = Record<string, MarketingDemoBlockVariant>;
 declare const marketingDemoBlockTypes: readonly ["hero-spotlight", "proof-strip", "feature-grid", "media-frame", "media-gallery", "rich-text", "publication-spotlight", "command-center-cta"];
 type MarketingDemoBlockType = (typeof marketingDemoBlockTypes)[number];
 declare const createMarketingDemoVariantMap: (variant: MarketingDemoBlockVariant) => MarketingDemoBlockVariantMap;
+declare const defaultMarketingDemoVariantTheme: MarketingDemoVariantTheme;
+declare const airMarketingDemoVariantTheme: MarketingDemoVariantTheme;
+declare const marketingDemoVariantThemes: Record<MarketingDemoBlockVariant, MarketingDemoVariantTheme>;
+declare const resolveMarketingDemoSiteVariant: (componentVariants: Record<string, unknown> | undefined, blockType: string) => MarketingDemoBlockVariant | null;
+declare const getMarketingDemoVariantTheme: (variant: MarketingDemoBlockVariant) => MarketingDemoVariantTheme;
+declare const isMarketingDemoFramelessVariant: (variant: MarketingDemoBlockVariant) => boolean;
 
 type MarketingDemoDesignPreset = {
     id: string;
@@ -45,8 +47,6 @@ type MarketingDemoDesignPreset = {
 };
 declare const marketingDemoDesignPresets: MarketingDemoDesignPreset[];
 type MarketingDemoDesignPresetId = MarketingDemoDesignPreset["id"];
-declare const getMarketingDemoVariantTheme: (variant: MarketingDemoBlockVariant) => MarketingDemoVariantTheme;
-declare const isMarketingDemoFramelessVariant: (variant: MarketingDemoBlockVariant) => boolean;
 declare const resolveMarketingDemoBlockVariant: ({ blockType, explicitVariant, siteDesign, }: {
     blockType: string;
     explicitVariant?: unknown;
@@ -54,4 +54,4 @@ declare const resolveMarketingDemoBlockVariant: ({ blockType, explicitVariant, s
 }) => MarketingDemoBlockVariant;
 declare const baseWebsiteBuilderThemes: MarketingDemoDesignPreset[];
 
-export { type MarketingDemoBlockType as M, type MarketingDemoBlockVariant as a, type MarketingDemoBlockVariantMap as b, type MarketingDemoDesignPreset as c, type MarketingDemoDesignPresetId as d, type MarketingDemoVariantTheme as e, baseWebsiteBuilderThemes as f, createMarketingDemoVariantMap as g, getMarketingDemoFramelessBleedStyle as h, getMarketingDemoVariantTheme as i, isMarketingDemoFramelessVariant as j, marketingDemoBlockVariantOptions as k, marketingDemoBlockVariants as l, marketingDemoBlockTypes as m, marketingDemoDesignPresets as n, resolveMarketingDemoBlockVariant as r };
+export { type MarketingDemoBlockType as M, type MarketingDemoBlockVariant as a, type MarketingDemoBlockVariantMap as b, type MarketingDemoDesignPreset as c, type MarketingDemoDesignPresetId as d, type MarketingDemoVariantTheme as e, airMarketingDemoVariantTheme as f, baseWebsiteBuilderThemes as g, createMarketingDemoVariantMap as h, defaultMarketingDemoVariantTheme as i, getMarketingDemoFramelessBleedStyle as j, getMarketingDemoVariantTheme as k, isMarketingDemoFramelessVariant as l, marketingDemoBlockTypes as m, marketingDemoBlockVariants as n, marketingDemoDesignPresets as o, marketingDemoVariantThemes as p, resolveMarketingDemoSiteVariant as q, resolveMarketingDemoBlockVariant as r };

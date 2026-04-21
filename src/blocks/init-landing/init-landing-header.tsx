@@ -10,7 +10,7 @@ import {
   type WebsiteBuilderField,
   useWebsiteBuilderI18n,
   useWebsiteBuilderStore,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
 import {

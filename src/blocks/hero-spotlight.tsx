@@ -6,17 +6,18 @@ import {
   EditableImage,
   EditableText,
   EditableTextarea,
+  WebsiteBuilderLink,
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
   type WebsiteBuilderBlock,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   getMarketingDemoVariantTheme,
   getMarketingDemoFramelessBleedStyle,
-  marketingDemoBlockVariantOptions,
   resolveMarketingDemoBlockVariant,
   type MarketingDemoBlockVariant,
-} from "../themes";
+} from "../runtime-theme";
+import { marketingDemoBlockVariantOptions } from "../block-options";
 import { useSurfaceBreakpoints } from "../hooks/use-surface-breakpoints";
 
 type HeroSpotlightProps = {
@@ -111,7 +112,7 @@ export const HeroSpotlight = ({
           />
 
           <div className={`flex gap-3 ${atLeastSm ? "flex-row" : "flex-col"}`}>
-            <a
+            <WebsiteBuilderLink
               href={String(block.props.primaryHref)}
               className={`${theme.primaryButton} gap-3`}
             >
@@ -125,8 +126,8 @@ export const HeroSpotlight = ({
                 path="primaryMetaLabel"
                 className={theme.metaText}
               />
-            </a>
-            <a
+            </WebsiteBuilderLink>
+            <WebsiteBuilderLink
               href={String(block.props.secondaryHref)}
               className={theme.secondaryButton}
             >
@@ -135,7 +136,7 @@ export const HeroSpotlight = ({
                 path="secondaryLabel"
                 className="text-sm font-semibold"
               />
-            </a>
+            </WebsiteBuilderLink>
           </div>
         </div>
 

@@ -8,7 +8,7 @@ import {
   useWebsiteBuilderStore,
   type WebsiteBuilderBlockComponentProps,
   type WebsiteBuilderField,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   ArrowRightIcon,
   InitLandingAction,

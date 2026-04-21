@@ -16,6 +16,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./public": {
+      "types": "./dist/public.d.ts",
+      "import": "./dist/public.js",
+      "default": "./dist/public.js"
+    },
     "./themes": {
       "types": "./dist/themes/index.d.ts",
       "import": "./dist/themes/index.js",
@@ -33,10 +38,12 @@
     }
   },
   "websiteBuilder": {
-    "installableKitExport": "baseWebsiteBuilderKit"
+    "installableKitExport": "baseWebsiteBuilderKit",
+    "publicInstallableKitExport": "basePublicWebsiteBuilderKit",
+    "publicInstallableKitImportPath": "@init-modules/website-builder-base-kit/public"
   },
   "scripts": {
-    "build": "tsup src/index.ts src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean",
+    "build": "tsup src/index.ts src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean",
     "prepack": "npm run build"
   },
   "peerDependencies": {

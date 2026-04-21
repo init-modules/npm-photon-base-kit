@@ -5,12 +5,14 @@ import {
   type WebsiteBuilderSiteDesignPresetDefinition,
 } from "@init-modules/website-builder/server";
 import {
+  getMarketingDemoVariantTheme,
+  isMarketingDemoFramelessVariant,
   marketingDemoBlockTypes,
   marketingDemoBlockVariants,
+  resolveMarketingDemoSiteVariant,
   type MarketingDemoBlockVariant,
   type MarketingDemoBlockVariantMap,
-} from "./shared";
-import { marketingDemoVariantThemes } from "./variant-themes";
+} from "../runtime-theme";
 
 const marketingDemoVariantSet = new Set<string>(marketingDemoBlockVariants);
 
@@ -35,31 +37,6 @@ const readSiteDesignCandidate = (
     ? (value as MarketingDemoSiteDesignCandidate)
     : {};
 
-const resolveSiteVariant = (
-  componentVariants: Record<string, unknown> | undefined,
-  blockType: string,
-): MarketingDemoBlockVariant | null => {
-  if (!componentVariants) {
-    return null;
-  }
-
-  const candidateKeys = [
-    `marketing-demo/${blockType}`,
-    `marketing-demo.${blockType}`,
-    blockType,
-  ];
-
-  for (const key of candidateKeys) {
-    const value = componentVariants[key];
-
-    if (typeof value === "string" && marketingDemoVariantSet.has(value)) {
-      return value as MarketingDemoBlockVariant;
-    }
-  }
-
-  return null;
-};
-
 const resolvePresetVariantMap = (
   preset: Pick<
     WebsiteBuilderSiteDesignPresetDefinition,
@@ -68,7 +45,7 @@ const resolvePresetVariantMap = (
 ): MarketingDemoBlockVariantMap | null => {
   const fallbackVariant = marketingDemoVariantFallbackByPresetId[preset.id];
   const entries = marketingDemoBlockTypes.map((blockType) => {
-    const resolvedVariant = resolveSiteVariant(
+    const resolvedVariant = resolveMarketingDemoSiteVariant(
       preset.componentVariants,
       blockType,
     );
@@ -112,14 +89,6 @@ export const marketingDemoDesignPresets: MarketingDemoDesignPreset[] =
 
 export type MarketingDemoDesignPresetId = MarketingDemoDesignPreset["id"];
 
-export const getMarketingDemoVariantTheme = (
-  variant: MarketingDemoBlockVariant,
-) => marketingDemoVariantThemes[variant];
-
-export const isMarketingDemoFramelessVariant = (
-  variant: MarketingDemoBlockVariant,
-) => marketingDemoVariantThemes[variant].surfaceStyle === "frameless";
-
 export const resolveMarketingDemoBlockVariant = ({
   blockType,
   explicitVariant,
@@ -138,7 +107,7 @@ export const resolveMarketingDemoBlockVariant = ({
   }
 
   const candidate = readSiteDesignCandidate(siteDesign);
-  const mappedVariant = resolveSiteVariant(
+  const mappedVariant = resolveMarketingDemoSiteVariant(
     candidate.componentVariants,
     blockType,
   );
@@ -162,3 +131,8 @@ export const resolveMarketingDemoBlockVariant = ({
 };
 
 export const baseWebsiteBuilderThemes = marketingDemoDesignPresets;
+
+export {
+  getMarketingDemoVariantTheme,
+  isMarketingDemoFramelessVariant,
+};

@@ -1,8 +1,10 @@
-import { a as MarketingDemoBlockVariant, e as MarketingDemoVariantTheme } from '../design-presets-BaqZvTnN.js';
-export { M as MarketingDemoBlockType, b as MarketingDemoBlockVariantMap, c as MarketingDemoDesignPreset, d as MarketingDemoDesignPresetId, f as baseWebsiteBuilderThemes, g as createMarketingDemoVariantMap, h as getMarketingDemoFramelessBleedStyle, i as getMarketingDemoVariantTheme, j as isMarketingDemoFramelessVariant, m as marketingDemoBlockTypes, k as marketingDemoBlockVariantOptions, l as marketingDemoBlockVariants, n as marketingDemoDesignPresets, r as resolveMarketingDemoBlockVariant } from '../design-presets-BaqZvTnN.js';
-import 'react';
+export { M as MarketingDemoBlockType, a as MarketingDemoBlockVariant, b as MarketingDemoBlockVariantMap, c as MarketingDemoDesignPreset, d as MarketingDemoDesignPresetId, e as MarketingDemoVariantTheme, f as airMarketingDemoVariantTheme, g as baseWebsiteBuilderThemes, h as createMarketingDemoVariantMap, i as defaultMarketingDemoVariantTheme, j as getMarketingDemoFramelessBleedStyle, k as getMarketingDemoVariantTheme, l as isMarketingDemoFramelessVariant, m as marketingDemoBlockTypes, n as marketingDemoBlockVariants, o as marketingDemoDesignPresets, p as marketingDemoVariantThemes, r as resolveMarketingDemoBlockVariant, q as resolveMarketingDemoSiteVariant } from '../design-presets-BjdDyqrP.js';
 import '@init-modules/website-builder/server';
+import 'react';
 
-declare const marketingDemoVariantThemes: Record<MarketingDemoBlockVariant, MarketingDemoVariantTheme>;
+declare const marketingDemoBlockVariantOptions: {
+    label: string;
+    value: string;
+}[];
 
-export { MarketingDemoBlockVariant, MarketingDemoVariantTheme, marketingDemoVariantThemes };
+export { marketingDemoBlockVariantOptions };

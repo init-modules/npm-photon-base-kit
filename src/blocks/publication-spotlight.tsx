@@ -6,17 +6,18 @@ import {
   EditableImage,
   EditableText,
   EditableTextarea,
+  WebsiteBuilderLink,
   useWebsiteBuilderRenderDepth,
   useWebsiteBuilderStore,
   type WebsiteBuilderBlock,
-} from "@init-modules/website-builder";
+} from "@init-modules/website-builder/public";
 import {
   getMarketingDemoVariantTheme,
   getMarketingDemoFramelessBleedStyle,
-  marketingDemoBlockVariantOptions,
   resolveMarketingDemoBlockVariant,
   type MarketingDemoBlockVariant,
-} from "../themes";
+} from "../runtime-theme";
+import { marketingDemoBlockVariantOptions } from "../block-options";
 
 type PublicationSpotlightProps = {
   variant?: MarketingDemoBlockVariant;
@@ -105,7 +106,7 @@ export const PublicationSpotlight = ({
             <EditableText blockId={block.id} path="readTime" />
           </div>
 
-          <a
+          <WebsiteBuilderLink
             href={String(block.props.ctaHref)}
             className={theme.secondaryButton}
           >
@@ -114,7 +115,7 @@ export const PublicationSpotlight = ({
               path="ctaLabel"
               className="text-sm font-semibold"
             />
-          </a>
+          </WebsiteBuilderLink>
         </div>
       </div>
     </section>

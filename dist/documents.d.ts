@@ -1,6 +1,6 @@
 import * as _init_modules_website_builder_server from '@init-modules/website-builder/server';
 import { WebsiteBuilderDocument, WebsiteBuilderDocumentsMap } from '@init-modules/website-builder/server';
-import { d as MarketingDemoDesignPresetId, n as marketingDemoDesignPresets } from './design-presets-BaqZvTnN.js';
+import { d as MarketingDemoDesignPresetId, o as marketingDemoDesignPresets } from './design-presets-BjdDyqrP.js';
 import 'react';
 
 declare const createInitLandingHeaderDocument: () => WebsiteBuilderDocument;
