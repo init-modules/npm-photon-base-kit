@@ -1,9 +1,9 @@
 import {
-	getWebsiteBuilderSiteDesignPreset,
-	type WebsiteBuilderSiteDesignAppearance,
-	type WebsiteBuilderSiteDesignPresetDefinition,
-	websiteBuilderSiteDesignPresets,
-} from "@init-modules/website-builder/server";
+	getPhotonSiteDesignPreset,
+	type PhotonSiteDesignAppearance,
+	type PhotonSiteDesignPresetDefinition,
+	photonSiteDesignPresets,
+} from "@init/photon/server";
 import {
 	getMarketingDemoVariantTheme,
 	isMarketingDemoFramelessVariant,
@@ -39,7 +39,7 @@ const readSiteDesignCandidate = (
 
 const resolvePresetVariantMap = (
 	preset: Pick<
-		WebsiteBuilderSiteDesignPresetDefinition,
+		PhotonSiteDesignPresetDefinition,
 		"id" | "componentVariants"
 	>,
 ): MarketingDemoBlockVariantMap | null => {
@@ -63,13 +63,13 @@ const resolvePresetVariantMap = (
 export type MarketingDemoDesignPreset = {
 	id: string;
 	label: string;
-	appearance: WebsiteBuilderSiteDesignAppearance;
+	appearance: PhotonSiteDesignAppearance;
 	description: string;
 	componentVariants: MarketingDemoBlockVariantMap;
 };
 
 export const marketingDemoDesignPresets: MarketingDemoDesignPreset[] =
-	websiteBuilderSiteDesignPresets
+	photonSiteDesignPresets
 		.map((preset) => {
 			const componentVariants = resolvePresetVariantMap(preset);
 
@@ -117,7 +117,7 @@ export const resolveMarketingDemoBlockVariant = ({
 	}
 
 	if (typeof candidate.presetId === "string") {
-		const preset = getWebsiteBuilderSiteDesignPreset(candidate.presetId);
+		const preset = getPhotonSiteDesignPreset(candidate.presetId);
 		const presetVariantMap = preset
 			? resolvePresetVariantMap(preset)
 			: undefined;
@@ -130,6 +130,6 @@ export const resolveMarketingDemoBlockVariant = ({
 	return "default";
 };
 
-export const baseWebsiteBuilderThemes = marketingDemoDesignPresets;
+export const basePhotonThemes = marketingDemoDesignPresets;
 
 export { getMarketingDemoVariantTheme, isMarketingDemoFramelessVariant };

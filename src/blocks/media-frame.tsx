@@ -1,15 +1,15 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableImage,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import {
 	getMarketingDemoFramelessBleedStyle,
@@ -30,9 +30,9 @@ type MediaFrameProps = {
 export const MediaFrame = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<MediaFrameProps>;
+	block: PhotonBlock<MediaFrameProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -41,7 +41,7 @@ export const MediaFrame = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const framelessRail = theme.surfaceStyle === "frameless";
 
 	return (
@@ -100,7 +100,7 @@ export const MediaFrame = ({
 };
 
 export const mediaFrameDefinition =
-	defineWebsiteBuilderBlockDefinition<MediaFrameProps>({
+	definePhotonBlockDefinition<MediaFrameProps>({
 		type: "media-frame",
 		label: "Media Frame",
 		labelKey: "marketingDemoKit.blocks.mediaFrame.label",
@@ -111,15 +111,15 @@ export const mediaFrameDefinition =
 		component: MediaFrame,
 		defaults: {
 			variant: "default",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Sticky media rail",
 				ru: "Sticky media-колонка",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Horizontal containers finally become obvious in the live demo",
 				ru: "Горизонтальные контейнеры наконец выглядят очевидно в живом демо",
 			}),
-			caption: createWebsiteBuilderLocalizedDefault({
+			caption: createPhotonLocalizedDefault({
 				en: "The left column can stay pinned while the right column scrolls through richer editorial blocks. On mobile the same structure collapses into a clean single-column stack.",
 				ru: "Левая колонка может оставаться закрепленной, пока правая скроллится через более богатые editorial-блоки. На мобильных та же структура схлопывается в чистый одноколоночный стек.",
 			}),

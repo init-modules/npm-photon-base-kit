@@ -1,4 +1,4 @@
-import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/public";
+import { getPhotonSurfaceModeStyle } from "@init/photon/public";
 import type { CSSProperties } from "react";
 
 export const marketingDemoBlockVariants = ["default", "air"] as const;
@@ -35,7 +35,7 @@ export const getMarketingDemoFramelessBleedStyle = (
 	allowBleed = true,
 ): CSSProperties | undefined =>
 	frameless && allowBleed
-		? getWebsiteBuilderSurfaceModeStyle("bleed")
+		? getPhotonSurfaceModeStyle("bleed")
 		: undefined;
 
 export type MarketingDemoBlockVariantMap = Record<

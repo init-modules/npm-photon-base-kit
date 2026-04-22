@@ -1,11 +1,11 @@
 import {
-	cloneWebsiteBuilderValue,
+	clonePhotonValue,
 	setValueAtPath,
-	type WebsiteBuilderBlock,
-	type WebsiteBuilderDocument,
-	type WebsiteBuilderDocumentsMap,
-} from "@init-modules/website-builder/server";
-import { applyWebsiteBuilderSiteDesignPreset } from "@init-modules/website-builder/shared";
+	type PhotonBlock,
+	type PhotonDocument,
+	type PhotonDocumentsMap,
+} from "@init/photon/server";
+import { applyPhotonSiteDesignPreset } from "@init/photon/shared";
 import { createPresetScenarioDocument } from "./profile-presets/preset-scenarios";
 import {
 	createInitLandingFooterDocument,
@@ -21,8 +21,8 @@ import {
 export type MarketingDemoLocale = "en" | "ru";
 
 const withoutSiteShellBlocks = (
-	document: WebsiteBuilderDocument,
-): WebsiteBuilderDocument => ({
+	document: PhotonDocument,
+): PhotonDocument => ({
 	...document,
 	blocks: document.blocks.filter(
 		(block) =>
@@ -30,9 +30,9 @@ const withoutSiteShellBlocks = (
 	),
 });
 
-const marketingHomeDocumentBase: WebsiteBuilderDocument = {
-	id: "website-builder-home",
-	name: "Website Builder Showcase",
+const marketingHomeDocumentBase: PhotonDocument = {
+	id: "photon-home",
+	name: "Photon Showcase",
 	route: "/",
 	updatedAt: "2026-03-31T00:00:00.000Z",
 	blocks: [
@@ -43,7 +43,7 @@ const marketingHomeDocumentBase: WebsiteBuilderDocument = {
 			props: {
 				eyebrow: "Package-first builder system",
 				title: "Edit the real website, not a fake admin copy",
-				body: "Website Builder turns your actual Next.js surface into the editing canvas. Content mode keeps edits inline, while Builder mode opens a full control room with palette, inspector, profile history and nested layout composition.",
+				body: "Photon turns your actual Next.js surface into the editing canvas. Content mode keeps edits inline, while Builder mode opens a full control room with palette, inspector, profile history and nested layout composition.",
 				primaryLabel: "Enter builder mode",
 				primaryMetaLabel: "Launch",
 				primaryHref: "#builder",
@@ -87,7 +87,7 @@ const marketingHomeDocumentBase: WebsiteBuilderDocument = {
 		},
 		{
 			id: "editorial-split-showcase",
-			module: "website-builder-system",
+			module: "photon-system",
 			type: "split-layout",
 			props: {
 				eyebrow: "Horizontal container system",
@@ -151,7 +151,7 @@ const marketingHomeDocumentBase: WebsiteBuilderDocument = {
 							module: "marketing-demo",
 							type: "publication-spotlight",
 							props: {
-								tag: "publication-website-builder",
+								tag: "publication-photon",
 								title:
 									"A publication package should bring its own blocks and backend manifest producers",
 								excerpt:
@@ -262,12 +262,12 @@ const marketingHomeDocumentOverrides: Record<
 	Record<string, unknown>
 > = {
 	ru: {
-		name: "Витрина Website Builder",
+		name: "Витрина Photon",
 		"blocks.0.props.eyebrow": "Package-first система builder",
 		"blocks.0.props.title":
 			"Редактируйте реальный сайт, а не отдельную админскую копию",
 		"blocks.0.props.body":
-			"Website Builder превращает вашу реальную Next.js-поверхность в холст редактирования. Content mode оставляет правки инлайновыми, а Builder mode открывает полноценный control room с palette, inspector, историей профиля и вложенной композицией layout-блоков.",
+			"Photon превращает вашу реальную Next.js-поверхность в холст редактирования. Content mode оставляет правки инлайновыми, а Builder mode открывает полноценный control room с palette, inspector, историей профиля и вложенной композицией layout-блоков.",
 		"blocks.0.props.primaryLabel": "Открыть builder mode",
 		"blocks.0.props.primaryMetaLabel": "Запуск",
 		"blocks.0.props.secondaryLabel": "Смотреть архитектуру пакетов",
@@ -374,25 +374,25 @@ const marketingHomeDocumentOverrides: Record<
 };
 
 const applyDocumentOverrides = (
-	document: WebsiteBuilderDocument,
+	document: PhotonDocument,
 	overrides: Record<string, unknown>,
-): WebsiteBuilderDocument =>
-	Object.entries(overrides).reduce<WebsiteBuilderDocument>(
+): PhotonDocument =>
+	Object.entries(overrides).reduce<PhotonDocument>(
 		(current, [path, value]) =>
 			setValueAtPath(
 				current as Record<string, unknown>,
 				path,
 				value,
-			) as WebsiteBuilderDocument,
-		cloneWebsiteBuilderValue(document),
+			) as PhotonDocument,
+		clonePhotonValue(document),
 	);
 
 const applyMarketingDemoVariantMapToBlocks = (
-	blocks: WebsiteBuilderBlock[],
+	blocks: PhotonBlock[],
 	componentVariants: MarketingDemoBlockVariantMap,
-): WebsiteBuilderBlock[] =>
+): PhotonBlock[] =>
 	blocks.map((block) => {
-		const nextBlock = cloneWebsiteBuilderValue(block);
+		const nextBlock = clonePhotonValue(block);
 
 		if (nextBlock.module === "marketing-demo") {
 			nextBlock.props = {
@@ -421,13 +421,13 @@ const applyMarketingDemoVariantMapToBlocks = (
 
 const resolveMarketingDemoBaseDocument = (
 	locale: MarketingDemoLocale,
-): WebsiteBuilderDocument =>
+): PhotonDocument =>
 	locale === "ru"
 		? applyDocumentOverrides(
 				marketingHomeDocumentBase,
 				marketingHomeDocumentOverrides.ru,
 			)
-		: cloneWebsiteBuilderValue(marketingHomeDocumentBase);
+		: clonePhotonValue(marketingHomeDocumentBase);
 
 export type MarketingDemoProfileStarterPreset = {
 	id: MarketingDemoDesignPresetId;
@@ -475,11 +475,11 @@ export type BaseProfileStarterSource =
 			sourceId?: string;
 	  };
 
-const createTreeDocumentEntry = (document: WebsiteBuilderDocument) =>
-	cloneWebsiteBuilderValue(document);
+const createTreeDocumentEntry = (document: PhotonDocument) =>
+	clonePhotonValue(document);
 
 const createTreePageEntry = (
-	document: WebsiteBuilderDocument,
+	document: PhotonDocument,
 	locale: MarketingDemoLocale,
 ) => ({
 	document: createTreeDocumentEntry(document),
@@ -503,25 +503,25 @@ const createTreePageEntry = (
 
 const createDefaultSiteRegionEntries = (
 	locale: MarketingDemoLocale,
-	document: WebsiteBuilderDocument,
+	document: PhotonDocument,
 ) => {
 	const updatedAt = document.updatedAt;
 
 	return {
 		header: {
 			document: createTreeDocumentEntry({
-				id: "website-builder-site-header",
+				id: "photon-site-header",
 				name: locale === "ru" ? "Хедер" : "Header",
 				route: "/_site/header",
 				updatedAt,
 				blocks: [
 					{
 						id: "site-header-shell",
-						module: "website-builder-system",
+						module: "photon-system",
 						type: "site-header-shell",
 						props: {
 							variant: "commerce-inline",
-							brandLabel: "Website Builder",
+							brandLabel: "Photon",
 							brandHref: "/",
 							logoImage: null,
 							utilityLinks:
@@ -571,18 +571,18 @@ const createDefaultSiteRegionEntries = (
 		},
 		footer: {
 			document: createTreeDocumentEntry({
-				id: "website-builder-site-footer",
+				id: "photon-site-footer",
 				name: locale === "ru" ? "Футер" : "Footer",
 				route: "/_site/footer",
 				updatedAt,
 				blocks: [
 					{
 						id: "site-footer-shell",
-						module: "website-builder-system",
+						module: "photon-system",
 						type: "site-footer-shell",
 						props: {
 							variant: "classic-dark",
-							brandTitle: "Website Builder",
+							brandTitle: "Photon",
 							brandBody:
 								locale === "ru"
 									? "Package-first редактирование живого сайта для команд, которым нужны переиспользуемые пакеты, чистые границы пакетов и настоящая композиция страниц."
@@ -648,7 +648,7 @@ const createDefaultSiteRegionEntries = (
 									? "Политика конфиденциальности"
 									: "Privacy policy",
 							legalHref: "/privacy",
-							copyrightLabel: "Website Builder 2026",
+							copyrightLabel: "Photon 2026",
 							developerLabel:
 								locale === "ru" ? "Сделано init" : "Built by init",
 							developerHref: "https://init.kz",
@@ -694,7 +694,7 @@ export const createBaseStarterProfileTree = (
 				},
 			},
 			meta: {
-				source: "website-builder-starter",
+				source: "photon-starter",
 			},
 		};
 	}
@@ -741,7 +741,7 @@ export const createBaseStarterProfileTree = (
 			regions: siteRegions,
 			settings: sourcePresetId
 				? {
-						design: applyWebsiteBuilderSiteDesignPreset({}, sourcePresetId),
+						design: applyPhotonSiteDesignPreset({}, sourcePresetId),
 					}
 				: {},
 		},
@@ -756,7 +756,7 @@ export const createBaseStarterProfileTree = (
 			},
 		},
 		meta: {
-			source: "website-builder-starter",
+			source: "photon-starter",
 		},
 	};
 };
@@ -821,14 +821,14 @@ const resolveMarketingDemoDesignTemplateCatalogItem = (
 const createMarketingDemoDocumentForPresetScenario = (
 	presetId: MarketingDemoDesignPresetId,
 	locale: MarketingDemoLocale,
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	const preset =
 		marketingDemoDesignPresets.find((item) => item.id === presetId) ??
 		marketingDemoDesignPresets[0];
 	const baseDocument = resolveMarketingDemoBaseDocument(locale);
 	const scenarioDocument =
 		preset.id === "aurora-current"
-			? cloneWebsiteBuilderValue(baseDocument)
+			? clonePhotonValue(baseDocument)
 			: createPresetScenarioDocument(preset.id, baseDocument, locale);
 
 	return {
@@ -844,7 +844,7 @@ const createMarketingDemoDocumentForPresetScenario = (
 export const createMarketingDemoDesignTemplateDocument = (
 	templateId: MarketingDemoDesignTemplateId,
 	locale: MarketingDemoLocale = "en",
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	const template = resolveMarketingDemoDesignTemplateCatalogItem(templateId);
 	const nextDocument = createMarketingDemoDocumentForPresetScenario(
 		template.sourcePresetId,
@@ -853,7 +853,7 @@ export const createMarketingDemoDesignTemplateDocument = (
 
 	return {
 		...withoutSiteShellBlocks(nextDocument),
-		id: `website-builder-${template.id}`,
+		id: `photon-${template.id}`,
 		name: locale === "ru" ? template.labelRu : template.label,
 		route: template.previewRoute,
 	};
@@ -861,7 +861,7 @@ export const createMarketingDemoDesignTemplateDocument = (
 
 export const createMarketingDemoDocument = (
 	locale: MarketingDemoLocale = "en",
-): WebsiteBuilderDocument =>
+): PhotonDocument =>
 	withoutSiteShellBlocks(
 		createMarketingDemoDocumentForPresetScenario("aurora-current", locale),
 	);
@@ -869,7 +869,7 @@ export const createMarketingDemoDocument = (
 export const createMarketingDemoProfileDocumentFromPresetSource = (
 	presetId: MarketingDemoDesignPresetId,
 	locale: MarketingDemoLocale = "en",
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	const preset = marketingDemoDesignPresets.find(
 		(item) => item.id === presetId,
 	);
@@ -891,7 +891,7 @@ export const createMarketingDemoProfileDocumentFromPresetSource = (
 export const createMarketingDemoProfileDocumentFromTemplateSource = (
 	templateId: MarketingDemoDesignTemplateId,
 	locale: MarketingDemoLocale = "en",
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	const templateDocument = createMarketingDemoDesignTemplateDocument(
 		templateId,
 		locale,
@@ -922,7 +922,7 @@ export {
 	marketingDemoDesignPresets,
 };
 
-export const marketingWebsiteBuilderDocuments: WebsiteBuilderDocumentsMap = {
+export const marketingPhotonDocuments: PhotonDocumentsMap = {
 	home: createMarketingDemoDocument("en"),
 	...Object.fromEntries(
 		marketingDemoDesignTemplates.map((template) => [
@@ -934,8 +934,8 @@ export const marketingWebsiteBuilderDocuments: WebsiteBuilderDocumentsMap = {
 
 export const baseDesignTemplates = marketingDemoDesignTemplates;
 export const baseProfileStarterPresets = marketingDemoProfileStarterPresets;
-export const baseWebsiteBuilderDocuments = marketingWebsiteBuilderDocuments;
-export const createBaseWebsiteBuilderDocument = createMarketingDemoDocument;
+export const basePhotonDocuments = marketingPhotonDocuments;
+export const createBasePhotonDocument = createMarketingDemoDocument;
 export const createBaseDesignTemplateDocument =
 	createMarketingDemoDesignTemplateDocument;
 export const createBaseProfileDocumentFromPresetSource =

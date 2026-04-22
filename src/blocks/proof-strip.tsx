@@ -1,14 +1,14 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableRepeaterValue,
 	EditableText,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import { useSurfaceBreakpoints } from "../hooks/use-surface-breakpoints";
 import {
@@ -30,9 +30,9 @@ type ProofStripProps = {
 export const ProofStrip = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<ProofStripProps>;
+	block: PhotonBlock<ProofStripProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -41,7 +41,7 @@ export const ProofStrip = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const framelessRibbon = theme.surfaceStyle === "frameless";
 	const { ref, atLeastSm, atLeastMd, atLeastXl } =
 		useSurfaceBreakpoints<HTMLElement>();
@@ -108,7 +108,7 @@ export const ProofStrip = ({
 };
 
 export const proofStripDefinition =
-	defineWebsiteBuilderBlockDefinition<ProofStripProps>({
+	definePhotonBlockDefinition<ProofStripProps>({
 		type: "proof-strip",
 		label: "Proof Strip",
 		labelKey: "marketingDemoKit.blocks.proofStrip.label",
@@ -119,11 +119,11 @@ export const proofStripDefinition =
 		component: ProofStrip,
 		defaults: {
 			variant: "default",
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "What the MVP already proves",
 				ru: "Что уже доказывает текущий MVP",
 			}),
-			items: createWebsiteBuilderLocalizedDefault({
+			items: createPhotonLocalizedDefault({
 				en: [
 					{
 						value: "2 modes",

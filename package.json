@@ -1,7 +1,7 @@
 {
-	"name": "@init-modules/website-builder-base-kit",
+	"name": "@init/photon-base-kit",
 	"version": "0.1.0",
-	"description": "Base installable kit for the package-first website builder.",
+	"description": "Base installable kit for the package-first photon.",
 	"type": "module",
 	"files": [
 		"dist",
@@ -37,10 +37,10 @@
 			"default": "./dist/documents.js"
 		}
 	},
-	"websiteBuilder": {
-		"installableKitExport": "baseWebsiteBuilderKit",
-		"publicInstallableKitExport": "basePublicWebsiteBuilderKit",
-		"publicInstallableKitImportPath": "@init-modules/website-builder-base-kit/public"
+	"photon": {
+		"installableKitExport": "basePhotonKit",
+		"publicInstallableKitExport": "basePublicPhotonKit",
+		"publicInstallableKitImportPath": "@init/photon-base-kit/public"
 	},
 	"scripts": {
 		"build": "tsup src/index.ts src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean",
@@ -50,8 +50,8 @@
 		"prepack": "npm run build"
 	},
 	"peerDependencies": {
-		"@init-modules/ui": "^0.1.0",
-		"@init-modules/website-builder": "^0.1.0",
+		"@init/ui": "^0.1.0",
+		"@init/photon": "^0.1.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
 	},
@@ -62,8 +62,8 @@
 		"react-international-phone": "^4.8.0"
 	},
 	"devDependencies": {
-		"@init-modules/ui": "file:../../ui-foundation/ui",
-		"@init-modules/website-builder": "file:../website-builder",
+		"@init/ui": "file:../../ui-foundation/ui",
+		"@init/photon": "file:../photon",
 		"@storybook/addon-a11y": "^10.1.7",
 		"@storybook/react-vite": "^10.1.7",
 		"@storybook/test-runner": "^0.24.0",

@@ -1,6 +1,6 @@
 "use client";
 
-import { EditableRichText } from "@init-modules/website-builder/public";
+import { EditableRichText } from "@init/photon/public";
 
 type RichTextProps = {
 	blockId: string;

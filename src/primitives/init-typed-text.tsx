@@ -111,7 +111,7 @@ export const InitTypedText = ({
 		<div className="mx-auto mt-8 max-w-2xl">
 			<p
 				className={[
-					"text-pretty leading-relaxed text-[var(--wb-site-muted-text)]",
+					"text-pretty leading-relaxed text-[var(--photon-site-muted-text)]",
 					atLeastLg ? "min-h-[3.2em] text-xl" : "min-h-[3.6em] text-lg",
 				].join(" ")}
 			>
@@ -119,7 +119,7 @@ export const InitTypedText = ({
 				{showCaret ? (
 					<span
 						ref={caretRef}
-						className="ml-0.5 inline-block h-[1.08em] w-[2px] translate-y-[0.16em] bg-[var(--wb-site-accent)] align-baseline"
+						className="ml-0.5 inline-block h-[1.08em] w-[2px] translate-y-[0.16em] bg-[var(--photon-site-accent)] align-baseline"
 					/>
 				) : null}
 			</p>

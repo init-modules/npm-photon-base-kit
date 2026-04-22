@@ -1,12 +1,12 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-} from "@init-modules/website-builder/public";
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import { RichText } from "../primitives";
 import {
@@ -24,9 +24,9 @@ type RichTextProps = {
 export const RichTextBlock = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<RichTextProps>;
+	block: PhotonBlock<RichTextProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -35,7 +35,7 @@ export const RichTextBlock = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const frameless = theme.surfaceStyle === "frameless";
 
 	return (
@@ -58,10 +58,10 @@ export const RichTextBlock = ({
 					containerClassName="min-w-0"
 					className={[
 						theme.richText,
-						"[&_blockquote]:text-[var(--wb-site-muted-text)]",
-						"[&_h2]:text-[var(--wb-site-text)] [&_h3]:text-[var(--wb-site-text)]",
-						"[&_li]:text-[var(--wb-site-text)] [&_p]:text-[var(--wb-site-text)]",
-						"[&_strong]:text-[var(--wb-site-text)]",
+						"[&_blockquote]:text-[var(--photon-site-muted-text)]",
+						"[&_h2]:text-[var(--photon-site-text)] [&_h3]:text-[var(--photon-site-text)]",
+						"[&_li]:text-[var(--photon-site-text)] [&_p]:text-[var(--photon-site-text)]",
+						"[&_strong]:text-[var(--photon-site-text)]",
 					].join(" ")}
 				/>
 			</div>
@@ -70,7 +70,7 @@ export const RichTextBlock = ({
 };
 
 export const richTextDefinition =
-	defineWebsiteBuilderBlockDefinition<RichTextProps>({
+	definePhotonBlockDefinition<RichTextProps>({
 		type: "rich-text",
 		label: "Rich Text",
 		labelKey: "marketingDemoKit.blocks.richText.label",
@@ -82,7 +82,7 @@ export const richTextDefinition =
 		component: RichTextBlock,
 		defaults: {
 			variant: "default",
-			content: createWebsiteBuilderLocalizedDefault({
+			content: createPhotonLocalizedDefault({
 				en: "<h2>Content mode can now persist richer editorial structure</h2><p>The builder no longer has to flatten everything into plain textareas. This block stores real rich text markup, keeps it in the manifest, survives branch changes and still renders directly on the public website.</p><p>The point is not a detached CMS page. The point is staying on the live surface while editing:</p><ul><li>short narrative paragraphs</li><li>lists for product proof</li><li>quotes or subheads when a section needs rhythm</li></ul><blockquote>The same saved document can feed preview, content mode and profile history.</blockquote>",
 				ru: "<h2>Content mode теперь сохраняет более богатую editorial-структуру</h2><p>Builder больше не обязан сплющивать все в обычные textareas. Этот блок хранит настоящий rich text markup, сохраняет его в manifest, переживает переключение веток и при этом рендерится прямо на публичном сайте.</p><p>Смысл не в отдельной CMS-странице. Смысл в том, чтобы оставаться на живой поверхности во время редактирования:</p><ul><li>короткие повествовательные абзацы</li><li>списки для продуктовых доказательств</li><li>цитаты и подзаголовки, когда секции нужен ритм</li></ul><blockquote>Один и тот же сохраненный документ может кормить preview, content mode и историю профиля.</blockquote>",
 			}),

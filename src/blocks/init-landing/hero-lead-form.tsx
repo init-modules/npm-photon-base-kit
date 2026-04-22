@@ -44,7 +44,7 @@ export const InitLandingHeroLeadForm = ({
 				}
 			}}
 		>
-			<div className="w-full rounded-[1.75rem] border border-[color-mix(in_oklab,var(--wb-site-border)_55%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_70%,transparent)] p-2 shadow-[0_20px_60px_-30px_rgba(32,22,18,0.28)] backdrop-blur-xl">
+			<div className="w-full rounded-[1.75rem] border border-[color-mix(in_oklab,var(--photon-site-border)_55%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_70%,transparent)] p-2 shadow-[0_20px_60px_-30px_rgba(32,22,18,0.28)] backdrop-blur-xl">
 				<div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
 					<PhoneInput
 						className="hero-phone-input flex-1"
@@ -57,7 +57,7 @@ export const InitLandingHeroLeadForm = ({
 						defaultCountry="kz"
 						forceDialCode
 						inputClassName={[
-							"hero-phone-input__field h-[3.25rem] w-full rounded-[1.2rem] border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-background)_88%,transparent)] px-4 text-base text-[var(--wb-site-text)] shadow-sm outline-none transition focus-visible:border-[var(--wb-site-accent)] focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--wb-site-accent)_20%,transparent)]",
+							"hero-phone-input__field h-[3.25rem] w-full rounded-[1.2rem] border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-background)_88%,transparent)] px-4 text-base text-[var(--photon-site-text)] shadow-sm outline-none transition focus-visible:border-[var(--photon-site-accent)] focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--photon-site-accent)_20%,transparent)]",
 							error ? "border-red-500/60 focus-visible:ring-red-500/15" : "",
 						].join(" ")}
 						onChange={(phone) => {
@@ -77,7 +77,7 @@ export const InitLandingHeroLeadForm = ({
 					/>
 					<button
 						type="submit"
-						className="group inline-flex h-[3.25rem] min-w-[158px] items-center justify-center gap-2 rounded-[1.2rem] bg-[var(--wb-site-accent)] px-6 text-base font-medium text-white transition-all duration-300 hover:shadow-lg hover:shadow-[color-mix(in_oklab,var(--wb-site-accent)_25%,transparent)] sm:self-stretch"
+						className="group inline-flex h-[3.25rem] min-w-[158px] items-center justify-center gap-2 rounded-[1.2rem] bg-[var(--photon-site-accent)] px-6 text-base font-medium text-white transition-all duration-300 hover:shadow-lg hover:shadow-[color-mix(in_oklab,var(--photon-site-accent)_25%,transparent)] sm:self-stretch"
 					>
 						{buttonLabel}
 						<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -87,7 +87,7 @@ export const InitLandingHeroLeadForm = ({
 
 			<p
 				className={[
-					"max-w-[34rem] px-3 text-center text-sm leading-relaxed text-[var(--wb-site-muted-text)] transition-colors lg:pb-2",
+					"max-w-[34rem] px-3 text-center text-sm leading-relaxed text-[var(--photon-site-muted-text)] transition-colors lg:pb-2",
 					error ? "text-red-600" : "",
 				].join(" ")}
 			>

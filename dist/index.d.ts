@@ -1,16 +1,16 @@
-export { BaseProfileStarterSource, MarketingDemoDesignTemplate, MarketingDemoDesignTemplateId, MarketingDemoLocale, MarketingDemoProfileStarterPreset, baseDesignTemplates, baseProfileStarterPresets, baseWebsiteBuilderDocuments, createBaseDesignTemplateDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createBaseWebsiteBuilderDocument, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingWebsiteBuilderDocuments } from './documents.js';
-import { WebsiteBuilderInstallableKit, WebsiteBuilderModule } from '@init-modules/website-builder/public';
+export { BaseProfileStarterSource, MarketingDemoDesignTemplate, MarketingDemoDesignTemplateId, MarketingDemoLocale, MarketingDemoProfileStarterPreset, baseDesignTemplates, basePhotonDocuments, baseProfileStarterPresets, createBaseDesignTemplateDocument, createBasePhotonDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingPhotonDocuments } from './documents.js';
+import { PhotonInstallableKit, PhotonModule } from '@init/photon/public';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ReactNode, CSSProperties } from 'react';
-export { M as MarketingDemoBlockType, a as MarketingDemoBlockVariant, b as MarketingDemoBlockVariantMap, c as MarketingDemoDesignPreset, d as MarketingDemoDesignPresetId, e as MarketingDemoVariantTheme, f as airMarketingDemoVariantTheme, g as baseWebsiteBuilderThemes, h as createMarketingDemoVariantMap, i as defaultMarketingDemoVariantTheme, j as getMarketingDemoFramelessBleedStyle, k as getMarketingDemoVariantTheme, l as isMarketingDemoFramelessVariant, m as marketingDemoBlockTypes, n as marketingDemoBlockVariants, o as marketingDemoDesignPresets, p as marketingDemoVariantThemes, r as resolveMarketingDemoBlockVariant, q as resolveMarketingDemoSiteVariant } from './design-presets-BjdDyqrP.js';
+export { M as MarketingDemoBlockType, a as MarketingDemoBlockVariant, b as MarketingDemoBlockVariantMap, c as MarketingDemoDesignPreset, d as MarketingDemoDesignPresetId, e as MarketingDemoVariantTheme, f as airMarketingDemoVariantTheme, g as basePhotonThemes, h as createMarketingDemoVariantMap, i as defaultMarketingDemoVariantTheme, j as getMarketingDemoFramelessBleedStyle, k as getMarketingDemoVariantTheme, l as isMarketingDemoFramelessVariant, m as marketingDemoBlockTypes, n as marketingDemoBlockVariants, o as marketingDemoDesignPresets, p as marketingDemoVariantThemes, r as resolveMarketingDemoBlockVariant, q as resolveMarketingDemoSiteVariant } from './design-presets-j2te0UgP.js';
 export { marketingDemoBlockVariantOptions } from './themes/index.js';
-import '@init-modules/website-builder/server';
+import '@init/photon/server';
 
-declare const marketingWebsiteBuilderModule: WebsiteBuilderModule;
+declare const marketingPhotonModule: PhotonModule;
 
-declare const marketingWebsiteBuilderKit: WebsiteBuilderInstallableKit;
-declare const baseWebsiteBuilderModule: WebsiteBuilderModule;
-declare const baseWebsiteBuilderKit: WebsiteBuilderInstallableKit;
+declare const marketingPhotonKit: PhotonInstallableKit;
+declare const basePhotonModule: PhotonModule;
+declare const basePhotonKit: PhotonInstallableKit;
 
 declare const InitCheckListItem: ({ children }: {
     children: ReactNode;
@@ -54,4 +54,4 @@ type RichTextProps = {
 };
 declare const RichText: ({ blockId, path, className, containerClassName, placeholder, }: RichTextProps) => react_jsx_runtime.JSX.Element;
 
-export { InitCheckListItem, InitStatWidget, InitStatusPill, InitTestimonialCard, InitTestimonialProfile, InitTypedText, RichText, baseWebsiteBuilderKit, baseWebsiteBuilderModule, marketingWebsiteBuilderKit, marketingWebsiteBuilderModule };
+export { InitCheckListItem, InitStatWidget, InitStatusPill, InitTestimonialCard, InitTestimonialProfile, InitTypedText, RichText, basePhotonKit, basePhotonModule, marketingPhotonKit, marketingPhotonModule };

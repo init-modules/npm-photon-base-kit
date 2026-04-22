@@ -1,30 +1,30 @@
 import {
-	cloneWebsiteBuilderValue,
-	type WebsiteBuilderBlock,
-	type WebsiteBuilderDocument,
-} from "@init-modules/website-builder/server";
+	clonePhotonValue,
+	type PhotonBlock,
+	type PhotonDocument,
+} from "@init/photon/server";
 
 export type MarketingDemoLocale = "en" | "ru";
 
 export const cloneDocumentBlockById = (
-	document: WebsiteBuilderDocument,
+	document: PhotonDocument,
 	blockId: string,
-): WebsiteBuilderBlock => {
+): PhotonBlock => {
 	const block = document.blocks.find((item) => item.id === blockId);
 
 	if (!block) {
 		throw new Error(`Missing marketing demo block: ${blockId}`);
 	}
 
-	return cloneWebsiteBuilderValue(block);
+	return clonePhotonValue(block);
 };
 
 export const cloneSplitAreaBlock = (
-	document: WebsiteBuilderDocument,
+	document: PhotonDocument,
 	blockId: string,
 	areaIndex: number,
 	blockIndex: number,
-): WebsiteBuilderBlock => {
+): PhotonBlock => {
 	const splitBlock = cloneDocumentBlockById(document, blockId);
 	const nestedBlock = splitBlock.areas?.[areaIndex]?.blocks?.[blockIndex];
 
@@ -34,13 +34,13 @@ export const cloneSplitAreaBlock = (
 		);
 	}
 
-	return cloneWebsiteBuilderValue(nestedBlock);
+	return clonePhotonValue(nestedBlock);
 };
 
 export const patchBlockProps = (
-	block: WebsiteBuilderBlock,
+	block: PhotonBlock,
 	props: Record<string, unknown>,
-): WebsiteBuilderBlock => ({
+): PhotonBlock => ({
 	...block,
 	props: {
 		...(typeof block.props === "object" && block.props !== null
@@ -51,9 +51,9 @@ export const patchBlockProps = (
 });
 
 export const patchSplitLayoutAreas = (
-	block: WebsiteBuilderBlock,
-	areas: Record<string, WebsiteBuilderBlock[]>,
-): WebsiteBuilderBlock => ({
+	block: PhotonBlock,
+	areas: Record<string, PhotonBlock[]>,
+): PhotonBlock => ({
 	...block,
 	areas: (block.areas ?? []).map((area) => ({
 		...area,
@@ -62,5 +62,5 @@ export const patchSplitLayoutAreas = (
 });
 
 export const cloneBaseDocument = (
-	baseDocument: WebsiteBuilderDocument,
-): WebsiteBuilderDocument => cloneWebsiteBuilderValue(baseDocument);
+	baseDocument: PhotonDocument,
+): PhotonDocument => clonePhotonValue(baseDocument);

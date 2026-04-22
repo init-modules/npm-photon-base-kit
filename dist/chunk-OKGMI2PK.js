@@ -1,18 +1,18 @@
 import {
   marketingDemoDesignPresets
-} from "./chunk-UMLVE55O.js";
+} from "./chunk-OIRP3NX4.js";
 
 // src/documents.ts
 import {
-  cloneWebsiteBuilderValue as cloneWebsiteBuilderValue3,
+  clonePhotonValue as clonePhotonValue3,
   setValueAtPath
-} from "@init-modules/website-builder/server";
-import { applyWebsiteBuilderSiteDesignPreset } from "@init-modules/website-builder/shared";
+} from "@init/photon/server";
+import { applyPhotonSiteDesignPreset } from "@init/photon/shared";
 
 // src/profile-presets/preset-scenarios.ts
 import {
-  cloneWebsiteBuilderValue as cloneWebsiteBuilderValue2
-} from "@init-modules/website-builder/server";
+  clonePhotonValue as clonePhotonValue2
+} from "@init/photon/server";
 
 // src/profile-presets/init-landing-content.ts
 var initLandingContent = {
@@ -280,14 +280,14 @@ var initLandingContent = {
 
 // src/profile-presets/shared.ts
 import {
-  cloneWebsiteBuilderValue
-} from "@init-modules/website-builder/server";
+  clonePhotonValue
+} from "@init/photon/server";
 var cloneDocumentBlockById = (document, blockId) => {
   const block = document.blocks.find((item) => item.id === blockId);
   if (!block) {
     throw new Error(`Missing marketing demo block: ${blockId}`);
   }
-  return cloneWebsiteBuilderValue(block);
+  return clonePhotonValue(block);
 };
 var cloneSplitAreaBlock = (document, blockId, areaIndex, blockIndex) => {
   const splitBlock = cloneDocumentBlockById(document, blockId);
@@ -297,7 +297,7 @@ var cloneSplitAreaBlock = (document, blockId, areaIndex, blockIndex) => {
       `Missing nested marketing demo block: ${blockId}.areas[${areaIndex}].blocks[${blockIndex}]`
     );
   }
-  return cloneWebsiteBuilderValue(nestedBlock);
+  return clonePhotonValue(nestedBlock);
 };
 var patchBlockProps = (block, props) => ({
   ...block,
@@ -313,12 +313,12 @@ var patchSplitLayoutAreas = (block, areas) => ({
     blocks: areas[area.id] ?? area.blocks
   }))
 });
-var cloneBaseDocument = (baseDocument) => cloneWebsiteBuilderValue(baseDocument);
+var cloneBaseDocument = (baseDocument) => clonePhotonValue(baseDocument);
 
 // src/profile-presets/scenarios/init-landing.ts
 var createInitLandingDocument = (_baseDocument, _locale) => ({
   ...cloneBaseDocument(_baseDocument),
-  id: "website-builder-home",
+  id: "photon-home",
   name: "init landing",
   route: "/",
   updatedAt: "2026-04-13T00:00:00.000Z",
@@ -368,7 +368,7 @@ var createInitLandingDocument = (_baseDocument, _locale) => ({
   ]
 });
 var createInitLandingHeaderDocument = () => ({
-  id: "website-builder-site-header",
+  id: "photon-site-header",
   name: "Init Landing Header",
   route: "/_site/header",
   updatedAt: "2026-04-13T00:00:00.000Z",
@@ -382,7 +382,7 @@ var createInitLandingHeaderDocument = () => ({
   ]
 });
 var createInitLandingFooterDocument = () => ({
-  id: "website-builder-site-footer",
+  id: "photon-site-footer",
   name: "Init Landing Footer",
   route: "/_site/footer",
   updatedAt: "2026-04-13T00:00:00.000Z",
@@ -602,7 +602,7 @@ var createPresetScenarioDocument = (presetId, baseDocument, locale) => {
     case "paper-flow":
       return createPaperFlowDocument(baseDocument, locale);
     default:
-      return cloneWebsiteBuilderValue2(baseDocument);
+      return clonePhotonValue2(baseDocument);
   }
 };
 
@@ -614,8 +614,8 @@ var withoutSiteShellBlocks = (document) => ({
   )
 });
 var marketingHomeDocumentBase = {
-  id: "website-builder-home",
-  name: "Website Builder Showcase",
+  id: "photon-home",
+  name: "Photon Showcase",
   route: "/",
   updatedAt: "2026-03-31T00:00:00.000Z",
   blocks: [
@@ -626,7 +626,7 @@ var marketingHomeDocumentBase = {
       props: {
         eyebrow: "Package-first builder system",
         title: "Edit the real website, not a fake admin copy",
-        body: "Website Builder turns your actual Next.js surface into the editing canvas. Content mode keeps edits inline, while Builder mode opens a full control room with palette, inspector, profile history and nested layout composition.",
+        body: "Photon turns your actual Next.js surface into the editing canvas. Content mode keeps edits inline, while Builder mode opens a full control room with palette, inspector, profile history and nested layout composition.",
         primaryLabel: "Enter builder mode",
         primaryMetaLabel: "Launch",
         primaryHref: "#builder",
@@ -666,7 +666,7 @@ var marketingHomeDocumentBase = {
     },
     {
       id: "editorial-split-showcase",
-      module: "website-builder-system",
+      module: "photon-system",
       type: "split-layout",
       props: {
         eyebrow: "Horizontal container system",
@@ -725,7 +725,7 @@ var marketingHomeDocumentBase = {
               module: "marketing-demo",
               type: "publication-spotlight",
               props: {
-                tag: "publication-website-builder",
+                tag: "publication-photon",
                 title: "A publication package should bring its own blocks and backend manifest producers",
                 excerpt: "This block represents the future integration path: a publication package exposes manifest fragments on Laravel, and the mirrored npm kit renders the same block family in Next.js with zero copy-paste glue.",
                 author: "Lead package architecture",
@@ -821,10 +821,10 @@ var marketingHomeDocumentBase = {
 };
 var marketingHomeDocumentOverrides = {
   ru: {
-    name: "\u0412\u0438\u0442\u0440\u0438\u043D\u0430 Website Builder",
+    name: "\u0412\u0438\u0442\u0440\u0438\u043D\u0430 Photon",
     "blocks.0.props.eyebrow": "Package-first \u0441\u0438\u0441\u0442\u0435\u043C\u0430 builder",
     "blocks.0.props.title": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0440\u0435\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0430\u0439\u0442, \u0430 \u043D\u0435 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u0443\u044E \u0430\u0434\u043C\u0438\u043D\u0441\u043A\u0443\u044E \u043A\u043E\u043F\u0438\u044E",
-    "blocks.0.props.body": "Website Builder \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0432\u0430\u0448\u0443 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E Next.js-\u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u044C \u0432 \u0445\u043E\u043B\u0441\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. Content mode \u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442 \u043F\u0440\u0430\u0432\u043A\u0438 \u0438\u043D\u043B\u0430\u0439\u043D\u043E\u0432\u044B\u043C\u0438, \u0430 Builder mode \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u043F\u043E\u043B\u043D\u043E\u0446\u0435\u043D\u043D\u044B\u0439 control room \u0441 palette, inspector, \u0438\u0441\u0442\u043E\u0440\u0438\u0435\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044F \u0438 \u0432\u043B\u043E\u0436\u0435\u043D\u043D\u043E\u0439 \u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u0435\u0439 layout-\u0431\u043B\u043E\u043A\u043E\u0432.",
+    "blocks.0.props.body": "Photon \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0432\u0430\u0448\u0443 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E Next.js-\u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u044C \u0432 \u0445\u043E\u043B\u0441\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. Content mode \u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442 \u043F\u0440\u0430\u0432\u043A\u0438 \u0438\u043D\u043B\u0430\u0439\u043D\u043E\u0432\u044B\u043C\u0438, \u0430 Builder mode \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u043F\u043E\u043B\u043D\u043E\u0446\u0435\u043D\u043D\u044B\u0439 control room \u0441 palette, inspector, \u0438\u0441\u0442\u043E\u0440\u0438\u0435\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044F \u0438 \u0432\u043B\u043E\u0436\u0435\u043D\u043D\u043E\u0439 \u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u0435\u0439 layout-\u0431\u043B\u043E\u043A\u043E\u0432.",
     "blocks.0.props.primaryLabel": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C builder mode",
     "blocks.0.props.primaryMetaLabel": "\u0417\u0430\u043F\u0443\u0441\u043A",
     "blocks.0.props.secondaryLabel": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0443 \u043F\u0430\u043A\u0435\u0442\u043E\u0432",
@@ -899,10 +899,10 @@ var applyDocumentOverrides = (document, overrides) => Object.entries(overrides).
     path,
     value
   ),
-  cloneWebsiteBuilderValue3(document)
+  clonePhotonValue3(document)
 );
 var applyMarketingDemoVariantMapToBlocks = (blocks, componentVariants) => blocks.map((block) => {
-  const nextBlock = cloneWebsiteBuilderValue3(block);
+  const nextBlock = clonePhotonValue3(block);
   if (nextBlock.module === "marketing-demo") {
     nextBlock.props = {
       ...typeof nextBlock.props === "object" && nextBlock.props !== null ? nextBlock.props : {},
@@ -923,7 +923,7 @@ var applyMarketingDemoVariantMapToBlocks = (blocks, componentVariants) => blocks
 var resolveMarketingDemoBaseDocument = (locale) => locale === "ru" ? applyDocumentOverrides(
   marketingHomeDocumentBase,
   marketingHomeDocumentOverrides.ru
-) : cloneWebsiteBuilderValue3(marketingHomeDocumentBase);
+) : clonePhotonValue3(marketingHomeDocumentBase);
 var marketingDemoProfileStarterPresets = marketingDemoDesignPresets.map((preset) => ({
   id: preset.id,
   label: preset.label,
@@ -933,7 +933,7 @@ var marketingDemoProfileStarterPresets = marketingDemoDesignPresets.map((preset)
     type: "marketing-home-profile"
   }
 }));
-var createTreeDocumentEntry = (document) => cloneWebsiteBuilderValue3(document);
+var createTreeDocumentEntry = (document) => clonePhotonValue3(document);
 var createTreePageEntry = (document, locale) => ({
   document: createTreeDocumentEntry(document),
   settings: {
@@ -958,18 +958,18 @@ var createDefaultSiteRegionEntries = (locale, document) => {
   return {
     header: {
       document: createTreeDocumentEntry({
-        id: "website-builder-site-header",
+        id: "photon-site-header",
         name: locale === "ru" ? "\u0425\u0435\u0434\u0435\u0440" : "Header",
         route: "/_site/header",
         updatedAt,
         blocks: [
           {
             id: "site-header-shell",
-            module: "website-builder-system",
+            module: "photon-system",
             type: "site-header-shell",
             props: {
               variant: "commerce-inline",
-              brandLabel: "Website Builder",
+              brandLabel: "Photon",
               brandHref: "/",
               logoImage: null,
               utilityLinks: locale === "ru" ? [
@@ -1009,18 +1009,18 @@ var createDefaultSiteRegionEntries = (locale, document) => {
     },
     footer: {
       document: createTreeDocumentEntry({
-        id: "website-builder-site-footer",
+        id: "photon-site-footer",
         name: locale === "ru" ? "\u0424\u0443\u0442\u0435\u0440" : "Footer",
         route: "/_site/footer",
         updatedAt,
         blocks: [
           {
             id: "site-footer-shell",
-            module: "website-builder-system",
+            module: "photon-system",
             type: "site-footer-shell",
             props: {
               variant: "classic-dark",
-              brandTitle: "Website Builder",
+              brandTitle: "Photon",
               brandBody: locale === "ru" ? "Package-first \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0436\u0438\u0432\u043E\u0433\u043E \u0441\u0430\u0439\u0442\u0430 \u0434\u043B\u044F \u043A\u043E\u043C\u0430\u043D\u0434, \u043A\u043E\u0442\u043E\u0440\u044B\u043C \u043D\u0443\u0436\u043D\u044B \u043F\u0435\u0440\u0435\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435 \u043F\u0430\u043A\u0435\u0442\u044B, \u0447\u0438\u0441\u0442\u044B\u0435 \u0433\u0440\u0430\u043D\u0438\u0446\u044B \u043F\u0430\u043A\u0435\u0442\u043E\u0432 \u0438 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0430\u044F \u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446." : "Package-first live website editing for teams that want reusable packages, clean package boundaries and real page composition.",
               logoImage: null,
               subscriptionTitle: locale === "ru" ? "\u041F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438 \u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0440\u0435\u043B\u0438\u0437\u043E\u0432" : "Get product notes and release updates",
@@ -1069,7 +1069,7 @@ var createDefaultSiteRegionEntries = (locale, document) => {
               ],
               legalLabel: locale === "ru" ? "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438" : "Privacy policy",
               legalHref: "/privacy",
-              copyrightLabel: "Website Builder 2026",
+              copyrightLabel: "Photon 2026",
               developerLabel: locale === "ru" ? "\u0421\u0434\u0435\u043B\u0430\u043D\u043E init" : "Built by init",
               developerHref: "https://init.kz"
             }
@@ -1110,7 +1110,7 @@ var createBaseStarterProfileTree = (locale, source) => {
         }
       },
       meta: {
-        source: "website-builder-starter"
+        source: "photon-starter"
       }
     };
   }
@@ -1143,7 +1143,7 @@ var createBaseStarterProfileTree = (locale, source) => {
     site: {
       regions: siteRegions,
       settings: sourcePresetId ? {
-        design: applyWebsiteBuilderSiteDesignPreset({}, sourcePresetId)
+        design: applyPhotonSiteDesignPreset({}, sourcePresetId)
       } : {}
     },
     seo: {
@@ -1157,7 +1157,7 @@ var createBaseStarterProfileTree = (locale, source) => {
       }
     },
     meta: {
-      source: "website-builder-starter"
+      source: "photon-starter"
     }
   };
 };
@@ -1204,7 +1204,7 @@ var resolveMarketingDemoDesignTemplateCatalogItem = (templateId) => {
 var createMarketingDemoDocumentForPresetScenario = (presetId, locale) => {
   const preset = marketingDemoDesignPresets.find((item) => item.id === presetId) ?? marketingDemoDesignPresets[0];
   const baseDocument = resolveMarketingDemoBaseDocument(locale);
-  const scenarioDocument = preset.id === "aurora-current" ? cloneWebsiteBuilderValue3(baseDocument) : createPresetScenarioDocument(preset.id, baseDocument, locale);
+  const scenarioDocument = preset.id === "aurora-current" ? clonePhotonValue3(baseDocument) : createPresetScenarioDocument(preset.id, baseDocument, locale);
   return {
     ...scenarioDocument,
     updatedAt: "2026-04-11T00:00:00.000Z",
@@ -1222,7 +1222,7 @@ var createMarketingDemoDesignTemplateDocument = (templateId, locale = "en") => {
   );
   return {
     ...withoutSiteShellBlocks(nextDocument),
-    id: `website-builder-${template.id}`,
+    id: `photon-${template.id}`,
     name: locale === "ru" ? template.labelRu : template.label,
     route: template.previewRoute
   };
@@ -1266,7 +1266,7 @@ var marketingDemoDesignTemplates = marketingDemoDesignTemplateCatalog.map((templ
   snapshotRef: template.snapshotRef,
   previewRoute: template.previewRoute
 }));
-var marketingWebsiteBuilderDocuments = {
+var marketingPhotonDocuments = {
   home: createMarketingDemoDocument("en"),
   ...Object.fromEntries(
     marketingDemoDesignTemplates.map((template) => [
@@ -1277,8 +1277,8 @@ var marketingWebsiteBuilderDocuments = {
 };
 var baseDesignTemplates = marketingDemoDesignTemplates;
 var baseProfileStarterPresets = marketingDemoProfileStarterPresets;
-var baseWebsiteBuilderDocuments = marketingWebsiteBuilderDocuments;
-var createBaseWebsiteBuilderDocument = createMarketingDemoDocument;
+var basePhotonDocuments = marketingPhotonDocuments;
+var createBasePhotonDocument = createMarketingDemoDocument;
 var createBaseDesignTemplateDocument = createMarketingDemoDesignTemplateDocument;
 var createBaseProfileDocumentFromPresetSource = createMarketingDemoProfileDocumentFromPresetSource;
 var createBaseProfileDocumentFromTemplateSource = createMarketingDemoProfileDocumentFromTemplateSource;
@@ -1293,11 +1293,11 @@ export {
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
-  marketingWebsiteBuilderDocuments,
+  marketingPhotonDocuments,
   baseDesignTemplates,
   baseProfileStarterPresets,
-  baseWebsiteBuilderDocuments,
-  createBaseWebsiteBuilderDocument,
+  basePhotonDocuments,
+  createBasePhotonDocument,
   createBaseDesignTemplateDocument,
   createBaseProfileDocumentFromPresetSource,
   createBaseProfileDocumentFromTemplateSource

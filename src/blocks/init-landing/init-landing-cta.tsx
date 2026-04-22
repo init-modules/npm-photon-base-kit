@@ -1,14 +1,14 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-} from "@init-modules/website-builder/public";
+	usePhotonStore,
+	type PhotonBlockComponentProps,
+	type PhotonField,
+} from "@init/photon/public";
 import {
 	ArrowRightIcon,
 	createInitLandingBlockLocalizationSchema,
@@ -30,7 +30,7 @@ export type InitLandingCtaProps = {
 	title: string;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "sectionId",
 		label: "Section id",
@@ -85,8 +85,8 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingCtaBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingCtaProps>) => {
-	const mode = useWebsiteBuilderStore((state) => state.mode);
+}: PhotonBlockComponentProps<InitLandingCtaProps>) => {
+	const mode = usePhotonStore((state) => state.mode);
 	const sectionRef = useInitLandingReveal<HTMLDivElement>();
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastSm, atLeastLg, atLeastXl } =
@@ -99,14 +99,14 @@ const InitLandingCtaBlock = ({
 			ref={ref}
 			id={block.props.sectionId}
 			className={[
-				"relative overflow-hidden bg-[var(--wb-site-text)] py-24",
+				"relative overflow-hidden bg-[var(--photon-site-text)] py-24",
 				atLeastLg ? "py-32" : "",
 			].join(" ")}
 			style={bleedStyle}
 		>
 			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<div className="absolute -right-1/4 -top-1/2 h-[600px] w-[600px] rounded-full bg-[color-mix(in_srgb,var(--wb-site-accent)_10%,transparent)] blur-[120px]" />
-				<div className="absolute -bottom-1/2 -left-1/4 h-[400px] w-[400px] rounded-full bg-[color-mix(in_srgb,var(--wb-site-accent)_5%,transparent)] blur-[100px]" />
+				<div className="absolute -right-1/4 -top-1/2 h-[600px] w-[600px] rounded-full bg-[color-mix(in_srgb,var(--photon-site-accent)_10%,transparent)] blur-[120px]" />
+				<div className="absolute -bottom-1/2 -left-1/4 h-[400px] w-[400px] rounded-full bg-[color-mix(in_srgb,var(--photon-site-accent)_5%,transparent)] blur-[100px]" />
 			</div>
 			<div className={`relative ${sectionFrameClassName}`} ref={sectionRef}>
 				<div className="mx-auto max-w-3xl text-center">
@@ -116,14 +116,14 @@ const InitLandingCtaBlock = ({
 						as="h2"
 						className={[
 							reveal,
-							"text-balance font-semibold tracking-tight text-[var(--wb-site-background)]",
+							"text-balance font-semibold tracking-tight text-[var(--photon-site-background)]",
 							atLeastXl ? "text-5xl" : atLeastLg ? "text-4xl" : "text-3xl",
 						].join(" ")}
 					/>
 					<EditableTextarea
 						blockId={block.id}
 						path="description"
-						className={`${reveal} mt-6 text-lg leading-relaxed text-[color-mix(in_srgb,var(--wb-site-background)_70%,transparent)]`}
+						className={`${reveal} mt-6 text-lg leading-relaxed text-[color-mix(in_srgb,var(--photon-site-background)_70%,transparent)]`}
 					/>
 					<div
 						className={[
@@ -150,7 +150,7 @@ const InitLandingCtaBlock = ({
 					<EditableText
 						blockId={block.id}
 						path="note"
-						className={`${reveal} mt-8 text-sm text-[color-mix(in_srgb,var(--wb-site-background)_50%,transparent)]`}
+						className={`${reveal} mt-8 text-sm text-[color-mix(in_srgb,var(--photon-site-background)_50%,transparent)]`}
 					/>
 				</div>
 			</div>
@@ -159,7 +159,7 @@ const InitLandingCtaBlock = ({
 };
 
 export const initLandingCtaDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingCtaProps>({
+	definePhotonBlockDefinition<InitLandingCtaProps>({
 		type: "init-landing-cta",
 		label: "Init Landing CTA",
 		description: "Final call to action from the Init landing page.",
@@ -170,17 +170,17 @@ export const initLandingCtaDefinition =
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
 			sectionId: "contact",
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Нужен сайт, но непонятно с какого формата начать?",
 				ru: "Нужен сайт, но непонятно с какого формата начать?",
 			}),
-			description: createWebsiteBuilderLocalizedDefault({
+			description: createPhotonLocalizedDefault({
 				en: "Опишите задачу, а мы скажем, где хватит готового решения, где лучше собрать сайт через конструктор, а где действительно нужен custom.",
 				ru: "Опишите задачу, а мы скажем, где хватит готового решения, где лучше собрать сайт через конструктор, а где действительно нужен custom.",
 			}),
 			primaryCta: { label: "Оставить запрос", href: "mailto:hello@init.dev" },
 			secondaryCta: { label: "hello@init.dev", href: "mailto:hello@init.dev" },
-			note: createWebsiteBuilderLocalizedDefault({
+			note: createPhotonLocalizedDefault({
 				en: "Короткий разбор задачи без обязательств",
 				ru: "Короткий разбор задачи без обязательств",
 			}),

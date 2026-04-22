@@ -24,17 +24,17 @@ import {
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-7JTRUFAR.js";
+} from "./chunk-KU7IJI5N.js";
 import "./chunk-JF3FEQHL.js";
 import {
   baseDesignTemplates,
+  basePhotonDocuments,
   baseProfileStarterPresets,
-  baseWebsiteBuilderDocuments,
   createBaseDesignTemplateDocument,
+  createBasePhotonDocument,
   createBaseProfileDocumentFromPresetSource,
   createBaseProfileDocumentFromTemplateSource,
   createBaseStarterProfileTree,
-  createBaseWebsiteBuilderDocument,
   createInitLandingFooterDocument,
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
@@ -43,13 +43,13 @@ import {
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
-  marketingWebsiteBuilderDocuments
-} from "./chunk-EPIILNDN.js";
+  marketingPhotonDocuments
+} from "./chunk-OKGMI2PK.js";
 import {
-  baseWebsiteBuilderThemes,
+  basePhotonThemes,
   marketingDemoDesignPresets,
   resolveMarketingDemoBlockVariant
-} from "./chunk-UMLVE55O.js";
+} from "./chunk-OIRP3NX4.js";
 import {
   airMarketingDemoVariantTheme,
   createMarketingDemoVariantMap,
@@ -62,15 +62,15 @@ import {
   marketingDemoBlockVariants,
   marketingDemoVariantThemes,
   resolveMarketingDemoSiteVariant
-} from "./chunk-ZZUPCLBS.js";
+} from "./chunk-C3ON53CY.js";
 
 // src/module.tsx
 import {
-  createWebsiteBuilderKit
-} from "@init-modules/website-builder/public";
-var marketingWebsiteBuilderModule = {
+  createPhotonKit
+} from "@init/photon/public";
+var marketingPhotonModule = {
   module: "marketing-demo",
-  label: "Website Builder Base Kit",
+  label: "Photon Base Kit",
   labelKey: "marketingDemoKit.module.label",
   version: "0.1.0",
   blocks: [
@@ -94,14 +94,14 @@ var marketingWebsiteBuilderModule = {
     initLandingFooterDefinition
   ]
 };
-var marketingWebsiteBuilderKit = createWebsiteBuilderKit({
-  key: "website-builder-base",
-  label: "Website Builder Base Kit",
-  modules: [marketingWebsiteBuilderModule],
-  documents: marketingWebsiteBuilderDocuments
+var marketingPhotonKit = createPhotonKit({
+  key: "photon-base",
+  label: "Photon Base Kit",
+  modules: [marketingPhotonModule],
+  documents: marketingPhotonDocuments
 });
-var baseWebsiteBuilderModule = marketingWebsiteBuilderModule;
-var baseWebsiteBuilderKit = marketingWebsiteBuilderKit;
+var basePhotonModule = marketingPhotonModule;
+var basePhotonKit = marketingPhotonKit;
 export {
   InitCheckListItem,
   InitStatWidget,
@@ -112,16 +112,16 @@ export {
   RichText,
   airMarketingDemoVariantTheme,
   baseDesignTemplates,
+  basePhotonDocuments,
+  basePhotonKit,
+  basePhotonModule,
+  basePhotonThemes,
   baseProfileStarterPresets,
-  baseWebsiteBuilderDocuments,
-  baseWebsiteBuilderKit,
-  baseWebsiteBuilderModule,
-  baseWebsiteBuilderThemes,
   createBaseDesignTemplateDocument,
+  createBasePhotonDocument,
   createBaseProfileDocumentFromPresetSource,
   createBaseProfileDocumentFromTemplateSource,
   createBaseStarterProfileTree,
-  createBaseWebsiteBuilderDocument,
   createInitLandingFooterDocument,
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
@@ -140,9 +140,9 @@ export {
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingDemoVariantThemes,
-  marketingWebsiteBuilderDocuments,
-  marketingWebsiteBuilderKit,
-  marketingWebsiteBuilderModule,
+  marketingPhotonDocuments,
+  marketingPhotonKit,
+  marketingPhotonModule,
   resolveMarketingDemoBlockVariant,
   resolveMarketingDemoSiteVariant
 };

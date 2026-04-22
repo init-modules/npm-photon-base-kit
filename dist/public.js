@@ -18,16 +18,16 @@ import {
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-7JTRUFAR.js";
-import "./chunk-ZZUPCLBS.js";
+} from "./chunk-KU7IJI5N.js";
+import "./chunk-C3ON53CY.js";
 
 // src/public.tsx
 import {
-  createWebsiteBuilderKit
-} from "@init-modules/website-builder/public";
-var basePublicWebsiteBuilderModule = {
+  createPhotonKit
+} from "@init/photon/public";
+var basePublicPhotonModule = {
   module: "marketing-demo",
-  label: "Website Builder Base Kit",
+  label: "Photon Base Kit",
   labelKey: "marketingDemoKit.module.label",
   version: "0.1.0",
   blocks: [
@@ -51,12 +51,12 @@ var basePublicWebsiteBuilderModule = {
     initLandingFooterDefinition
   ]
 };
-var basePublicWebsiteBuilderKit = createWebsiteBuilderKit({
-  key: "website-builder-base",
-  label: "Website Builder Base Kit",
-  modules: [basePublicWebsiteBuilderModule]
+var basePublicPhotonKit = createPhotonKit({
+  key: "photon-base",
+  label: "Photon Base Kit",
+  modules: [basePublicPhotonModule]
 });
 export {
-  basePublicWebsiteBuilderKit,
-  basePublicWebsiteBuilderModule
+  basePublicPhotonKit,
+  basePublicPhotonModule
 };

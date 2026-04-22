@@ -7,9 +7,9 @@
 		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
-			"@init-modules/website-builder": ["../website-builder/src/index.ts"],
-			"@init-modules/website-builder/public": [
-				"../website-builder/src/public.tsx"
+			"@init/photon": ["../photon/src/index.ts"],
+			"@init/photon/public": [
+				"../photon/src/public.tsx"
 			]
 		},
 		"strict": true,

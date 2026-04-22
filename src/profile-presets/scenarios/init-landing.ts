@@ -1,13 +1,13 @@
-import type { WebsiteBuilderDocument } from "@init-modules/website-builder/server";
+import type { PhotonDocument } from "@init/photon/server";
 import { initLandingContent } from "../init-landing-content";
 import { cloneBaseDocument } from "../shared";
 
 export const createInitLandingDocument = (
-	_baseDocument: WebsiteBuilderDocument,
+	_baseDocument: PhotonDocument,
 	_locale: "en" | "ru",
-): WebsiteBuilderDocument => ({
+): PhotonDocument => ({
 	...cloneBaseDocument(_baseDocument),
-	id: "website-builder-home",
+	id: "photon-home",
 	name: "init landing",
 	route: "/",
 	updatedAt: "2026-04-13T00:00:00.000Z",
@@ -57,8 +57,8 @@ export const createInitLandingDocument = (
 	],
 });
 
-export const createInitLandingHeaderDocument = (): WebsiteBuilderDocument => ({
-	id: "website-builder-site-header",
+export const createInitLandingHeaderDocument = (): PhotonDocument => ({
+	id: "photon-site-header",
 	name: "Init Landing Header",
 	route: "/_site/header",
 	updatedAt: "2026-04-13T00:00:00.000Z",
@@ -72,8 +72,8 @@ export const createInitLandingHeaderDocument = (): WebsiteBuilderDocument => ({
 	],
 });
 
-export const createInitLandingFooterDocument = (): WebsiteBuilderDocument => ({
-	id: "website-builder-site-footer",
+export const createInitLandingFooterDocument = (): PhotonDocument => ({
+	id: "photon-site-footer",
 	name: "Init Landing Footer",
 	route: "/_site/footer",
 	updatedAt: "2026-04-13T00:00:00.000Z",

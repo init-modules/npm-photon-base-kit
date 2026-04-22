@@ -1,6 +1,6 @@
 "use client";
 
-import { useWebsiteBuilderStore } from "@init-modules/website-builder/public";
+import { usePhotonStore } from "@init/photon/public";
 import { useEffect, useRef, useState } from "react";
 
 export type SurfaceBreakpoints = {
@@ -21,7 +21,7 @@ const createSurfaceBreakpoints = (width: number): SurfaceBreakpoints => ({
 
 export const useSurfaceBreakpoints = <T extends HTMLElement>() => {
 	const ref = useRef<T | null>(null);
-	const mode = useWebsiteBuilderStore((state) => state.mode);
+	const mode = usePhotonStore((state) => state.mode);
 	const builderSurface = mode === "builder";
 	const [breakpoints, setBreakpoints] = useState<SurfaceBreakpoints>(
 		createSurfaceBreakpoints(builderSurface ? 0 : 1440),
@@ -52,7 +52,7 @@ export const useSurfaceBreakpoints = <T extends HTMLElement>() => {
 		}
 
 		const surface =
-			element.closest<HTMLElement>("[data-wb-surface-region]") ?? element;
+			element.closest<HTMLElement>("[data-photon-surface-region]") ?? element;
 		const sync = () =>
 			setBreakpoints(createSurfaceBreakpoints(Math.round(surface.clientWidth)));
 

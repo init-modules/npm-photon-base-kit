@@ -1,14 +1,14 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	type PhotonBlockComponentProps,
+	type PhotonField,
+	PhotonLink,
+} from "@init/photon/public";
 import { InitCheckListItem } from "../../primitives";
 import {
 	createInitLandingBlockLocalizationSchema,
@@ -30,7 +30,7 @@ export type InitLandingPricingProps = {
 	title: string;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "sectionId",
 		label: "Section id",
@@ -113,7 +113,7 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingPricingBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingPricingProps>) => {
+}: PhotonBlockComponentProps<InitLandingPricingProps>) => {
 	const sectionRef = useInitLandingReveal<HTMLDivElement>();
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
@@ -132,21 +132,21 @@ const InitLandingPricingBlock = ({
 					<EditableText
 						blockId={block.id}
 						path="eyebrow"
-						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
 					/>
 					<EditableText
 						blockId={block.id}
 						path="title"
 						as="h2"
 						className={[
-							"text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+							"text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
 							atLeastLg ? "text-4xl" : "text-3xl",
 						].join(" ")}
 					/>
 					<EditableTextarea
 						blockId={block.id}
 						path="description"
-						className="mt-4 text-lg text-[var(--wb-site-muted-text)]"
+						className="mt-4 text-lg text-[var(--photon-site-muted-text)]"
 					/>
 				</div>
 
@@ -161,23 +161,23 @@ const InitLandingPricingBlock = ({
 							key={`${plan.name}:${index}`}
 							className={[
 								revealClassName,
-								"relative overflow-hidden rounded-[1.75rem] border bg-[var(--wb-site-surface)] transition-all duration-700 hover:shadow-xl",
+								"relative overflow-hidden rounded-[1.75rem] border bg-[var(--photon-site-surface)] transition-all duration-700 hover:shadow-xl",
 								plan.highlighted
-									? `${atLeastLg ? "scale-[1.02] " : ""}border-[var(--wb-site-accent)] shadow-lg`
-									: "border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] hover:border-[color-mix(in_srgb,var(--wb-site-accent)_20%,var(--wb-site-border))]",
+									? `${atLeastLg ? "scale-[1.02] " : ""}border-[var(--photon-site-accent)] shadow-lg`
+									: "border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] hover:border-[color-mix(in_srgb,var(--photon-site-accent)_20%,var(--photon-site-border))]",
 							].join(" ")}
 							style={{ transitionDelay: `${index * 150}ms` }}
 						>
 							{plan.highlighted ? (
-								<div className="absolute left-0 right-0 top-0 h-1 bg-[var(--wb-site-accent)]" />
+								<div className="absolute left-0 right-0 top-0 h-1 bg-[var(--photon-site-accent)]" />
 							) : null}
 							<div className="pb-4 p-6">
 								{plan.highlighted ? (
-									<span className="mb-2 inline-block text-xs font-medium uppercase tracking-wider text-[var(--wb-site-accent)]">
+									<span className="mb-2 inline-block text-xs font-medium uppercase tracking-wider text-[var(--photon-site-accent)]">
 										Рекомендуем
 									</span>
 								) : null}
-								<h3 className="text-xl font-semibold text-[var(--wb-site-text)]">
+								<h3 className="text-xl font-semibold text-[var(--photon-site-text)]">
 									<EditableText
 										blockId={block.id}
 										path={`plans.${index}.name`}
@@ -186,18 +186,18 @@ const InitLandingPricingBlock = ({
 								<EditableTextarea
 									blockId={block.id}
 									path={`plans.${index}.description`}
-									className="mt-1 text-sm text-[var(--wb-site-muted-text)]"
+									className="mt-1 text-sm text-[var(--photon-site-muted-text)]"
 								/>
 							</div>
 							<div className="px-6 pb-6">
 								<div className="mb-6">
-									<span className="text-4xl font-semibold text-[var(--wb-site-text)]">
+									<span className="text-4xl font-semibold text-[var(--photon-site-text)]">
 										<EditableText
 											blockId={block.id}
 											path={`plans.${index}.price`}
 										/>
 									</span>
-									<span className="ml-2 text-sm text-[var(--wb-site-muted-text)]">
+									<span className="ml-2 text-sm text-[var(--photon-site-muted-text)]">
 										<EditableText
 											blockId={block.id}
 											path={`plans.${index}.period`}
@@ -214,36 +214,36 @@ const InitLandingPricingBlock = ({
 										</InitCheckListItem>
 									))}
 								</ul>
-								<WebsiteBuilderLink
+								<PhotonLink
 									href={plan.href}
 									className={[
 										"inline-flex w-full items-center justify-center rounded-[1.1rem] px-4 py-3 text-sm font-medium transition-transform duration-300 hover:scale-[1.02]",
 										plan.highlighted
-											? "bg-[var(--wb-site-accent)] text-white hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--wb-site-accent)_25%,transparent)]"
-											: "border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] text-[var(--wb-site-text)] hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]",
+											? "bg-[var(--photon-site-accent)] text-white hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--photon-site-accent)_25%,transparent)]"
+											: "border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] text-[var(--photon-site-text)] hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]",
 									].join(" ")}
 								>
 									<EditableText
 										blockId={block.id}
 										path={`plans.${index}.cta`}
 									/>
-								</WebsiteBuilderLink>
+								</PhotonLink>
 							</div>
 						</div>
 					))}
 				</div>
 
 				<p
-					className={`${revealClassName} mt-12 text-center text-sm text-[var(--wb-site-muted-text)]`}
+					className={`${revealClassName} mt-12 text-center text-sm text-[var(--photon-site-muted-text)]`}
 					style={{ transitionDelay: "500ms" }}
 				>
 					{block.props.note}{" "}
-					<WebsiteBuilderLink
+					<PhotonLink
 						href={block.props.noteCta.href}
-						className="text-[var(--wb-site-accent)] hover:underline"
+						className="text-[var(--photon-site-accent)] hover:underline"
 					>
 						<EditableText blockId={block.id} path="noteCta.label" />
-					</WebsiteBuilderLink>
+					</PhotonLink>
 				</p>
 			</div>
 		</section>
@@ -251,7 +251,7 @@ const InitLandingPricingBlock = ({
 };
 
 export const initLandingPricingDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingPricingProps>({
+	definePhotonBlockDefinition<InitLandingPricingProps>({
 		type: "init-landing-pricing",
 		label: "Init Landing Pricing",
 		description: "Pricing section from the Init landing page.",
@@ -262,15 +262,15 @@ export const initLandingPricingDefinition =
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
 			sectionId: "pricing",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Как это продаётся",
 				ru: "Как это продаётся",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Три подхода к запуску сайта",
 				ru: "Три подхода к запуску сайта",
 			}),
-			description: createWebsiteBuilderLocalizedDefault({
+			description: createPhotonLocalizedDefault({
 				en: "Сами услуги разные по глубине настройки и срокам, поэтому и продаём их отдельными сценариями.",
 				ru: "Сами услуги разные по глубине настройки и срокам, поэтому и продаём их отдельными сценариями.",
 			}),
@@ -322,7 +322,7 @@ export const initLandingPricingDefinition =
 					href: "#contact",
 				},
 			],
-			note: createWebsiteBuilderLocalizedDefault({
+			note: createPhotonLocalizedDefault({
 				en: "Если сомневаетесь между форматами, на брифе разложим задачу и предложим наиболее рациональный сценарий.",
 				ru: "Если сомневаетесь между форматами, на брифе разложим задачу и предложим наиболее рациональный сценарий.",
 			}),

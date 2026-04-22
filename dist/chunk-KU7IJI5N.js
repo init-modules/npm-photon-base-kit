@@ -3,7 +3,7 @@ import {
   getMarketingDemoVariantTheme,
   marketingDemoBlockVariantOptions,
   resolveMarketingDemoBlockVariant
-} from "./chunk-ZZUPCLBS.js";
+} from "./chunk-C3ON53CY.js";
 
 // src/blocks/breadcrumbs.tsx
 import {
@@ -12,13 +12,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "@init-modules/ui";
+} from "@init/ui";
 import {
-  createWebsiteBuilderLocalizedDefault,
-  defineWebsiteBuilderBlockDefinition,
+  createPhotonLocalizedDefault,
+  definePhotonBlockDefinition,
   EditableText,
-  WebsiteBuilderLink
-} from "@init-modules/website-builder/public";
+  PhotonLink
+} from "@init/photon/public";
 import { jsx, jsxs } from "react/jsx-runtime";
 var normalizeItems = (items) => Array.isArray(items) ? items.flatMap((item) => {
   if (typeof item !== "object" || item === null) {
@@ -44,7 +44,7 @@ var BreadcrumbsBlock = ({
   if (items.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx("section", { className: "bg-[var(--wb-site-background)] px-5 pt-8 text-[var(--wb-site-text)] sm:px-8", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-[96rem]", children: /* @__PURE__ */ jsx(Breadcrumb, { children: /* @__PURE__ */ jsx(BreadcrumbList, { children: items.map((item, index) => {
+  return /* @__PURE__ */ jsx("section", { className: "bg-[var(--photon-site-background)] px-5 pt-8 text-[var(--photon-site-text)] sm:px-8", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-[96rem]", children: /* @__PURE__ */ jsx(Breadcrumb, { children: /* @__PURE__ */ jsx(BreadcrumbList, { children: items.map((item, index) => {
     const current = item.current || index === items.length - 1;
     return /* @__PURE__ */ jsxs(BreadcrumbItem, { children: [
       current ? /* @__PURE__ */ jsx(BreadcrumbPage, { children: /* @__PURE__ */ jsx(
@@ -54,10 +54,10 @@ var BreadcrumbsBlock = ({
           path: `items.${index}.label`
         }
       ) }) : /* @__PURE__ */ jsx(
-        WebsiteBuilderLink,
+        PhotonLink,
         {
           href: item.href,
-          className: "transition hover:text-[var(--wb-site-text)]",
+          className: "transition hover:text-[var(--photon-site-text)]",
           children: /* @__PURE__ */ jsx(
             EditableText,
             {
@@ -71,7 +71,7 @@ var BreadcrumbsBlock = ({
     ] }, `${item.href}:${index}`);
   }) }) }) }) });
 };
-var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
+var breadcrumbsDefinition = definePhotonBlockDefinition({
   type: "breadcrumbs",
   label: "Breadcrumbs",
   labelKey: "marketingDemoKit.breadcrumbs.label",
@@ -82,7 +82,7 @@ var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
   defaults: {
     items: [
       {
-        label: createWebsiteBuilderLocalizedDefault({
+        label: createPhotonLocalizedDefault({
           en: "Home",
           ru: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F"
         }),
@@ -90,7 +90,7 @@ var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
         current: false
       },
       {
-        label: createWebsiteBuilderLocalizedDefault({
+        label: createPhotonLocalizedDefault({
           en: "Current page",
           ru: "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430"
         }),
@@ -106,7 +106,7 @@ var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
       kind: "repeater",
       group: "content",
       localization: "localized",
-      itemFields: [
+      fields: [
         { path: "label", label: "Label", kind: "text" },
         { path: "href", label: "Href", kind: "url", localization: "shared" },
         {
@@ -123,20 +123,20 @@ var breadcrumbsDefinition = defineWebsiteBuilderBlockDefinition({
 
 // src/blocks/command-center-cta.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault2,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition2,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault2,
+  definePhotonBlockDefinition as definePhotonBlockDefinition2,
   EditableRepeaterValue,
   EditableText as EditableText2,
   EditableTextarea,
-  useWebsiteBuilderRenderDepth,
-  useWebsiteBuilderStore,
-  WebsiteBuilderLink as WebsiteBuilderLink2
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth,
+  usePhotonStore,
+  PhotonLink as PhotonLink2
+} from "@init/photon/public";
 import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
 var CommandCenterCta = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore(
+  const siteDesign = usePhotonStore(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -145,7 +145,7 @@ var CommandCenterCta = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth();
+  const renderDepth = usePhotonRenderDepth();
   const centered = variant === "air";
   const framelessCta = theme.surfaceStyle === "frameless";
   return /* @__PURE__ */ jsx2(
@@ -196,7 +196,7 @@ var CommandCenterCta = ({
                   className: `mt-7 flex gap-3 ${centered ? "justify-center flex-wrap" : "flex-col sm:flex-row"}`,
                   children: [
                     /* @__PURE__ */ jsx2(
-                      WebsiteBuilderLink2,
+                      PhotonLink2,
                       {
                         href: String(block.props.primaryHref),
                         className: theme.primaryButton,
@@ -211,7 +211,7 @@ var CommandCenterCta = ({
                       }
                     ),
                     /* @__PURE__ */ jsx2(
-                      WebsiteBuilderLink2,
+                      PhotonLink2,
                       {
                         href: String(block.props.secondaryHref),
                         className: theme.secondaryButton,
@@ -268,7 +268,7 @@ var CommandCenterCta = ({
     }
   );
 };
-var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition2({
+var commandCenterCtaDefinition = definePhotonBlockDefinition2({
   type: "command-center-cta",
   label: "Command Center CTA",
   labelKey: "marketingDemoKit.blocks.commandCenterCta.label",
@@ -279,37 +279,37 @@ var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition2({
   component: CommandCenterCta,
   defaults: {
     variant: "default",
-    badge: createWebsiteBuilderLocalizedDefault2({
+    badge: createPhotonLocalizedDefault2({
       en: "MVP control room",
       ru: "MVP control room"
     }),
-    title: createWebsiteBuilderLocalizedDefault2({
+    title: createPhotonLocalizedDefault2({
       en: "Ship the foundation now, then let domain packages plug into it cleanly",
       ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u043F\u0443\u0441\u0442\u0438\u0442\u0435 foundation, \u0430 \u0437\u0430\u0442\u0435\u043C \u0434\u0430\u0439\u0442\u0435 \u0434\u043E\u043C\u0435\u043D\u043D\u044B\u043C \u043F\u0430\u043A\u0435\u0442\u0430\u043C \u0447\u0438\u0441\u0442\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0430\u0442\u044C\u0441\u044F \u043A \u043D\u0435\u043C\u0443"
     }),
-    body: createWebsiteBuilderLocalizedDefault2({
+    body: createPhotonLocalizedDefault2({
       en: "This is the pragmatic path: establish the contract, show the editing experience on the real site, and leave enough extension points so future packages can register blocks without editing the core app every time.",
       ru: "\u042D\u0442\u043E \u043F\u0440\u0430\u0433\u043C\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043F\u0443\u0442\u044C: \u0437\u0430\u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442, \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u043F\u044B\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F \u043D\u0430 \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C \u0441\u0430\u0439\u0442\u0435 \u0438 \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E extension points, \u0447\u0442\u043E\u0431\u044B \u0431\u0443\u0434\u0443\u0449\u0438\u0435 \u043F\u0430\u043A\u0435\u0442\u044B \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043B\u0438 \u0431\u043B\u043E\u043A\u0438 \u0431\u0435\u0437 \u043F\u0440\u0430\u0432\u043E\u043A core app \u043A\u0430\u0436\u0434\u044B\u0439 \u0440\u0430\u0437."
     }),
-    primaryLabel: createWebsiteBuilderLocalizedDefault2({
+    primaryLabel: createPhotonLocalizedDefault2({
       en: "Publish foundation packages",
       ru: "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C foundation packages"
     }),
     primaryHref: "#publish",
-    secondaryLabel: createWebsiteBuilderLocalizedDefault2({
+    secondaryLabel: createPhotonLocalizedDefault2({
       en: "Read manual",
       ru: "\u0427\u0438\u0442\u0430\u0442\u044C manual"
     }),
     secondaryHref: "#manual",
-    panelEyebrow: createWebsiteBuilderLocalizedDefault2({
+    panelEyebrow: createPhotonLocalizedDefault2({
       en: "System mode",
       ru: "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C"
     }),
-    panelLabel: createWebsiteBuilderLocalizedDefault2({
+    panelLabel: createPhotonLocalizedDefault2({
       en: "Builder chrome online",
       ru: "Builder chrome \u0432 \u043E\u043D\u043B\u0430\u0439\u043D\u0435"
     }),
-    panelItems: createWebsiteBuilderLocalizedDefault2({
+    panelItems: createPhotonLocalizedDefault2({
       en: [
         "Content editor turns the live site into inputs, uploads and textareas.",
         "Builder mode exposes real layout chrome with drag-and-drop blocks.",
@@ -409,17 +409,17 @@ var commandCenterCtaDefinition = defineWebsiteBuilderBlockDefinition2({
 
 // src/blocks/feature-grid.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault3,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition3,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault3,
+  definePhotonBlockDefinition as definePhotonBlockDefinition3,
   EditableRepeaterValue as EditableRepeaterValue2,
   EditableText as EditableText3,
   EditableTextarea as EditableTextarea2,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth2,
-  useWebsiteBuilderStore as useWebsiteBuilderStore3
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth2,
+  usePhotonStore as usePhotonStore3
+} from "@init/photon/public";
 
 // src/hooks/use-surface-breakpoints.ts
-import { useWebsiteBuilderStore as useWebsiteBuilderStore2 } from "@init-modules/website-builder/public";
+import { usePhotonStore as usePhotonStore2 } from "@init/photon/public";
 import { useEffect, useRef, useState } from "react";
 var createSurfaceBreakpoints = (width) => ({
   width,
@@ -430,7 +430,7 @@ var createSurfaceBreakpoints = (width) => ({
 });
 var useSurfaceBreakpoints = () => {
   const ref = useRef(null);
-  const mode = useWebsiteBuilderStore2((state) => state.mode);
+  const mode = usePhotonStore2((state) => state.mode);
   const builderSurface = mode === "builder";
   const [breakpoints, setBreakpoints] = useState(
     createSurfaceBreakpoints(builderSurface ? 0 : 1440)
@@ -452,7 +452,7 @@ var useSurfaceBreakpoints = () => {
     if (typeof ResizeObserver === "undefined") {
       return;
     }
-    const surface = element.closest("[data-wb-surface-region]") ?? element;
+    const surface = element.closest("[data-photon-surface-region]") ?? element;
     const sync = () => setBreakpoints(createSurfaceBreakpoints(Math.round(surface.clientWidth)));
     sync();
     const observer = new ResizeObserver(sync);
@@ -467,7 +467,7 @@ import { jsx as jsx3, jsxs as jsxs3 } from "react/jsx-runtime";
 var FeatureGrid = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore3(
+  const siteDesign = usePhotonStore3(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -476,7 +476,7 @@ var FeatureGrid = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth2();
+  const renderDepth = usePhotonRenderDepth2();
   const framelessGrid = theme.surfaceStyle === "frameless";
   const { ref, atLeastSm, atLeastMd, atLeastLg, atLeastXl } = useSurfaceBreakpoints();
   return /* @__PURE__ */ jsxs3(
@@ -561,7 +561,7 @@ var FeatureGrid = ({
     }
   );
 };
-var featureGridDefinition = defineWebsiteBuilderBlockDefinition3({
+var featureGridDefinition = definePhotonBlockDefinition3({
   type: "feature-grid",
   label: "Feature Grid",
   labelKey: "marketingDemoKit.blocks.featureGrid.label",
@@ -572,19 +572,19 @@ var featureGridDefinition = defineWebsiteBuilderBlockDefinition3({
   component: FeatureGrid,
   defaults: {
     variant: "default",
-    eyebrow: createWebsiteBuilderLocalizedDefault3({
+    eyebrow: createPhotonLocalizedDefault3({
       en: "Editor capabilities",
       ru: "\u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0430"
     }),
-    title: createWebsiteBuilderLocalizedDefault3({
+    title: createPhotonLocalizedDefault3({
       en: "One framework, two editor personalities",
       ru: "\u041E\u0434\u0438\u043D \u0444\u0440\u0435\u0439\u043C\u0432\u043E\u0440\u043A, \u0434\u0432\u0430 \u0440\u0435\u0436\u0438\u043C\u0430 \u0440\u0430\u0431\u043E\u0442\u044B \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0430"
     }),
-    body: createWebsiteBuilderLocalizedDefault3({
+    body: createPhotonLocalizedDefault3({
       en: "The same manifest powers public rendering, inline content edits and the full builder chrome. Domain teams can publish their own kits instead of patching a single giant application.",
       ru: "\u041E\u0434\u0438\u043D \u0438 \u0442\u043E\u0442 \u0436\u0435 manifest \u043F\u0438\u0442\u0430\u0435\u0442 \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0440\u0435\u043D\u0434\u0435\u0440, inline-\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0430 \u0438 \u043F\u043E\u043B\u043D\u044B\u0439 builder chrome. \u0414\u043E\u043C\u0435\u043D\u043D\u044B\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u043C\u043E\u0433\u0443\u0442 \u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C \u0441\u0432\u043E\u0438 kit-\u043F\u0430\u043A\u0435\u0442\u044B \u0432\u043C\u0435\u0441\u0442\u043E \u043F\u0430\u0442\u0447\u0435\u0439 \u0432 \u043E\u0434\u043D\u043E \u043C\u043E\u043D\u043E\u043B\u0438\u0442\u043D\u043E\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435."
     }),
-    features: createWebsiteBuilderLocalizedDefault3({
+    features: createPhotonLocalizedDefault3({
       en: [
         {
           title: "Inline content controls",
@@ -663,20 +663,20 @@ var featureGridDefinition = defineWebsiteBuilderBlockDefinition3({
 
 // src/blocks/hero-spotlight.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault4,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition4,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault4,
+  definePhotonBlockDefinition as definePhotonBlockDefinition4,
   EditableImage,
   EditableText as EditableText4,
   EditableTextarea as EditableTextarea3,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth3,
-  useWebsiteBuilderStore as useWebsiteBuilderStore4,
-  WebsiteBuilderLink as WebsiteBuilderLink3
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth3,
+  usePhotonStore as usePhotonStore4,
+  PhotonLink as PhotonLink3
+} from "@init/photon/public";
 import { jsx as jsx4, jsxs as jsxs4 } from "react/jsx-runtime";
 var HeroSpotlight = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore4(
+  const siteDesign = usePhotonStore4(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -686,7 +686,7 @@ var HeroSpotlight = ({
   });
   const theme = getMarketingDemoVariantTheme(variant);
   const airHero = variant === "air";
-  const renderDepth = useWebsiteBuilderRenderDepth3();
+  const renderDepth = usePhotonRenderDepth3();
   const stackedHero = airHero;
   const framelessHero = theme.surfaceStyle === "frameless";
   const { ref, atLeastSm, atLeastMd, atLeastLg, atLeastXl } = useSurfaceBreakpoints();
@@ -746,7 +746,7 @@ var HeroSpotlight = ({
                 ),
                 /* @__PURE__ */ jsxs4("div", { className: `flex gap-3 ${atLeastSm ? "flex-row" : "flex-col"}`, children: [
                   /* @__PURE__ */ jsxs4(
-                    WebsiteBuilderLink3,
+                    PhotonLink3,
                     {
                       href: String(block.props.primaryHref),
                       className: `${theme.primaryButton} gap-3`,
@@ -771,7 +771,7 @@ var HeroSpotlight = ({
                     }
                   ),
                   /* @__PURE__ */ jsx4(
-                    WebsiteBuilderLink3,
+                    PhotonLink3,
                     {
                       href: String(block.props.secondaryHref),
                       className: theme.secondaryButton,
@@ -836,7 +836,7 @@ var HeroSpotlight = ({
     }
   );
 };
-var heroSpotlightDefinition = defineWebsiteBuilderBlockDefinition4({
+var heroSpotlightDefinition = definePhotonBlockDefinition4({
   type: "hero-spotlight",
   label: "Hero Spotlight",
   labelKey: "marketingDemoKit.blocks.heroSpotlight.label",
@@ -847,37 +847,37 @@ var heroSpotlightDefinition = defineWebsiteBuilderBlockDefinition4({
   component: HeroSpotlight,
   defaults: {
     variant: "default",
-    eyebrow: createWebsiteBuilderLocalizedDefault4({
+    eyebrow: createPhotonLocalizedDefault4({
       en: "Package-first builder system",
       ru: "Package-first \u0441\u0438\u0441\u0442\u0435\u043C\u0430 builder"
     }),
-    title: createWebsiteBuilderLocalizedDefault4({
+    title: createPhotonLocalizedDefault4({
       en: "Edit the real website, not a fake admin copy",
       ru: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0440\u0435\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0430\u0439\u0442, \u0430 \u043D\u0435 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u0443\u044E \u0430\u0434\u043C\u0438\u043D\u0441\u043A\u0443\u044E \u043A\u043E\u043F\u0438\u044E"
     }),
-    body: createWebsiteBuilderLocalizedDefault4({
-      en: "Website Builder turns your actual Next.js surface into the editing canvas. Content mode focuses on inline edits, while Builder mode exposes a full control room with palette, drag-and-drop and inspector panels.",
-      ru: "Website Builder \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0432\u0430\u0448\u0443 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E Next.js-\u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u044C \u0432 \u0445\u043E\u043B\u0441\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. Content mode \u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0438\u043D\u043B\u0430\u0439\u043D\u043E\u0432\u044B\u043C, \u0430 Builder mode \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u043F\u043E\u043B\u043D\u043E\u0446\u0435\u043D\u043D\u044B\u0439 control room \u0441 palette, drag-and-drop \u0438 inspector-\u043F\u0430\u043D\u0435\u043B\u044F\u043C\u0438."
+    body: createPhotonLocalizedDefault4({
+      en: "Photon turns your actual Next.js surface into the editing canvas. Content mode focuses on inline edits, while Builder mode exposes a full control room with palette, drag-and-drop and inspector panels.",
+      ru: "Photon \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0432\u0430\u0448\u0443 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E Next.js-\u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u044C \u0432 \u0445\u043E\u043B\u0441\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. Content mode \u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0438\u043D\u043B\u0430\u0439\u043D\u043E\u0432\u044B\u043C, \u0430 Builder mode \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u043F\u043E\u043B\u043D\u043E\u0446\u0435\u043D\u043D\u044B\u0439 control room \u0441 palette, drag-and-drop \u0438 inspector-\u043F\u0430\u043D\u0435\u043B\u044F\u043C\u0438."
     }),
-    primaryLabel: createWebsiteBuilderLocalizedDefault4({
+    primaryLabel: createPhotonLocalizedDefault4({
       en: "Enter builder mode",
       ru: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C builder mode"
     }),
-    primaryMetaLabel: createWebsiteBuilderLocalizedDefault4({
+    primaryMetaLabel: createPhotonLocalizedDefault4({
       en: "Launch",
       ru: "\u0417\u0430\u043F\u0443\u0441\u043A"
     }),
     primaryHref: "#builder",
-    secondaryLabel: createWebsiteBuilderLocalizedDefault4({
+    secondaryLabel: createPhotonLocalizedDefault4({
       en: "See package architecture",
       ru: "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0443 \u043F\u0430\u043A\u0435\u0442\u043E\u0432"
     }),
     secondaryHref: "#packages",
-    spotlightLabel: createWebsiteBuilderLocalizedDefault4({
+    spotlightLabel: createPhotonLocalizedDefault4({
       en: "Target shape",
       ru: "\u0426\u0435\u043B\u0435\u0432\u0430\u044F \u0444\u043E\u0440\u043C\u0430"
     }),
-    spotlightValue: createWebsiteBuilderLocalizedDefault4({
+    spotlightValue: createPhotonLocalizedDefault4({
       en: "Next.js + Laravel + installable block kits",
       ru: "Next.js + Laravel + installable block kits"
     }),
@@ -982,21 +982,21 @@ var heroSpotlightDefinition = defineWebsiteBuilderBlockDefinition4({
 
 // src/blocks/init-landing/init-landing-cta.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault5,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition5,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault5,
+  definePhotonBlockDefinition as definePhotonBlockDefinition5,
   EditableText as EditableText5,
   EditableTextarea as EditableTextarea4,
-  useWebsiteBuilderStore as useWebsiteBuilderStore6
-} from "@init-modules/website-builder/public";
+  usePhotonStore as usePhotonStore6
+} from "@init/photon/public";
 
 // src/blocks/init-landing/shared.tsx
 import {
-  createWebsiteBuilderBlockLocalizationSchema,
-  getWebsiteBuilderSurfaceModeStyle,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth4,
-  useWebsiteBuilderStore as useWebsiteBuilderStore5,
-  WebsiteBuilderLink as WebsiteBuilderLink4
-} from "@init-modules/website-builder/public";
+  createPhotonBlockLocalizationSchema,
+  getPhotonSurfaceModeStyle,
+  usePhotonRenderDepth as usePhotonRenderDepth4,
+  usePhotonStore as usePhotonStore5,
+  PhotonLink as PhotonLink4
+} from "@init/photon/public";
 import {
   ArrowRight,
   Award,
@@ -1039,7 +1039,7 @@ var initLandingIconFieldOptions = Object.keys(initLandingIcons).map((key) => ({
   value: key
 }));
 var createInitLandingBlockLocalizationSchema = (fields10) => {
-  const schema = createWebsiteBuilderBlockLocalizationSchema(fields10);
+  const schema = createPhotonBlockLocalizationSchema(fields10);
   return {
     localized: schema.localized,
     shared: Array.from(/* @__PURE__ */ new Set([...schema.shared, "variant"])).sort()
@@ -1047,19 +1047,19 @@ var createInitLandingBlockLocalizationSchema = (fields10) => {
 };
 var sectionFrameClassName = "mx-auto max-w-7xl px-6 lg:px-8";
 var useInitLandingSectionBleedStyle = () => {
-  const renderDepth = useWebsiteBuilderRenderDepth4();
-  return renderDepth === 0 ? getWebsiteBuilderSurfaceModeStyle("bleed") : void 0;
+  const renderDepth = usePhotonRenderDepth4();
+  return renderDepth === 0 ? getPhotonSurfaceModeStyle("bleed") : void 0;
 };
 var useInitLandingSurfaceBreakpoints = () => useSurfaceBreakpoints();
 var useInitLandingReveal = () => {
   const sectionRef = useRef2(null);
-  const mode = useWebsiteBuilderStore5((state) => state.mode);
+  const mode = usePhotonStore5((state) => state.mode);
   useEffect2(() => {
     const scope = sectionRef.current;
     if (!scope) {
       return;
     }
-    const elements = scope.querySelectorAll(".wb-init-reveal");
+    const elements = scope.querySelectorAll(".photon-init-reveal");
     if (mode !== "preview") {
       elements.forEach((element) => {
         element.classList.add("translate-y-0", "opacity-100");
@@ -1086,10 +1086,10 @@ var useInitLandingReveal = () => {
   }, [mode]);
   return sectionRef;
 };
-var revealClassName = "wb-init-reveal translate-y-4 opacity-0 transition-all duration-700";
+var revealClassName = "photon-init-reveal translate-y-4 opacity-0 transition-all duration-700";
 var InitBrandMark = ({ label }) => /* @__PURE__ */ jsxs5(Fragment, { children: [
-  /* @__PURE__ */ jsx5("div", { className: "flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--wb-site-accent)] transition-transform duration-300 group-hover:scale-105", children: /* @__PURE__ */ jsx5("span", { className: "font-mono text-sm font-bold tracking-tighter text-white", children: "{i}" }) }),
-  /* @__PURE__ */ jsx5("span", { className: "text-xl font-semibold tracking-tight text-[var(--wb-site-text)]", children: label })
+  /* @__PURE__ */ jsx5("div", { className: "flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--photon-site-accent)] transition-transform duration-300 group-hover:scale-105", children: /* @__PURE__ */ jsx5("span", { className: "font-mono text-sm font-bold tracking-tighter text-white", children: "{i}" }) }),
+  /* @__PURE__ */ jsx5("span", { className: "text-xl font-semibold tracking-tight text-[var(--photon-site-text)]", children: label })
 ] });
 var InitLandingActionButton = ({
   children,
@@ -1097,12 +1097,12 @@ var InitLandingActionButton = ({
   inverted = false,
   outline = false
 }) => /* @__PURE__ */ jsx5(
-  WebsiteBuilderLink4,
+  PhotonLink4,
   {
     href,
     className: [
       "inline-flex items-center justify-center rounded-[1.2rem] px-6 py-3 text-base font-medium transition-all duration-300",
-      inverted ? outline ? "border border-white/30 text-white hover:bg-white/10" : "bg-white text-[var(--wb-site-text)] hover:bg-white/90 hover:shadow-lg" : outline ? "border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-transparent text-[var(--wb-site-text)] hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]" : "bg-[var(--wb-site-accent)] text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--wb-site-accent)_28%,transparent)]"
+      inverted ? outline ? "border border-white/30 text-white hover:bg-white/10" : "bg-white text-[var(--photon-site-text)] hover:bg-white/90 hover:shadow-lg" : outline ? "border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-transparent text-[var(--photon-site-text)] hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]" : "bg-[var(--photon-site-accent)] text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--photon-site-accent)_28%,transparent)]"
     ].join(" "),
     children
   }
@@ -1112,16 +1112,16 @@ var InitLandingNavLink = ({
   label,
   onNavigate
 }) => /* @__PURE__ */ jsx5(
-  WebsiteBuilderLink4,
+  PhotonLink4,
   {
     href,
-    className: "relative text-sm font-medium text-[var(--wb-site-muted-text)] transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--wb-site-accent)] after:transition-all after:duration-300 hover:text-[var(--wb-site-text)] hover:after:w-full",
+    className: "relative text-sm font-medium text-[var(--photon-site-muted-text)] transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--photon-site-accent)] after:transition-all after:duration-300 hover:text-[var(--photon-site-text)] hover:after:w-full",
     onClick: onNavigate,
     children: label
   }
 );
 var usePreviewSurface = () => {
-  const mode = useWebsiteBuilderStore5((state) => state.mode);
+  const mode = usePhotonStore5((state) => state.mode);
   return mode === "preview";
 };
 var useInitLandingMobileMenu = () => {
@@ -1192,7 +1192,7 @@ var fields = [
 var InitLandingCtaBlock = ({
   block
 }) => {
-  const mode = useWebsiteBuilderStore6((state) => state.mode);
+  const mode = usePhotonStore6((state) => state.mode);
   const sectionRef = useInitLandingReveal();
   const bleedStyle = useInitLandingSectionBleedStyle();
   const { ref, atLeastSm, atLeastLg, atLeastXl } = useInitLandingSurfaceBreakpoints();
@@ -1203,14 +1203,14 @@ var InitLandingCtaBlock = ({
       ref,
       id: block.props.sectionId,
       className: [
-        "relative overflow-hidden bg-[var(--wb-site-text)] py-24",
+        "relative overflow-hidden bg-[var(--photon-site-text)] py-24",
         atLeastLg ? "py-32" : ""
       ].join(" "),
       style: bleedStyle,
       children: [
         /* @__PURE__ */ jsxs6("div", { className: "pointer-events-none absolute inset-0 overflow-hidden", children: [
-          /* @__PURE__ */ jsx6("div", { className: "absolute -right-1/4 -top-1/2 h-[600px] w-[600px] rounded-full bg-[color-mix(in_srgb,var(--wb-site-accent)_10%,transparent)] blur-[120px]" }),
-          /* @__PURE__ */ jsx6("div", { className: "absolute -bottom-1/2 -left-1/4 h-[400px] w-[400px] rounded-full bg-[color-mix(in_srgb,var(--wb-site-accent)_5%,transparent)] blur-[100px]" })
+          /* @__PURE__ */ jsx6("div", { className: "absolute -right-1/4 -top-1/2 h-[600px] w-[600px] rounded-full bg-[color-mix(in_srgb,var(--photon-site-accent)_10%,transparent)] blur-[120px]" }),
+          /* @__PURE__ */ jsx6("div", { className: "absolute -bottom-1/2 -left-1/4 h-[400px] w-[400px] rounded-full bg-[color-mix(in_srgb,var(--photon-site-accent)_5%,transparent)] blur-[100px]" })
         ] }),
         /* @__PURE__ */ jsx6("div", { className: `relative ${sectionFrameClassName}`, ref: sectionRef, children: /* @__PURE__ */ jsxs6("div", { className: "mx-auto max-w-3xl text-center", children: [
           /* @__PURE__ */ jsx6(
@@ -1221,7 +1221,7 @@ var InitLandingCtaBlock = ({
               as: "h2",
               className: [
                 reveal,
-                "text-balance font-semibold tracking-tight text-[var(--wb-site-background)]",
+                "text-balance font-semibold tracking-tight text-[var(--photon-site-background)]",
                 atLeastXl ? "text-5xl" : atLeastLg ? "text-4xl" : "text-3xl"
               ].join(" ")
             }
@@ -1231,7 +1231,7 @@ var InitLandingCtaBlock = ({
             {
               blockId: block.id,
               path: "description",
-              className: `${reveal} mt-6 text-lg leading-relaxed text-[color-mix(in_srgb,var(--wb-site-background)_70%,transparent)]`
+              className: `${reveal} mt-6 text-lg leading-relaxed text-[color-mix(in_srgb,var(--photon-site-background)_70%,transparent)]`
             }
           ),
           /* @__PURE__ */ jsxs6(
@@ -1271,7 +1271,7 @@ var InitLandingCtaBlock = ({
             {
               blockId: block.id,
               path: "note",
-              className: `${reveal} mt-8 text-sm text-[color-mix(in_srgb,var(--wb-site-background)_50%,transparent)]`
+              className: `${reveal} mt-8 text-sm text-[color-mix(in_srgb,var(--photon-site-background)_50%,transparent)]`
             }
           )
         ] }) })
@@ -1279,7 +1279,7 @@ var InitLandingCtaBlock = ({
     }
   );
 };
-var initLandingCtaDefinition = defineWebsiteBuilderBlockDefinition5({
+var initLandingCtaDefinition = definePhotonBlockDefinition5({
   type: "init-landing-cta",
   label: "Init Landing CTA",
   description: "Final call to action from the Init landing page.",
@@ -1290,17 +1290,17 @@ var initLandingCtaDefinition = defineWebsiteBuilderBlockDefinition5({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields),
   defaults: {
     sectionId: "contact",
-    title: createWebsiteBuilderLocalizedDefault5({
+    title: createPhotonLocalizedDefault5({
       en: "\u041D\u0443\u0436\u0435\u043D \u0441\u0430\u0439\u0442, \u043D\u043E \u043D\u0435\u043F\u043E\u043D\u044F\u0442\u043D\u043E \u0441 \u043A\u0430\u043A\u043E\u0433\u043E \u0444\u043E\u0440\u043C\u0430\u0442\u0430 \u043D\u0430\u0447\u0430\u0442\u044C?",
       ru: "\u041D\u0443\u0436\u0435\u043D \u0441\u0430\u0439\u0442, \u043D\u043E \u043D\u0435\u043F\u043E\u043D\u044F\u0442\u043D\u043E \u0441 \u043A\u0430\u043A\u043E\u0433\u043E \u0444\u043E\u0440\u043C\u0430\u0442\u0430 \u043D\u0430\u0447\u0430\u0442\u044C?"
     }),
-    description: createWebsiteBuilderLocalizedDefault5({
+    description: createPhotonLocalizedDefault5({
       en: "\u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u0437\u0430\u0434\u0430\u0447\u0443, \u0430 \u043C\u044B \u0441\u043A\u0430\u0436\u0435\u043C, \u0433\u0434\u0435 \u0445\u0432\u0430\u0442\u0438\u0442 \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u0433\u0434\u0435 \u043B\u0443\u0447\u0448\u0435 \u0441\u043E\u0431\u0440\u0430\u0442\u044C \u0441\u0430\u0439\u0442 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440, \u0430 \u0433\u0434\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u043D\u0443\u0436\u0435\u043D custom.",
       ru: "\u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u0437\u0430\u0434\u0430\u0447\u0443, \u0430 \u043C\u044B \u0441\u043A\u0430\u0436\u0435\u043C, \u0433\u0434\u0435 \u0445\u0432\u0430\u0442\u0438\u0442 \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u0433\u0434\u0435 \u043B\u0443\u0447\u0448\u0435 \u0441\u043E\u0431\u0440\u0430\u0442\u044C \u0441\u0430\u0439\u0442 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440, \u0430 \u0433\u0434\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u043D\u0443\u0436\u0435\u043D custom."
     }),
     primaryCta: { label: "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u043F\u0440\u043E\u0441", href: "mailto:hello@init.dev" },
     secondaryCta: { label: "hello@init.dev", href: "mailto:hello@init.dev" },
-    note: createWebsiteBuilderLocalizedDefault5({
+    note: createPhotonLocalizedDefault5({
       en: "\u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u0440\u0430\u0437\u0431\u043E\u0440 \u0437\u0430\u0434\u0430\u0447\u0438 \u0431\u0435\u0437 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432",
       ru: "\u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u0440\u0430\u0437\u0431\u043E\u0440 \u0437\u0430\u0434\u0430\u0447\u0438 \u0431\u0435\u0437 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432"
     })
@@ -1309,12 +1309,12 @@ var initLandingCtaDefinition = defineWebsiteBuilderBlockDefinition5({
 
 // src/blocks/init-landing/init-landing-footer.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault6,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition6,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault6,
+  definePhotonBlockDefinition as definePhotonBlockDefinition6,
   EditableText as EditableText6,
   EditableTextarea as EditableTextarea5,
-  WebsiteBuilderLink as WebsiteBuilderLink5
-} from "@init-modules/website-builder/public";
+  PhotonLink as PhotonLink5
+} from "@init/photon/public";
 import { jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
 var fields2 = [
   {
@@ -1399,7 +1399,7 @@ var InitLandingFooterBlock = ({
     "footer",
     {
       ref,
-      className: "border-t border-[var(--wb-site-border)] bg-[var(--wb-site-surface)]",
+      className: "border-t border-[var(--photon-site-border)] bg-[var(--photon-site-surface)]",
       style: bleedStyle,
       children: /* @__PURE__ */ jsxs7(
         "div",
@@ -1426,7 +1426,7 @@ var InitLandingFooterBlock = ({
                       ),
                       children: [
                         /* @__PURE__ */ jsx7(
-                          WebsiteBuilderLink5,
+                          PhotonLink5,
                           {
                             href: String(block.props.homeHref),
                             className: "group flex items-center gap-2",
@@ -1443,19 +1443,19 @@ var InitLandingFooterBlock = ({
                           {
                             blockId: block.id,
                             path: "brandDescription",
-                            className: "mt-4 max-w-xs text-sm leading-relaxed text-[var(--wb-site-muted-text)]"
+                            className: "mt-4 max-w-xs text-sm leading-relaxed text-[var(--photon-site-muted-text)]"
                           }
                         )
                       ]
                     }
                   ),
                   /* @__PURE__ */ jsxs7("div", { children: [
-                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--wb-site-text)]", children: "\u0423\u0441\u043B\u0443\u0433\u0438" }),
+                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u0423\u0441\u043B\u0443\u0433\u0438" }),
                     /* @__PURE__ */ jsx7("ul", { className: "space-y-3", children: block.props.services.map((item, index) => /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
-                      WebsiteBuilderLink5,
+                      PhotonLink5,
                       {
                         href: item.href,
-                        className: "text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]",
+                        className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
                         children: /* @__PURE__ */ jsx7(
                           EditableText6,
                           {
@@ -1467,12 +1467,12 @@ var InitLandingFooterBlock = ({
                     ) }, `${item.name ?? item.label}:${item.href}`)) })
                   ] }),
                   /* @__PURE__ */ jsxs7("div", { children: [
-                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--wb-site-text)]", children: "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F" }),
+                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F" }),
                     /* @__PURE__ */ jsx7("ul", { className: "space-y-3", children: block.props.company.map((item, index) => /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
-                      WebsiteBuilderLink5,
+                      PhotonLink5,
                       {
                         href: item.href,
-                        className: "text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]",
+                        className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
                         children: /* @__PURE__ */ jsx7(
                           EditableText6,
                           {
@@ -1484,25 +1484,25 @@ var InitLandingFooterBlock = ({
                     ) }, `${item.name ?? item.label}:${item.href}`)) })
                   ] }),
                   /* @__PURE__ */ jsxs7("div", { children: [
-                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--wb-site-text)]", children: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B" }),
+                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B" }),
                     /* @__PURE__ */ jsxs7("ul", { className: "space-y-3", children: [
                       /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
-                        WebsiteBuilderLink5,
+                        PhotonLink5,
                         {
                           href: `mailto:${block.props.contact.email}`,
-                          className: "text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]",
+                          className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
                           children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: "contact.email" })
                         }
                       ) }),
                       /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
-                        WebsiteBuilderLink5,
+                        PhotonLink5,
                         {
                           href: `tel:${block.props.contact.phone}`,
-                          className: "text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]",
+                          className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
                           children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: "contact.phone" })
                         }
                       ) }),
-                      /* @__PURE__ */ jsx7("li", { className: "text-sm text-[var(--wb-site-muted-text)]", children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: "contact.location" }) })
+                      /* @__PURE__ */ jsx7("li", { className: "text-sm text-[var(--photon-site-muted-text)]", children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: "contact.location" }) })
                     ] })
                   ] })
                 ]
@@ -1512,20 +1512,20 @@ var InitLandingFooterBlock = ({
               "div",
               {
                 className: [
-                  "mt-12 flex items-center justify-between gap-4 border-t border-[var(--wb-site-border)] pt-8",
+                  "mt-12 flex items-center justify-between gap-4 border-t border-[var(--photon-site-border)] pt-8",
                   atLeastSm ? "flex-row" : "flex-col"
                 ].join(" "),
                 children: [
-                  /* @__PURE__ */ jsxs7("p", { className: "text-sm text-[var(--wb-site-muted-text)]", children: [
+                  /* @__PURE__ */ jsxs7("p", { className: "text-sm text-[var(--photon-site-muted-text)]", children: [
                     "\xA9 ",
                     (/* @__PURE__ */ new Date()).getFullYear(),
                     " init. All rights reserved."
                   ] }),
                   /* @__PURE__ */ jsx7("div", { className: "flex items-center gap-6", children: block.props.legal.map((item, index) => /* @__PURE__ */ jsx7(
-                    WebsiteBuilderLink5,
+                    PhotonLink5,
                     {
                       href: item.href,
-                      className: "text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]",
+                      className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
                       children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: `legal.${index}.name` })
                     },
                     `${item.name ?? item.label}:${item.href}:legal`
@@ -1539,7 +1539,7 @@ var InitLandingFooterBlock = ({
     }
   );
 };
-var initLandingFooterDefinition = defineWebsiteBuilderBlockDefinition6({
+var initLandingFooterDefinition = definePhotonBlockDefinition6({
   type: "init-landing-footer",
   label: "Init Landing Footer",
   description: "Footer from the Init landing page.",
@@ -1549,12 +1549,12 @@ var initLandingFooterDefinition = defineWebsiteBuilderBlockDefinition6({
   fields: fields2,
   localizationSchema: createInitLandingBlockLocalizationSchema(fields2),
   defaults: {
-    brandLabel: createWebsiteBuilderLocalizedDefault6({
+    brandLabel: createPhotonLocalizedDefault6({
       en: "init",
       ru: "init"
     }),
     homeHref: "/",
-    brandDescription: createWebsiteBuilderLocalizedDefault6({
+    brandDescription: createPhotonLocalizedDefault6({
       en: "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u0441\u0430\u0439\u0442\u043E\u0432 \u0432 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u0444\u043E\u0440\u043C\u0430\u0442\u0430\u0445: \u0433\u043E\u0442\u043E\u0432\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u043C\u043E\u0434\u0443\u043B\u044C\u043D\u0430\u044F \u0441\u0431\u043E\u0440\u043A\u0430 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440 \u0438 \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u044B\u0439 custom.",
       ru: "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u0441\u0430\u0439\u0442\u043E\u0432 \u0432 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u0444\u043E\u0440\u043C\u0430\u0442\u0430\u0445: \u0433\u043E\u0442\u043E\u0432\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u043C\u043E\u0434\u0443\u043B\u044C\u043D\u0430\u044F \u0441\u0431\u043E\u0440\u043A\u0430 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440 \u0438 \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u044B\u0439 custom."
     }),
@@ -1584,14 +1584,14 @@ var initLandingFooterDefinition = defineWebsiteBuilderBlockDefinition6({
 
 // src/blocks/init-landing/init-landing-header.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault7,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition7,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault7,
+  definePhotonBlockDefinition as definePhotonBlockDefinition7,
   EditableText as EditableText7,
-  useWebsiteBuilderI18n,
-  useWebsiteBuilderStore as useWebsiteBuilderStore7,
-  WebsiteBuilderLink as WebsiteBuilderLink6,
-  WebsiteBuilderSiteSearch
-} from "@init-modules/website-builder/public";
+  usePhotonI18n,
+  usePhotonStore as usePhotonStore7,
+  PhotonLink as PhotonLink6,
+  PhotonSiteSearch
+} from "@init/photon/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
 import { Fragment as Fragment2, jsx as jsx8, jsxs as jsxs8 } from "react/jsx-runtime";
@@ -1746,13 +1746,13 @@ var InitLandingHeaderBlock = ({
   block
 }) => {
   const menu = useInitLandingMobileMenu();
-  const currentRoute = useWebsiteBuilderStore7((state) => state.document.route);
-  const isAdmin = useWebsiteBuilderStore7((state) => state.isAdmin);
-  const mode = useWebsiteBuilderStore7((state) => state.mode);
-  const requestAuth = useWebsiteBuilderStore7((state) => state.requestAuth);
+  const currentRoute = usePhotonStore7((state) => state.document.route);
+  const isAdmin = usePhotonStore7((state) => state.isAdmin);
+  const mode = usePhotonStore7((state) => state.mode);
+  const requestAuth = usePhotonStore7((state) => state.requestAuth);
   const previewSurface = usePreviewSurface();
   const stickyPreviewSurface = previewSurface && mode === "preview";
-  const { locale, publicLocales, translate } = useWebsiteBuilderI18n();
+  const { locale, publicLocales, translate } = usePhotonI18n();
   const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
   const localeSwitcherVisible = block.props.showLocaleSwitcher !== false && publicLocales.length > 1;
   const authButtonVisible = block.props.showLoginAction !== false && !isAdmin && mode !== "builder" && typeof requestAuth === "function";
@@ -1760,12 +1760,12 @@ var InitLandingHeaderBlock = ({
     "header",
     {
       ref,
-      "data-testid": "wb-init-landing-header",
+      "data-testid": "photon-init-landing-header",
       className: [
         "left-0 right-0 z-50 transition-all duration-500",
-        stickyPreviewSurface ? "fixed bg-[var(--wb-site-background)]/95 backdrop-blur-md shadow-sm" : "relative bg-transparent"
+        stickyPreviewSurface ? "fixed bg-[var(--photon-site-background)]/95 backdrop-blur-md shadow-sm" : "relative bg-transparent"
       ].join(" "),
-      style: stickyPreviewSurface ? { top: "var(--wb-dock-offset, 0px)" } : void 0,
+      style: stickyPreviewSurface ? { top: "var(--photon-dock-offset, 0px)" } : void 0,
       children: /* @__PURE__ */ jsxs8(
         "div",
         {
@@ -1775,7 +1775,7 @@ var InitLandingHeaderBlock = ({
           children: [
             /* @__PURE__ */ jsxs8("nav", { className: "flex min-h-20 items-center justify-between gap-6 py-4", children: [
               /* @__PURE__ */ jsx8(
-                WebsiteBuilderLink6,
+                PhotonLink6,
                 {
                   href: String(block.props.homeHref),
                   className: "group flex items-center gap-2",
@@ -1810,13 +1810,13 @@ var InitLandingHeaderBlock = ({
                       locale,
                       locales: publicLocales,
                       label: translate(
-                        "websiteBuilder.localeSwitcher.label",
+                        "photon.localeSwitcher.label",
                         "Language"
                       )
                     }
                   ) : null,
                   /* @__PURE__ */ jsx8("div", { className: "w-[18rem] xl:w-[22rem]", children: /* @__PURE__ */ jsx8(
-                    WebsiteBuilderSiteSearch,
+                    PhotonSiteSearch,
                     {
                       blockId: block.id,
                       placeholderPath: "searchPlaceholder"
@@ -1827,7 +1827,7 @@ var InitLandingHeaderBlock = ({
                     {
                       type: "button",
                       onClick: requestAuth,
-                      className: "inline-flex cursor-pointer items-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--wb-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]",
+                      className: "inline-flex cursor-pointer items-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]",
                       children: [
                         /* @__PURE__ */ jsx8(LogIn, { className: "h-4 w-4" }),
                         /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "loginLabel" })
@@ -1843,11 +1843,11 @@ var InitLandingHeaderBlock = ({
                   className: "p-2",
                   onClick: menu.toggle,
                   "aria-label": "Toggle menu",
-                  children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-6 w-6 text-[var(--wb-site-text)]" })
+                  children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-6 w-6 text-[var(--photon-site-text)]" })
                 }
               )
             ] }),
-            menu.isOpen && !atLeastLg ? /* @__PURE__ */ jsx8("div", { className: "border-t border-[var(--wb-site-border)] py-4", children: /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4", children: [
+            menu.isOpen && !atLeastLg ? /* @__PURE__ */ jsx8("div", { className: "border-t border-[var(--photon-site-border)] py-4", children: /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4", children: [
               block.props.navItems.map((item, index) => /* @__PURE__ */ jsx8(
                 InitLandingNavLink,
                 {
@@ -1870,13 +1870,13 @@ var InitLandingHeaderBlock = ({
                   locale,
                   locales: publicLocales,
                   label: translate(
-                    "websiteBuilder.localeSwitcher.label",
+                    "photon.localeSwitcher.label",
                     "Language"
                   )
                 }
               ) : null,
               /* @__PURE__ */ jsx8(
-                WebsiteBuilderSiteSearch,
+                PhotonSiteSearch,
                 {
                   blockId: block.id,
                   placeholderPath: "searchPlaceholder"
@@ -1890,7 +1890,7 @@ var InitLandingHeaderBlock = ({
                     menu.close();
                     requestAuth();
                   },
-                  className: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--wb-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]",
+                  className: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]",
                   children: [
                     /* @__PURE__ */ jsx8(LogIn, { className: "h-4 w-4" }),
                     /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "loginLabel" })
@@ -1905,7 +1905,7 @@ var InitLandingHeaderBlock = ({
     }
   );
 };
-var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition7({
+var initLandingHeaderDefinition = definePhotonBlockDefinition7({
   type: "init-landing-header",
   label: "Init Landing Header",
   description: "Fixed warm landing header with navigation and CTA.",
@@ -1915,7 +1915,7 @@ var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition7({
   fields: fields3,
   localizationSchema: createInitLandingBlockLocalizationSchema(fields3),
   defaults: {
-    brandLabel: createWebsiteBuilderLocalizedDefault7({
+    brandLabel: createPhotonLocalizedDefault7({
       en: "init",
       ru: "init"
     }),
@@ -1927,13 +1927,13 @@ var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition7({
       { label: "\u042D\u0442\u0430\u043F\u044B", href: "#process" }
     ],
     cta: { label: "\u041E\u0431\u0441\u0443\u0434\u0438\u0442\u044C \u0441\u0430\u0439\u0442", href: "#contact" },
-    searchPlaceholder: createWebsiteBuilderLocalizedDefault7({
+    searchPlaceholder: createPhotonLocalizedDefault7({
       en: "Search the website",
       ru: "\u041F\u043E\u0438\u0441\u043A \u043F\u043E \u0441\u0430\u0439\u0442\u0443"
     }),
     showLocaleSwitcher: true,
     showLoginAction: false,
-    loginLabel: createWebsiteBuilderLocalizedDefault7({
+    loginLabel: createPhotonLocalizedDefault7({
       en: "Admin sign in",
       ru: "\u0412\u0445\u043E\u0434 \u0434\u043B\u044F \u0430\u0434\u043C\u0438\u043D\u0430"
     })
@@ -1944,8 +1944,8 @@ var initLandingHeaderDefinition = defineWebsiteBuilderBlockDefinition7({
 import { Check as Check2 } from "lucide-react";
 import { jsx as jsx9, jsxs as jsxs9 } from "react/jsx-runtime";
 var InitCheckListItem = ({ children }) => /* @__PURE__ */ jsxs9("li", { className: "flex items-start gap-3", children: [
-  /* @__PURE__ */ jsx9(Check2, { className: "mt-0.5 h-5 w-5 shrink-0 text-[var(--wb-site-accent)]" }),
-  /* @__PURE__ */ jsx9("div", { className: "text-sm text-[var(--wb-site-muted-text)]", children })
+  /* @__PURE__ */ jsx9(Check2, { className: "mt-0.5 h-5 w-5 shrink-0 text-[var(--photon-site-accent)]" }),
+  /* @__PURE__ */ jsx9("div", { className: "text-sm text-[var(--photon-site-muted-text)]", children })
 ] });
 
 // src/primitives/init-stat-widget.tsx
@@ -1983,7 +1983,7 @@ var InitStatWidget = ({
       "div",
       {
         className: [
-          "font-semibold text-[var(--wb-site-text)]",
+          "font-semibold text-[var(--photon-site-text)]",
           atLeastLg ? "text-4xl" : "text-3xl"
         ].join(" "),
         children: [
@@ -1992,16 +1992,16 @@ var InitStatWidget = ({
         ]
       }
     ),
-    /* @__PURE__ */ jsx10("div", { className: "mt-1 text-sm text-[var(--wb-site-muted-text)]", children: label })
+    /* @__PURE__ */ jsx10("div", { className: "mt-1 text-sm text-[var(--photon-site-muted-text)]", children: label })
   ] });
 };
 
 // src/primitives/init-status-pill.tsx
 import { jsx as jsx11, jsxs as jsxs11 } from "react/jsx-runtime";
-var InitStatusPill = ({ children }) => /* @__PURE__ */ jsxs11("div", { className: "inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_80%,transparent)] px-4 py-2 shadow-sm backdrop-blur-sm", children: [
+var InitStatusPill = ({ children }) => /* @__PURE__ */ jsxs11("div", { className: "inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_80%,transparent)] px-4 py-2 shadow-sm backdrop-blur-sm", children: [
   /* @__PURE__ */ jsxs11("span", { className: "relative flex h-2 w-2", children: [
-    /* @__PURE__ */ jsx11("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--wb-site-accent)] opacity-75" }),
-    /* @__PURE__ */ jsx11("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-[var(--wb-site-accent)]" })
+    /* @__PURE__ */ jsx11("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--photon-site-accent)] opacity-75" }),
+    /* @__PURE__ */ jsx11("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-[var(--photon-site-accent)]" })
   ] }),
   children
 ] });
@@ -2016,11 +2016,11 @@ var InitTestimonialCard = ({
 }) => /* @__PURE__ */ jsxs12(
   "div",
   {
-    className: `group rounded-[1.75rem] border border-[color-mix(in_srgb,var(--wb-site-border)_86%,white)] bg-[var(--wb-site-surface)] p-8 hover:border-[color-mix(in_srgb,var(--wb-site-accent)_20%,var(--wb-site-border))] hover:shadow-lg ${className}`.trim(),
+    className: `group rounded-[1.75rem] border border-[color-mix(in_srgb,var(--photon-site-border)_86%,white)] bg-[var(--photon-site-surface)] p-8 hover:border-[color-mix(in_srgb,var(--photon-site-accent)_20%,var(--photon-site-border))] hover:shadow-lg ${className}`.trim(),
     style,
     children: [
-      /* @__PURE__ */ jsx12("div", { className: "mb-4 font-serif text-5xl text-[color-mix(in_srgb,var(--wb-site-accent)_20%,transparent)] transition-colors group-hover:text-[color-mix(in_srgb,var(--wb-site-accent)_30%,transparent)]", children: "\u201C" }),
-      /* @__PURE__ */ jsx12("div", { className: "mb-6 leading-relaxed text-[var(--wb-site-muted-text)]", children: quote }),
+      /* @__PURE__ */ jsx12("div", { className: "mb-4 font-serif text-5xl text-[color-mix(in_srgb,var(--photon-site-accent)_20%,transparent)] transition-colors group-hover:text-[color-mix(in_srgb,var(--photon-site-accent)_30%,transparent)]", children: "\u201C" }),
+      /* @__PURE__ */ jsx12("div", { className: "mb-6 leading-relaxed text-[var(--photon-site-muted-text)]", children: quote }),
       profile
     ]
   }
@@ -2033,10 +2033,10 @@ var InitTestimonialProfile = ({
   name,
   role
 }) => /* @__PURE__ */ jsxs13("div", { className: "flex items-center gap-4", children: [
-  /* @__PURE__ */ jsx13("div", { className: "flex h-12 w-12 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--wb-site-accent)_10%,transparent)] transition-all duration-300 group-hover:scale-105 group-hover:bg-[color-mix(in_srgb,var(--wb-site-accent)_20%,transparent)]", children: /* @__PURE__ */ jsx13("span", { className: "text-sm font-semibold text-[var(--wb-site-accent)]", children: initials }) }),
+  /* @__PURE__ */ jsx13("div", { className: "flex h-12 w-12 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--photon-site-accent)_10%,transparent)] transition-all duration-300 group-hover:scale-105 group-hover:bg-[color-mix(in_srgb,var(--photon-site-accent)_20%,transparent)]", children: /* @__PURE__ */ jsx13("span", { className: "text-sm font-semibold text-[var(--photon-site-accent)]", children: initials }) }),
   /* @__PURE__ */ jsxs13("div", { children: [
-    /* @__PURE__ */ jsx13("p", { className: "font-semibold text-[var(--wb-site-text)]", children: name }),
-    /* @__PURE__ */ jsx13("p", { className: "text-sm text-[var(--wb-site-muted-text)]", children: role })
+    /* @__PURE__ */ jsx13("p", { className: "font-semibold text-[var(--photon-site-text)]", children: name }),
+    /* @__PURE__ */ jsx13("p", { className: "text-sm text-[var(--photon-site-muted-text)]", children: role })
   ] })
 ] });
 
@@ -2128,7 +2128,7 @@ var InitTypedText = ({
     "p",
     {
       className: [
-        "text-pretty leading-relaxed text-[var(--wb-site-muted-text)]",
+        "text-pretty leading-relaxed text-[var(--photon-site-muted-text)]",
         atLeastLg ? "min-h-[3.2em] text-xl" : "min-h-[3.6em] text-lg"
       ].join(" "),
       children: [
@@ -2137,7 +2137,7 @@ var InitTypedText = ({
           "span",
           {
             ref: caretRef,
-            className: "ml-0.5 inline-block h-[1.08em] w-[2px] translate-y-[0.16em] bg-[var(--wb-site-accent)] align-baseline"
+            className: "ml-0.5 inline-block h-[1.08em] w-[2px] translate-y-[0.16em] bg-[var(--photon-site-accent)] align-baseline"
           }
         ) : null
       ]
@@ -2146,7 +2146,7 @@ var InitTypedText = ({
 };
 
 // src/primitives/rich-text.tsx
-import { EditableRichText } from "@init-modules/website-builder/public";
+import { EditableRichText } from "@init/photon/public";
 import { jsx as jsx15 } from "react/jsx-runtime";
 var RichText = ({
   blockId,
@@ -2166,11 +2166,11 @@ var RichText = ({
 
 // src/blocks/init-landing/init-landing-hero.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault8,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition8,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault8,
+  definePhotonBlockDefinition as definePhotonBlockDefinition8,
   EditableText as EditableText8,
-  useWebsiteBuilderStore as useWebsiteBuilderStore8
-} from "@init-modules/website-builder/public";
+  usePhotonStore as usePhotonStore8
+} from "@init/photon/public";
 
 // src/blocks/init-landing/hero-grid-canvas.tsx
 import { useEffect as useEffect5, useRef as useRef5 } from "react";
@@ -2780,7 +2780,7 @@ var InitLandingHeroLeadForm = ({
         }
       },
       children: [
-        /* @__PURE__ */ jsx17("div", { className: "w-full rounded-[1.75rem] border border-[color-mix(in_oklab,var(--wb-site-border)_55%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_70%,transparent)] p-2 shadow-[0_20px_60px_-30px_rgba(32,22,18,0.28)] backdrop-blur-xl", children: /* @__PURE__ */ jsxs15("div", { className: "flex w-full flex-col gap-2 sm:flex-row sm:items-center", children: [
+        /* @__PURE__ */ jsx17("div", { className: "w-full rounded-[1.75rem] border border-[color-mix(in_oklab,var(--photon-site-border)_55%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_70%,transparent)] p-2 shadow-[0_20px_60px_-30px_rgba(32,22,18,0.28)] backdrop-blur-xl", children: /* @__PURE__ */ jsxs15("div", { className: "flex w-full flex-col gap-2 sm:flex-row sm:items-center", children: [
           /* @__PURE__ */ jsx17(
             PhoneInput,
             {
@@ -2794,7 +2794,7 @@ var InitLandingHeroLeadForm = ({
               defaultCountry: "kz",
               forceDialCode: true,
               inputClassName: [
-                "hero-phone-input__field h-[3.25rem] w-full rounded-[1.2rem] border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-background)_88%,transparent)] px-4 text-base text-[var(--wb-site-text)] shadow-sm outline-none transition focus-visible:border-[var(--wb-site-accent)] focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--wb-site-accent)_20%,transparent)]",
+                "hero-phone-input__field h-[3.25rem] w-full rounded-[1.2rem] border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-background)_88%,transparent)] px-4 text-base text-[var(--photon-site-text)] shadow-sm outline-none transition focus-visible:border-[var(--photon-site-accent)] focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--photon-site-accent)_20%,transparent)]",
                 error ? "border-red-500/60 focus-visible:ring-red-500/15" : ""
               ].join(" "),
               onChange: (phone) => {
@@ -2817,7 +2817,7 @@ var InitLandingHeroLeadForm = ({
             "button",
             {
               type: "submit",
-              className: "group inline-flex h-[3.25rem] min-w-[158px] items-center justify-center gap-2 rounded-[1.2rem] bg-[var(--wb-site-accent)] px-6 text-base font-medium text-white transition-all duration-300 hover:shadow-lg hover:shadow-[color-mix(in_oklab,var(--wb-site-accent)_25%,transparent)] sm:self-stretch",
+              className: "group inline-flex h-[3.25rem] min-w-[158px] items-center justify-center gap-2 rounded-[1.2rem] bg-[var(--photon-site-accent)] px-6 text-base font-medium text-white transition-all duration-300 hover:shadow-lg hover:shadow-[color-mix(in_oklab,var(--photon-site-accent)_25%,transparent)] sm:self-stretch",
               children: [
                 buttonLabel,
                 /* @__PURE__ */ jsx17(ArrowRight2, { className: "h-4 w-4 transition-transform group-hover:translate-x-1" })
@@ -2829,7 +2829,7 @@ var InitLandingHeroLeadForm = ({
           "p",
           {
             className: [
-              "max-w-[34rem] px-3 text-center text-sm leading-relaxed text-[var(--wb-site-muted-text)] transition-colors lg:pb-2",
+              "max-w-[34rem] px-3 text-center text-sm leading-relaxed text-[var(--photon-site-muted-text)] transition-colors lg:pb-2",
               error ? "text-red-600" : ""
             ].join(" "),
             children: error ?? helperText
@@ -2945,21 +2945,21 @@ var fields4 = [
 var InitLandingHeroBlock = ({
   block
 }) => {
-  const mode = useWebsiteBuilderStore8((state) => state.mode);
+  const mode = usePhotonStore8((state) => state.mode);
   const bleedStyle = useInitLandingSectionBleedStyle();
   const { ref, atLeastSm, atLeastLg, atLeastXl } = useInitLandingSurfaceBreakpoints();
   return /* @__PURE__ */ jsxs16(
     "section",
     {
       ref,
-      "data-testid": "wb-init-landing-hero",
+      "data-testid": "photon-init-landing-hero",
       className: "relative flex min-h-screen items-center justify-center overflow-hidden pt-20",
       style: bleedStyle,
       children: [
         /* @__PURE__ */ jsxs16("div", { className: "pointer-events-none absolute inset-0 overflow-hidden", children: [
-          /* @__PURE__ */ jsx18("div", { className: "animate-pulse-slow absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_8%,transparent)] blur-[100px]" }),
-          /* @__PURE__ */ jsx18("div", { className: "animate-pulse-slow animation-delay-200 absolute bottom-1/3 left-1/5 h-[400px] w-[400px] rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_6%,transparent)] blur-[80px]" }),
-          /* @__PURE__ */ jsx18("div", { className: "absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_4%,transparent)] blur-[120px]" }),
+          /* @__PURE__ */ jsx18("div", { className: "animate-pulse-slow absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_8%,transparent)] blur-[100px]" }),
+          /* @__PURE__ */ jsx18("div", { className: "animate-pulse-slow animation-delay-200 absolute bottom-1/3 left-1/5 h-[400px] w-[400px] rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_6%,transparent)] blur-[80px]" }),
+          /* @__PURE__ */ jsx18("div", { className: "absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_4%,transparent)] blur-[120px]" }),
           /* @__PURE__ */ jsx18(InitLandingHeroGridCanvas, {})
         ] }),
         /* @__PURE__ */ jsxs16("div", { className: "relative mx-auto max-w-7xl px-6 py-24 pb-36 lg:px-8 lg:py-32 lg:pb-40", children: [
@@ -2969,26 +2969,26 @@ var InitLandingHeroBlock = ({
               {
                 blockId: block.id,
                 path: "badge",
-                className: "text-sm font-medium text-[var(--wb-site-muted-text)]"
+                className: "text-sm font-medium text-[var(--photon-site-muted-text)]"
               }
             ) }),
             /* @__PURE__ */ jsxs16(
               "h1",
               {
                 className: [
-                  "animate-fade-up animation-delay-100 text-balance leading-[1.1] font-semibold tracking-tight text-[var(--wb-site-text)]",
+                  "animate-fade-up animation-delay-100 text-balance leading-[1.1] font-semibold tracking-tight text-[var(--photon-site-text)]",
                   atLeastXl ? "text-7xl" : atLeastLg ? "text-6xl" : atLeastSm ? "text-5xl" : "text-4xl"
                 ].join(" "),
                 children: [
                   /* @__PURE__ */ jsx18(EditableText8, { blockId: block.id, path: "title" }),
                   " ",
                   /* @__PURE__ */ jsxs16("span", { className: "relative mt-2 inline-block", children: [
-                    /* @__PURE__ */ jsx18("span", { className: "relative z-10 text-[var(--wb-site-accent)]", children: /* @__PURE__ */ jsx18(EditableText8, { blockId: block.id, path: "highlightedTitle" }) }),
+                    /* @__PURE__ */ jsx18("span", { className: "relative z-10 text-[var(--photon-site-accent)]", children: /* @__PURE__ */ jsx18(EditableText8, { blockId: block.id, path: "highlightedTitle" }) }),
                     /* @__PURE__ */ jsx18(
                       "svg",
                       {
                         "aria-hidden": "true",
-                        className: "absolute -bottom-2 left-0 h-3 w-full text-[color-mix(in_oklab,var(--wb-site-accent)_20%,transparent)]",
+                        className: "absolute -bottom-2 left-0 h-3 w-full text-[color-mix(in_oklab,var(--photon-site-accent)_20%,transparent)]",
                         viewBox: "0 0 200 12",
                         preserveAspectRatio: "none",
                         children: /* @__PURE__ */ jsx18(
@@ -3038,7 +3038,7 @@ var InitLandingHeroBlock = ({
             /* @__PURE__ */ jsx18("div", { className: "animate-fade-up animation-delay-500 relative z-10 mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8", children: block.props.stats.map((stat, index) => /* @__PURE__ */ jsx18(
               "div",
               {
-                className: `animation-delay-${(index + 5) * 100} rounded-2xl border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_50%,transparent)] p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-[var(--wb-site-border)] hover:bg-[var(--wb-site-surface)] hover:shadow-lg`,
+                className: `animation-delay-${(index + 5) * 100} rounded-2xl border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_50%,transparent)] p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-[var(--photon-site-border)] hover:bg-[var(--photon-site-surface)] hover:shadow-lg`,
                 children: mode === "preview" ? /* @__PURE__ */ jsx18(
                   InitStatWidget,
                   {
@@ -3052,7 +3052,7 @@ var InitLandingHeroBlock = ({
                     "div",
                     {
                       className: [
-                        "font-semibold text-[var(--wb-site-text)]",
+                        "font-semibold text-[var(--photon-site-text)]",
                         atLeastLg ? "text-4xl" : "text-3xl"
                       ].join(" "),
                       children: [
@@ -3079,7 +3079,7 @@ var InitLandingHeroBlock = ({
                     {
                       blockId: block.id,
                       path: `stats.${index}.label`,
-                      className: "mt-1 text-sm text-[var(--wb-site-muted-text)]"
+                      className: "mt-1 text-sm text-[var(--photon-site-muted-text)]"
                     }
                   )
                 ] })
@@ -3087,20 +3087,20 @@ var InitLandingHeroBlock = ({
               `${stat.label}:${stat.value}`
             )) })
           ] }),
-          /* @__PURE__ */ jsx18("div", { className: "animate-fade-up animation-delay-700 absolute bottom-8 left-1/2 -translate-x-1/2", children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-2 text-[var(--wb-site-muted-text)]", children: [
+          /* @__PURE__ */ jsx18("div", { className: "animate-fade-up animation-delay-700 absolute bottom-8 left-1/2 -translate-x-1/2", children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-2 text-[var(--photon-site-muted-text)]", children: [
             /* @__PURE__ */ jsx18("span", { className: "text-xs uppercase tracking-widest", children: "Scroll" }),
             /* @__PURE__ */ jsx18("div", { className: "flex h-8 w-5 items-start justify-center rounded-full border-2 border-current p-1", children: /* @__PURE__ */ jsx18("div", { className: "h-2 w-1 animate-bounce rounded-full bg-current" }) })
           ] }) })
         ] }),
         /* @__PURE__ */ jsxs16("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28", children: [
-          /* @__PURE__ */ jsx18("div", { className: "absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--wb-site-background)_55%,transparent)] to-[var(--wb-site-background)]" }),
-          /* @__PURE__ */ jsx18("div", { className: "absolute inset-x-0 bottom-0 h-px bg-[color-mix(in_oklab,var(--wb-site-border)_70%,transparent)]" })
+          /* @__PURE__ */ jsx18("div", { className: "absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--photon-site-background)_55%,transparent)] to-[var(--photon-site-background)]" }),
+          /* @__PURE__ */ jsx18("div", { className: "absolute inset-x-0 bottom-0 h-px bg-[color-mix(in_oklab,var(--photon-site-border)_70%,transparent)]" })
         ] })
       ]
     }
   );
 };
-var initLandingHeroDefinition = defineWebsiteBuilderBlockDefinition8({
+var initLandingHeroDefinition = definePhotonBlockDefinition8({
   type: "init-landing-hero",
   label: "Init Landing Hero",
   description: "Hero section from the Init landing page.",
@@ -3110,15 +3110,15 @@ var initLandingHeroDefinition = defineWebsiteBuilderBlockDefinition8({
   fields: fields4,
   localizationSchema: createInitLandingBlockLocalizationSchema(fields4),
   defaults: {
-    badge: createWebsiteBuilderLocalizedDefault8({
+    badge: createPhotonLocalizedDefault8({
       en: "\u0421\u0430\u0439\u0442\u044B \u0431\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0439 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438",
       ru: "\u0421\u0430\u0439\u0442\u044B \u0431\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0439 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438"
     }),
-    title: createWebsiteBuilderLocalizedDefault8({
+    title: createPhotonLocalizedDefault8({
       en: "\u0420\u0430\u0437\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u043C \u0441\u0430\u0439\u0442\u044B",
       ru: "\u0420\u0430\u0437\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u043C \u0441\u0430\u0439\u0442\u044B"
     }),
-    highlightedTitle: createWebsiteBuilderLocalizedDefault8({
+    highlightedTitle: createPhotonLocalizedDefault8({
       en: "\u043F\u043E\u0434 \u0437\u0430\u0434\u0430\u0447\u0443 \u0438 \u0440\u043E\u0441\u0442",
       ru: "\u043F\u043E\u0434 \u0437\u0430\u0434\u0430\u0447\u0443 \u0438 \u0440\u043E\u0441\u0442"
     }),
@@ -3151,12 +3151,12 @@ var initLandingHeroDefinition = defineWebsiteBuilderBlockDefinition8({
 
 // src/blocks/init-landing/init-landing-pricing.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault9,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition9,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault9,
+  definePhotonBlockDefinition as definePhotonBlockDefinition9,
   EditableText as EditableText9,
   EditableTextarea as EditableTextarea6,
-  WebsiteBuilderLink as WebsiteBuilderLink7
-} from "@init-modules/website-builder/public";
+  PhotonLink as PhotonLink7
+} from "@init/photon/public";
 import { jsx as jsx19, jsxs as jsxs17 } from "react/jsx-runtime";
 var fields5 = [
   {
@@ -3262,7 +3262,7 @@ var InitLandingPricingBlock = ({
                 {
                   blockId: block.id,
                   path: "eyebrow",
-                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
                 }
               ),
               /* @__PURE__ */ jsx19(
@@ -3272,7 +3272,7 @@ var InitLandingPricingBlock = ({
                   path: "title",
                   as: "h2",
                   className: [
-                    "text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+                    "text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
                     atLeastLg ? "text-4xl" : "text-3xl"
                   ].join(" ")
                 }
@@ -3282,7 +3282,7 @@ var InitLandingPricingBlock = ({
                 {
                   blockId: block.id,
                   path: "description",
-                  className: "mt-4 text-lg text-[var(--wb-site-muted-text)]"
+                  className: "mt-4 text-lg text-[var(--photon-site-muted-text)]"
                 }
               )
             ]
@@ -3300,15 +3300,15 @@ var InitLandingPricingBlock = ({
               {
                 className: [
                   revealClassName,
-                  "relative overflow-hidden rounded-[1.75rem] border bg-[var(--wb-site-surface)] transition-all duration-700 hover:shadow-xl",
-                  plan.highlighted ? `${atLeastLg ? "scale-[1.02] " : ""}border-[var(--wb-site-accent)] shadow-lg` : "border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] hover:border-[color-mix(in_srgb,var(--wb-site-accent)_20%,var(--wb-site-border))]"
+                  "relative overflow-hidden rounded-[1.75rem] border bg-[var(--photon-site-surface)] transition-all duration-700 hover:shadow-xl",
+                  plan.highlighted ? `${atLeastLg ? "scale-[1.02] " : ""}border-[var(--photon-site-accent)] shadow-lg` : "border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] hover:border-[color-mix(in_srgb,var(--photon-site-accent)_20%,var(--photon-site-border))]"
                 ].join(" "),
                 style: { transitionDelay: `${index * 150}ms` },
                 children: [
-                  plan.highlighted ? /* @__PURE__ */ jsx19("div", { className: "absolute left-0 right-0 top-0 h-1 bg-[var(--wb-site-accent)]" }) : null,
+                  plan.highlighted ? /* @__PURE__ */ jsx19("div", { className: "absolute left-0 right-0 top-0 h-1 bg-[var(--photon-site-accent)]" }) : null,
                   /* @__PURE__ */ jsxs17("div", { className: "pb-4 p-6", children: [
-                    plan.highlighted ? /* @__PURE__ */ jsx19("span", { className: "mb-2 inline-block text-xs font-medium uppercase tracking-wider text-[var(--wb-site-accent)]", children: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u043C" }) : null,
-                    /* @__PURE__ */ jsx19("h3", { className: "text-xl font-semibold text-[var(--wb-site-text)]", children: /* @__PURE__ */ jsx19(
+                    plan.highlighted ? /* @__PURE__ */ jsx19("span", { className: "mb-2 inline-block text-xs font-medium uppercase tracking-wider text-[var(--photon-site-accent)]", children: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u043C" }) : null,
+                    /* @__PURE__ */ jsx19("h3", { className: "text-xl font-semibold text-[var(--photon-site-text)]", children: /* @__PURE__ */ jsx19(
                       EditableText9,
                       {
                         blockId: block.id,
@@ -3320,20 +3320,20 @@ var InitLandingPricingBlock = ({
                       {
                         blockId: block.id,
                         path: `plans.${index}.description`,
-                        className: "mt-1 text-sm text-[var(--wb-site-muted-text)]"
+                        className: "mt-1 text-sm text-[var(--photon-site-muted-text)]"
                       }
                     )
                   ] }),
                   /* @__PURE__ */ jsxs17("div", { className: "px-6 pb-6", children: [
                     /* @__PURE__ */ jsxs17("div", { className: "mb-6", children: [
-                      /* @__PURE__ */ jsx19("span", { className: "text-4xl font-semibold text-[var(--wb-site-text)]", children: /* @__PURE__ */ jsx19(
+                      /* @__PURE__ */ jsx19("span", { className: "text-4xl font-semibold text-[var(--photon-site-text)]", children: /* @__PURE__ */ jsx19(
                         EditableText9,
                         {
                           blockId: block.id,
                           path: `plans.${index}.price`
                         }
                       ) }),
-                      /* @__PURE__ */ jsx19("span", { className: "ml-2 text-sm text-[var(--wb-site-muted-text)]", children: /* @__PURE__ */ jsx19(
+                      /* @__PURE__ */ jsx19("span", { className: "ml-2 text-sm text-[var(--photon-site-muted-text)]", children: /* @__PURE__ */ jsx19(
                         EditableText9,
                         {
                           blockId: block.id,
@@ -3349,12 +3349,12 @@ var InitLandingPricingBlock = ({
                       }
                     ) }, `${feature}:${featureIndex}`)) }),
                     /* @__PURE__ */ jsx19(
-                      WebsiteBuilderLink7,
+                      PhotonLink7,
                       {
                         href: plan.href,
                         className: [
                           "inline-flex w-full items-center justify-center rounded-[1.1rem] px-4 py-3 text-sm font-medium transition-transform duration-300 hover:scale-[1.02]",
-                          plan.highlighted ? "bg-[var(--wb-site-accent)] text-white hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--wb-site-accent)_25%,transparent)]" : "border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] text-[var(--wb-site-text)] hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]"
+                          plan.highlighted ? "bg-[var(--photon-site-accent)] text-white hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--photon-site-accent)_25%,transparent)]" : "border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] text-[var(--photon-site-text)] hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
                         ].join(" "),
                         children: /* @__PURE__ */ jsx19(
                           EditableText9,
@@ -3375,16 +3375,16 @@ var InitLandingPricingBlock = ({
         /* @__PURE__ */ jsxs17(
           "p",
           {
-            className: `${revealClassName} mt-12 text-center text-sm text-[var(--wb-site-muted-text)]`,
+            className: `${revealClassName} mt-12 text-center text-sm text-[var(--photon-site-muted-text)]`,
             style: { transitionDelay: "500ms" },
             children: [
               block.props.note,
               " ",
               /* @__PURE__ */ jsx19(
-                WebsiteBuilderLink7,
+                PhotonLink7,
                 {
                   href: block.props.noteCta.href,
-                  className: "text-[var(--wb-site-accent)] hover:underline",
+                  className: "text-[var(--photon-site-accent)] hover:underline",
                   children: /* @__PURE__ */ jsx19(EditableText9, { blockId: block.id, path: "noteCta.label" })
                 }
               )
@@ -3395,7 +3395,7 @@ var InitLandingPricingBlock = ({
     }
   );
 };
-var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition9({
+var initLandingPricingDefinition = definePhotonBlockDefinition9({
   type: "init-landing-pricing",
   label: "Init Landing Pricing",
   description: "Pricing section from the Init landing page.",
@@ -3406,15 +3406,15 @@ var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition9({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields5),
   defaults: {
     sectionId: "pricing",
-    eyebrow: createWebsiteBuilderLocalizedDefault9({
+    eyebrow: createPhotonLocalizedDefault9({
       en: "\u041A\u0430\u043A \u044D\u0442\u043E \u043F\u0440\u043E\u0434\u0430\u0451\u0442\u0441\u044F",
       ru: "\u041A\u0430\u043A \u044D\u0442\u043E \u043F\u0440\u043E\u0434\u0430\u0451\u0442\u0441\u044F"
     }),
-    title: createWebsiteBuilderLocalizedDefault9({
+    title: createPhotonLocalizedDefault9({
       en: "\u0422\u0440\u0438 \u043F\u043E\u0434\u0445\u043E\u0434\u0430 \u043A \u0437\u0430\u043F\u0443\u0441\u043A\u0443 \u0441\u0430\u0439\u0442\u0430",
       ru: "\u0422\u0440\u0438 \u043F\u043E\u0434\u0445\u043E\u0434\u0430 \u043A \u0437\u0430\u043F\u0443\u0441\u043A\u0443 \u0441\u0430\u0439\u0442\u0430"
     }),
-    description: createWebsiteBuilderLocalizedDefault9({
+    description: createPhotonLocalizedDefault9({
       en: "\u0421\u0430\u043C\u0438 \u0443\u0441\u043B\u0443\u0433\u0438 \u0440\u0430\u0437\u043D\u044B\u0435 \u043F\u043E \u0433\u043B\u0443\u0431\u0438\u043D\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0438 \u0441\u0440\u043E\u043A\u0430\u043C, \u043F\u043E\u044D\u0442\u043E\u043C\u0443 \u0438 \u043F\u0440\u043E\u0434\u0430\u0451\u043C \u0438\u0445 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u043C\u0438 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F\u043C\u0438.",
       ru: "\u0421\u0430\u043C\u0438 \u0443\u0441\u043B\u0443\u0433\u0438 \u0440\u0430\u0437\u043D\u044B\u0435 \u043F\u043E \u0433\u043B\u0443\u0431\u0438\u043D\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0438 \u0441\u0440\u043E\u043A\u0430\u043C, \u043F\u043E\u044D\u0442\u043E\u043C\u0443 \u0438 \u043F\u0440\u043E\u0434\u0430\u0451\u043C \u0438\u0445 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u043C\u0438 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F\u043C\u0438."
     }),
@@ -3463,7 +3463,7 @@ var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition9({
         href: "#contact"
       }
     ],
-    note: createWebsiteBuilderLocalizedDefault9({
+    note: createPhotonLocalizedDefault9({
       en: "\u0415\u0441\u043B\u0438 \u0441\u043E\u043C\u043D\u0435\u0432\u0430\u0435\u0442\u0435\u0441\u044C \u043C\u0435\u0436\u0434\u0443 \u0444\u043E\u0440\u043C\u0430\u0442\u0430\u043C\u0438, \u043D\u0430 \u0431\u0440\u0438\u0444\u0435 \u0440\u0430\u0437\u043B\u043E\u0436\u0438\u043C \u0437\u0430\u0434\u0430\u0447\u0443 \u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u043C \u043D\u0430\u0438\u0431\u043E\u043B\u0435\u0435 \u0440\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439.",
       ru: "\u0415\u0441\u043B\u0438 \u0441\u043E\u043C\u043D\u0435\u0432\u0430\u0435\u0442\u0435\u0441\u044C \u043C\u0435\u0436\u0434\u0443 \u0444\u043E\u0440\u043C\u0430\u0442\u0430\u043C\u0438, \u043D\u0430 \u0431\u0440\u0438\u0444\u0435 \u0440\u0430\u0437\u043B\u043E\u0436\u0438\u043C \u0437\u0430\u0434\u0430\u0447\u0443 \u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u043C \u043D\u0430\u0438\u0431\u043E\u043B\u0435\u0435 \u0440\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439."
     }),
@@ -3473,11 +3473,11 @@ var initLandingPricingDefinition = defineWebsiteBuilderBlockDefinition9({
 
 // src/blocks/init-landing/init-landing-process.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault10,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition10,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault10,
+  definePhotonBlockDefinition as definePhotonBlockDefinition10,
   EditableText as EditableText10,
   EditableTextarea as EditableTextarea7
-} from "@init-modules/website-builder/public";
+} from "@init/photon/public";
 import { jsx as jsx20, jsxs as jsxs18 } from "react/jsx-runtime";
 var fields6 = [
   {
@@ -3535,7 +3535,7 @@ var InitLandingProcessBlock = ({
       ref,
       id: block.props.sectionId,
       className: [
-        "bg-[var(--wb-site-surface)] py-24",
+        "bg-[var(--photon-site-surface)] py-24",
         atLeastLg ? "py-32" : ""
       ].join(" "),
       style: bleedStyle,
@@ -3550,7 +3550,7 @@ var InitLandingProcessBlock = ({
                 {
                   blockId: block.id,
                   path: "eyebrow",
-                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
                 }
               ),
               /* @__PURE__ */ jsx20(
@@ -3560,7 +3560,7 @@ var InitLandingProcessBlock = ({
                   path: "title",
                   as: "h2",
                   className: [
-                    "text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+                    "text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
                     atLeastLg ? "text-4xl" : "text-3xl"
                   ].join(" ")
                 }
@@ -3570,14 +3570,14 @@ var InitLandingProcessBlock = ({
                 {
                   blockId: block.id,
                   path: "description",
-                  className: "mt-4 text-lg text-[var(--wb-site-muted-text)]"
+                  className: "mt-4 text-lg text-[var(--photon-site-muted-text)]"
                 }
               )
             ]
           }
         ),
         /* @__PURE__ */ jsxs18("div", { className: "relative", children: [
-          atLeastLg ? /* @__PURE__ */ jsx20("div", { className: "absolute left-[calc(12.5%+1rem)] right-[calc(12.5%+1rem)] top-12 h-px bg-[var(--wb-site-border)]" }) : null,
+          atLeastLg ? /* @__PURE__ */ jsx20("div", { className: "absolute left-[calc(12.5%+1rem)] right-[calc(12.5%+1rem)] top-12 h-px bg-[var(--photon-site-border)]" }) : null,
           /* @__PURE__ */ jsx20(
             "div",
             {
@@ -3591,7 +3591,7 @@ var InitLandingProcessBlock = ({
                   className: `${revealClassName} group relative`,
                   style: { transitionDelay: `${index * 150}ms` },
                   children: [
-                    /* @__PURE__ */ jsx20("div", { className: "relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[var(--wb-site-border)] bg-[var(--wb-site-background)] transition-all duration-300 group-hover:border-[var(--wb-site-accent)] group-hover:scale-105", children: /* @__PURE__ */ jsx20("span", { className: "text-2xl font-semibold text-[var(--wb-site-accent)]", children: /* @__PURE__ */ jsx20(
+                    /* @__PURE__ */ jsx20("div", { className: "relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[var(--photon-site-border)] bg-[var(--photon-site-background)] transition-all duration-300 group-hover:border-[var(--photon-site-accent)] group-hover:scale-105", children: /* @__PURE__ */ jsx20("span", { className: "text-2xl font-semibold text-[var(--photon-site-accent)]", children: /* @__PURE__ */ jsx20(
                       EditableText10,
                       {
                         blockId: block.id,
@@ -3599,7 +3599,7 @@ var InitLandingProcessBlock = ({
                       }
                     ) }) }),
                     /* @__PURE__ */ jsxs18("div", { className: "text-center", children: [
-                      /* @__PURE__ */ jsx20("h3", { className: "mb-3 text-xl font-semibold text-[var(--wb-site-text)]", children: /* @__PURE__ */ jsx20(
+                      /* @__PURE__ */ jsx20("h3", { className: "mb-3 text-xl font-semibold text-[var(--photon-site-text)]", children: /* @__PURE__ */ jsx20(
                         EditableText10,
                         {
                           blockId: block.id,
@@ -3611,7 +3611,7 @@ var InitLandingProcessBlock = ({
                         {
                           blockId: block.id,
                           path: `steps.${index}.description`,
-                          className: "leading-relaxed text-[var(--wb-site-muted-text)]"
+                          className: "leading-relaxed text-[var(--photon-site-muted-text)]"
                         }
                       )
                     ] })
@@ -3626,7 +3626,7 @@ var InitLandingProcessBlock = ({
     }
   );
 };
-var initLandingProcessDefinition = defineWebsiteBuilderBlockDefinition10({
+var initLandingProcessDefinition = definePhotonBlockDefinition10({
   type: "init-landing-process",
   label: "Init Landing Process",
   description: "Process section from the Init landing page.",
@@ -3637,15 +3637,15 @@ var initLandingProcessDefinition = defineWebsiteBuilderBlockDefinition10({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields6),
   defaults: {
     sectionId: "process",
-    eyebrow: createWebsiteBuilderLocalizedDefault10({
+    eyebrow: createPhotonLocalizedDefault10({
       en: "\u041A\u0430\u043A \u0438\u0434\u0451\u043C \u0432 \u0440\u0430\u0431\u043E\u0442\u0443",
       ru: "\u041A\u0430\u043A \u0438\u0434\u0451\u043C \u0432 \u0440\u0430\u0431\u043E\u0442\u0443"
     }),
-    title: createWebsiteBuilderLocalizedDefault10({
+    title: createPhotonLocalizedDefault10({
       en: "\u041F\u0443\u0442\u044C \u043E\u0442 \u0437\u0430\u0434\u0430\u0447\u0438 \u0434\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430 \u0431\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0439 \u0431\u044E\u0440\u043E\u043A\u0440\u0430\u0442\u0438\u0438",
       ru: "\u041F\u0443\u0442\u044C \u043E\u0442 \u0437\u0430\u0434\u0430\u0447\u0438 \u0434\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430 \u0431\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0439 \u0431\u044E\u0440\u043E\u043A\u0440\u0430\u0442\u0438\u0438"
     }),
-    description: createWebsiteBuilderLocalizedDefault10({
+    description: createPhotonLocalizedDefault10({
       en: "\u041F\u0440\u043E\u0446\u0435\u0441\u0441 \u043E\u0442\u043B\u0438\u0447\u0430\u0435\u0442\u0441\u044F \u043F\u043E \u0433\u043B\u0443\u0431\u0438\u043D\u0435, \u043D\u043E \u043B\u043E\u0433\u0438\u043A\u0430 \u043E\u0434\u043D\u0430: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0435\u043C \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442, \u043F\u043E\u0442\u043E\u043C \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0438 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u043C.",
       ru: "\u041F\u0440\u043E\u0446\u0435\u0441\u0441 \u043E\u0442\u043B\u0438\u0447\u0430\u0435\u0442\u0441\u044F \u043F\u043E \u0433\u043B\u0443\u0431\u0438\u043D\u0435, \u043D\u043E \u043B\u043E\u0433\u0438\u043A\u0430 \u043E\u0434\u043D\u0430: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0435\u043C \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442, \u043F\u043E\u0442\u043E\u043C \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0438 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u043C."
     }),
@@ -3676,11 +3676,11 @@ var initLandingProcessDefinition = defineWebsiteBuilderBlockDefinition10({
 
 // src/blocks/init-landing/init-landing-services.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault11,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition11,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault11,
+  definePhotonBlockDefinition as definePhotonBlockDefinition11,
   EditableText as EditableText11,
   EditableTextarea as EditableTextarea8
-} from "@init-modules/website-builder/public";
+} from "@init/photon/public";
 import { jsx as jsx21, jsxs as jsxs19 } from "react/jsx-runtime";
 var fields7 = [
   {
@@ -3756,7 +3756,7 @@ var InitLandingServicesBlock = ({
                 {
                   blockId: block.id,
                   path: "eyebrow",
-                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
                 }
               ),
               /* @__PURE__ */ jsx21(
@@ -3766,7 +3766,7 @@ var InitLandingServicesBlock = ({
                   path: "title",
                   as: "h2",
                   className: [
-                    "text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+                    "text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
                     atLeastLg ? "text-4xl" : "text-3xl"
                   ].join(" ")
                 }
@@ -3776,7 +3776,7 @@ var InitLandingServicesBlock = ({
                 {
                   blockId: block.id,
                   path: "description",
-                  className: "mt-4 text-lg text-[var(--wb-site-muted-text)]"
+                  className: "mt-4 text-lg text-[var(--photon-site-muted-text)]"
                 }
               )
             ]
@@ -3791,11 +3791,11 @@ var InitLandingServicesBlock = ({
               return /* @__PURE__ */ jsxs19(
                 "div",
                 {
-                  className: `${revealClassName} group rounded-[1.75rem] border border-[color-mix(in_srgb,var(--wb-site-border)_86%,white)] bg-[var(--wb-site-surface)] p-8 hover:border-[color-mix(in_srgb,var(--wb-site-accent)_20%,var(--wb-site-border))] hover:shadow-lg`,
+                  className: `${revealClassName} group rounded-[1.75rem] border border-[color-mix(in_srgb,var(--photon-site-border)_86%,white)] bg-[var(--photon-site-surface)] p-8 hover:border-[color-mix(in_srgb,var(--photon-site-accent)_20%,var(--photon-site-border))] hover:shadow-lg`,
                   style: { transitionDelay: `${index * 100}ms` },
                   children: [
-                    /* @__PURE__ */ jsx21("div", { className: "mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--wb-site-accent)_10%,transparent)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[color-mix(in_srgb,var(--wb-site-accent)_20%,transparent)]", children: /* @__PURE__ */ jsx21(Icon, { className: "h-6 w-6 text-[var(--wb-site-accent)]" }) }),
-                    /* @__PURE__ */ jsx21("h3", { className: "mb-3 text-xl font-semibold text-[var(--wb-site-text)]", children: /* @__PURE__ */ jsx21(
+                    /* @__PURE__ */ jsx21("div", { className: "mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--photon-site-accent)_10%,transparent)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[color-mix(in_srgb,var(--photon-site-accent)_20%,transparent)]", children: /* @__PURE__ */ jsx21(Icon, { className: "h-6 w-6 text-[var(--photon-site-accent)]" }) }),
+                    /* @__PURE__ */ jsx21("h3", { className: "mb-3 text-xl font-semibold text-[var(--photon-site-text)]", children: /* @__PURE__ */ jsx21(
                       EditableText11,
                       {
                         blockId: block.id,
@@ -3807,7 +3807,7 @@ var InitLandingServicesBlock = ({
                       {
                         blockId: block.id,
                         path: `items.${index}.description`,
-                        className: "leading-relaxed text-[var(--wb-site-muted-text)]"
+                        className: "leading-relaxed text-[var(--photon-site-muted-text)]"
                       }
                     )
                   ]
@@ -3821,7 +3821,7 @@ var InitLandingServicesBlock = ({
     }
   );
 };
-var initLandingServicesDefinition = defineWebsiteBuilderBlockDefinition11({
+var initLandingServicesDefinition = definePhotonBlockDefinition11({
   type: "init-landing-services",
   label: "Init Landing Services",
   description: "Services grid from the Init landing page.",
@@ -3832,15 +3832,15 @@ var initLandingServicesDefinition = defineWebsiteBuilderBlockDefinition11({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields7),
   defaults: {
     sectionId: "services",
-    eyebrow: createWebsiteBuilderLocalizedDefault11({
+    eyebrow: createPhotonLocalizedDefault11({
       en: "\u0427\u0442\u043E \u043C\u043E\u0436\u043D\u043E \u0437\u0430\u043A\u0430\u0437\u0430\u0442\u044C",
       ru: "\u0427\u0442\u043E \u043C\u043E\u0436\u043D\u043E \u0437\u0430\u043A\u0430\u0437\u0430\u0442\u044C"
     }),
-    title: createWebsiteBuilderLocalizedDefault11({
+    title: createPhotonLocalizedDefault11({
       en: "\u041E\u0434\u0438\u043D \u0432\u0438\u0437\u0443\u0430\u043B, \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0444\u043E\u0440\u043C\u0430\u0442\u043E\u0432 \u0437\u0430\u043F\u0443\u0441\u043A\u0430 \u0441\u0430\u0439\u0442\u0430",
       ru: "\u041E\u0434\u0438\u043D \u0432\u0438\u0437\u0443\u0430\u043B, \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0444\u043E\u0440\u043C\u0430\u0442\u043E\u0432 \u0437\u0430\u043F\u0443\u0441\u043A\u0430 \u0441\u0430\u0439\u0442\u0430"
     }),
-    description: createWebsiteBuilderLocalizedDefault11({
+    description: createPhotonLocalizedDefault11({
       en: "\u0412\u044B\u0431\u0438\u0440\u0430\u0439\u0442\u0435 \u0433\u043B\u0443\u0431\u0438\u043D\u0443 \u043A\u0430\u0441\u0442\u043E\u043C\u0438\u0437\u0430\u0446\u0438\u0438 \u043F\u043E\u0434 \u0441\u0432\u043E\u044E \u0437\u0430\u0434\u0430\u0447\u0443: \u043E\u0442 \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0448\u0430\u0431\u043B\u043E\u043D\u0430 \u0434\u043E \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430.",
       ru: "\u0412\u044B\u0431\u0438\u0440\u0430\u0439\u0442\u0435 \u0433\u043B\u0443\u0431\u0438\u043D\u0443 \u043A\u0430\u0441\u0442\u043E\u043C\u0438\u0437\u0430\u0446\u0438\u0438 \u043F\u043E\u0434 \u0441\u0432\u043E\u044E \u0437\u0430\u0434\u0430\u0447\u0443: \u043E\u0442 \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0448\u0430\u0431\u043B\u043E\u043D\u0430 \u0434\u043E \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430."
     }),
@@ -3871,11 +3871,11 @@ var initLandingServicesDefinition = defineWebsiteBuilderBlockDefinition11({
 
 // src/blocks/init-landing/init-landing-testimonials.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault12,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition12,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault12,
+  definePhotonBlockDefinition as definePhotonBlockDefinition12,
   EditableText as EditableText12,
   EditableTextarea as EditableTextarea9
-} from "@init-modules/website-builder/public";
+} from "@init/photon/public";
 import { jsx as jsx22, jsxs as jsxs20 } from "react/jsx-runtime";
 var fields8 = [
   {
@@ -3939,7 +3939,7 @@ var InitLandingTestimonialsBlock = ({
                 {
                   blockId: block.id,
                   path: "eyebrow",
-                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
                 }
               ),
               /* @__PURE__ */ jsx22(
@@ -3949,7 +3949,7 @@ var InitLandingTestimonialsBlock = ({
                   path: "title",
                   as: "h2",
                   className: [
-                    "text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+                    "text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
                     atLeastLg ? "text-4xl" : "text-3xl"
                   ].join(" ")
                 }
@@ -4011,7 +4011,7 @@ var InitLandingTestimonialsBlock = ({
     }
   );
 };
-var initLandingTestimonialsDefinition = defineWebsiteBuilderBlockDefinition12({
+var initLandingTestimonialsDefinition = definePhotonBlockDefinition12({
   type: "init-landing-testimonials",
   label: "Init Landing Testimonials",
   description: "Testimonials section from the Init landing page.",
@@ -4022,11 +4022,11 @@ var initLandingTestimonialsDefinition = defineWebsiteBuilderBlockDefinition12({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields8),
   defaults: {
     sectionId: "testimonials",
-    eyebrow: createWebsiteBuilderLocalizedDefault12({
+    eyebrow: createPhotonLocalizedDefault12({
       en: "\u0427\u0442\u043E \u0433\u043E\u0432\u043E\u0440\u044F\u0442 \u043A\u043B\u0438\u0435\u043D\u0442\u044B",
       ru: "\u0427\u0442\u043E \u0433\u043E\u0432\u043E\u0440\u044F\u0442 \u043A\u043B\u0438\u0435\u043D\u0442\u044B"
     }),
-    title: createWebsiteBuilderLocalizedDefault12({
+    title: createPhotonLocalizedDefault12({
       en: "\u041D\u0430\u043C \u0434\u043E\u0432\u0435\u0440\u044F\u044E\u0442 \u0437\u0430\u043F\u0443\u0441\u043A \u0441\u0430\u0439\u0442\u043E\u0432 \u043F\u043E\u0434 \u0440\u0430\u0437\u043D\u044B\u0435 \u0431\u0438\u0437\u043D\u0435\u0441-\u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0438",
       ru: "\u041D\u0430\u043C \u0434\u043E\u0432\u0435\u0440\u044F\u044E\u0442 \u0437\u0430\u043F\u0443\u0441\u043A \u0441\u0430\u0439\u0442\u043E\u0432 \u043F\u043E\u0434 \u0440\u0430\u0437\u043D\u044B\u0435 \u0431\u0438\u0437\u043D\u0435\u0441-\u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0438"
     }),
@@ -4055,11 +4055,11 @@ var initLandingTestimonialsDefinition = defineWebsiteBuilderBlockDefinition12({
 
 // src/blocks/init-landing/init-landing-why-us.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault13,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition13,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault13,
+  definePhotonBlockDefinition as definePhotonBlockDefinition13,
   EditableText as EditableText13,
   EditableTextarea as EditableTextarea10
-} from "@init-modules/website-builder/public";
+} from "@init/photon/public";
 import { jsx as jsx23, jsxs as jsxs21 } from "react/jsx-runtime";
 var fields9 = [
   {
@@ -4140,7 +4140,7 @@ var InitLandingWhyUsBlock = ({
       ref,
       id: block.props.sectionId,
       className: [
-        "bg-[var(--wb-site-surface)] py-24",
+        "bg-[var(--photon-site-surface)] py-24",
         atLeastLg ? "py-32" : ""
       ].join(" "),
       style: bleedStyle,
@@ -4158,7 +4158,7 @@ var InitLandingWhyUsBlock = ({
                 {
                   blockId: block.id,
                   path: "eyebrow",
-                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+                  className: "mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
                 }
               ),
               /* @__PURE__ */ jsx23(
@@ -4168,7 +4168,7 @@ var InitLandingWhyUsBlock = ({
                   path: "title",
                   as: "h2",
                   className: [
-                    "text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+                    "text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
                     atLeastLg ? "text-4xl" : "text-3xl"
                   ].join(" ")
                 }
@@ -4178,7 +4178,7 @@ var InitLandingWhyUsBlock = ({
                 {
                   blockId: block.id,
                   path: "body",
-                  className: "mt-6 text-lg leading-relaxed text-[var(--wb-site-muted-text)]"
+                  className: "mt-6 text-lg leading-relaxed text-[var(--photon-site-muted-text)]"
                 }
               ),
               /* @__PURE__ */ jsx23("div", { className: "mt-10 flex flex-wrap gap-6", children: block.props.trustItems.map((item, index) => /* @__PURE__ */ jsxs21(
@@ -4187,13 +4187,13 @@ var InitLandingWhyUsBlock = ({
                   className: `${revealClassName} flex items-center gap-2`,
                   style: { transitionDelay: `${300 + index * 100}ms` },
                   children: [
-                    /* @__PURE__ */ jsx23("div", { className: "h-2 w-2 rounded-full bg-[var(--wb-site-accent)]" }),
+                    /* @__PURE__ */ jsx23("div", { className: "h-2 w-2 rounded-full bg-[var(--photon-site-accent)]" }),
                     /* @__PURE__ */ jsx23(
                       EditableText13,
                       {
                         blockId: block.id,
                         path: `trustItems.${index}`,
-                        className: "text-sm text-[var(--wb-site-muted-text)]"
+                        className: "text-sm text-[var(--photon-site-muted-text)]"
                       }
                     )
                   ]
@@ -4210,11 +4210,11 @@ var InitLandingWhyUsBlock = ({
                   return /* @__PURE__ */ jsxs21(
                     "div",
                     {
-                      className: `${revealClassName} group rounded-[1.5rem] border border-[color-mix(in_srgb,var(--wb-site-border)_86%,white)] bg-[var(--wb-site-background)] p-6 hover:border-[color-mix(in_srgb,var(--wb-site-accent)_20%,var(--wb-site-border))] hover:shadow-md`,
+                      className: `${revealClassName} group rounded-[1.5rem] border border-[color-mix(in_srgb,var(--photon-site-border)_86%,white)] bg-[var(--photon-site-background)] p-6 hover:border-[color-mix(in_srgb,var(--photon-site-accent)_20%,var(--photon-site-border))] hover:shadow-md`,
                       style: { transitionDelay: `${index * 100}ms` },
                       children: [
-                        /* @__PURE__ */ jsx23(Icon, { className: "mb-4 h-8 w-8 text-[var(--wb-site-accent)] transition-transform duration-300 group-hover:scale-110" }),
-                        /* @__PURE__ */ jsx23("h3", { className: "mb-2 font-semibold text-[var(--wb-site-text)]", children: /* @__PURE__ */ jsx23(
+                        /* @__PURE__ */ jsx23(Icon, { className: "mb-4 h-8 w-8 text-[var(--photon-site-accent)] transition-transform duration-300 group-hover:scale-110" }),
+                        /* @__PURE__ */ jsx23("h3", { className: "mb-2 font-semibold text-[var(--photon-site-text)]", children: /* @__PURE__ */ jsx23(
                           EditableText13,
                           {
                             blockId: block.id,
@@ -4226,7 +4226,7 @@ var InitLandingWhyUsBlock = ({
                           {
                             blockId: block.id,
                             path: `items.${index}.description`,
-                            className: "text-sm leading-relaxed text-[var(--wb-site-muted-text)]"
+                            className: "text-sm leading-relaxed text-[var(--photon-site-muted-text)]"
                           }
                         )
                       ]
@@ -4242,7 +4242,7 @@ var InitLandingWhyUsBlock = ({
     }
   );
 };
-var initLandingWhyUsDefinition = defineWebsiteBuilderBlockDefinition13({
+var initLandingWhyUsDefinition = definePhotonBlockDefinition13({
   type: "init-landing-why-us",
   label: "Init Landing Why Us",
   description: "Why us section from the Init landing page.",
@@ -4253,19 +4253,19 @@ var initLandingWhyUsDefinition = defineWebsiteBuilderBlockDefinition13({
   localizationSchema: createInitLandingBlockLocalizationSchema(fields9),
   defaults: {
     sectionId: "why-us",
-    eyebrow: createWebsiteBuilderLocalizedDefault13({
+    eyebrow: createPhotonLocalizedDefault13({
       en: "\u041F\u043E\u0447\u0435\u043C\u0443 \u0441 \u043D\u0430\u043C\u0438 \u0443\u0434\u043E\u0431\u043D\u043E",
       ru: "\u041F\u043E\u0447\u0435\u043C\u0443 \u0441 \u043D\u0430\u043C\u0438 \u0443\u0434\u043E\u0431\u043D\u043E"
     }),
-    title: createWebsiteBuilderLocalizedDefault13({
+    title: createPhotonLocalizedDefault13({
       en: "\u041D\u0435 \u043F\u0440\u043E\u0434\u0430\u0451\u043C \u043B\u0438\u0448\u043D\u044E\u044E \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0443 \u0442\u0430\u043C, \u0433\u0434\u0435 \u043C\u043E\u0436\u043D\u043E \u0440\u0435\u0448\u0438\u0442\u044C \u043F\u0440\u043E\u0449\u0435",
       ru: "\u041D\u0435 \u043F\u0440\u043E\u0434\u0430\u0451\u043C \u043B\u0438\u0448\u043D\u044E\u044E \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0443 \u0442\u0430\u043C, \u0433\u0434\u0435 \u043C\u043E\u0436\u043D\u043E \u0440\u0435\u0448\u0438\u0442\u044C \u043F\u0440\u043E\u0449\u0435"
     }),
-    description: createWebsiteBuilderLocalizedDefault13({
+    description: createPhotonLocalizedDefault13({
       en: "\u041F\u043E\u0434\u0431\u0438\u0440\u0430\u0435\u043C \u0444\u043E\u0440\u043C\u0430\u0442 \u043F\u043E\u0434 \u0437\u0430\u0434\u0430\u0447\u0443, \u0430 \u043D\u0435 \u043F\u043E\u0434 \u043A\u0440\u0430\u0441\u0438\u0432\u043E\u0435 \u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435.",
       ru: "\u041F\u043E\u0434\u0431\u0438\u0440\u0430\u0435\u043C \u0444\u043E\u0440\u043C\u0430\u0442 \u043F\u043E\u0434 \u0437\u0430\u0434\u0430\u0447\u0443, \u0430 \u043D\u0435 \u043F\u043E\u0434 \u043A\u0440\u0430\u0441\u0438\u0432\u043E\u0435 \u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435."
     }),
-    body: createWebsiteBuilderLocalizedDefault13({
+    body: createPhotonLocalizedDefault13({
       en: "\u0415\u0441\u043B\u0438 \u0432\u0430\u043C \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u043D\u0435 \u0431\u0443\u0434\u0435\u043C \u0442\u044F\u043D\u0443\u0442\u044C \u0432 \u0434\u043E\u0440\u043E\u0433\u043E\u0439 custom. \u0415\u0441\u043B\u0438 \u043D\u0443\u0436\u0435\u043D \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440 \u0441 \u043C\u043E\u0434\u0443\u043B\u044F\u043C\u0438 \u0438 \u043A\u0430\u043B\u044C\u043A\u0443\u043B\u044F\u0446\u0438\u0435\u0439, \u043F\u043E\u0441\u0442\u0440\u043E\u0438\u043C \u0438\u043C\u0435\u043D\u043D\u043E \u0442\u0430\u043A\u043E\u0439 \u043F\u0443\u0442\u044C. \u0415\u0441\u043B\u0438 \u0437\u0430\u0434\u0430\u0447\u0430 \u043D\u0435\u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0430\u044F, \u0434\u0435\u043B\u0430\u0435\u043C \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u043E \u0438 \u0431\u0435\u0437 \u043A\u043E\u043C\u043F\u0440\u043E\u043C\u0438\u0441\u0441\u043E\u0432 \u043F\u043E \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0435.",
       ru: "\u0415\u0441\u043B\u0438 \u0432\u0430\u043C \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E \u0433\u043E\u0442\u043E\u0432\u043E\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F, \u043D\u0435 \u0431\u0443\u0434\u0435\u043C \u0442\u044F\u043D\u0443\u0442\u044C \u0432 \u0434\u043E\u0440\u043E\u0433\u043E\u0439 custom. \u0415\u0441\u043B\u0438 \u043D\u0443\u0436\u0435\u043D \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440 \u0441 \u043C\u043E\u0434\u0443\u043B\u044F\u043C\u0438 \u0438 \u043A\u0430\u043B\u044C\u043A\u0443\u043B\u044F\u0446\u0438\u0435\u0439, \u043F\u043E\u0441\u0442\u0440\u043E\u0438\u043C \u0438\u043C\u0435\u043D\u043D\u043E \u0442\u0430\u043A\u043E\u0439 \u043F\u0443\u0442\u044C. \u0415\u0441\u043B\u0438 \u0437\u0430\u0434\u0430\u0447\u0430 \u043D\u0435\u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0430\u044F, \u0434\u0435\u043B\u0430\u0435\u043C \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u043E \u0438 \u0431\u0435\u0437 \u043A\u043E\u043C\u043F\u0440\u043E\u043C\u0438\u0441\u0441\u043E\u0432 \u043F\u043E \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0435."
     }),
@@ -4301,19 +4301,19 @@ var initLandingWhyUsDefinition = defineWebsiteBuilderBlockDefinition13({
 
 // src/blocks/media-frame.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault14,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition14,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault14,
+  definePhotonBlockDefinition as definePhotonBlockDefinition14,
   EditableImage as EditableImage2,
   EditableText as EditableText14,
   EditableTextarea as EditableTextarea11,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth5,
-  useWebsiteBuilderStore as useWebsiteBuilderStore9
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth5,
+  usePhotonStore as usePhotonStore9
+} from "@init/photon/public";
 import { jsx as jsx24, jsxs as jsxs22 } from "react/jsx-runtime";
 var MediaFrame = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore9(
+  const siteDesign = usePhotonStore9(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4322,7 +4322,7 @@ var MediaFrame = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth5();
+  const renderDepth = usePhotonRenderDepth5();
   const framelessRail = theme.surfaceStyle === "frameless";
   return /* @__PURE__ */ jsxs22(
     "section",
@@ -4383,7 +4383,7 @@ var MediaFrame = ({
     }
   );
 };
-var mediaFrameDefinition = defineWebsiteBuilderBlockDefinition14({
+var mediaFrameDefinition = definePhotonBlockDefinition14({
   type: "media-frame",
   label: "Media Frame",
   labelKey: "marketingDemoKit.blocks.mediaFrame.label",
@@ -4394,15 +4394,15 @@ var mediaFrameDefinition = defineWebsiteBuilderBlockDefinition14({
   component: MediaFrame,
   defaults: {
     variant: "default",
-    eyebrow: createWebsiteBuilderLocalizedDefault14({
+    eyebrow: createPhotonLocalizedDefault14({
       en: "Sticky media rail",
       ru: "Sticky media-\u043A\u043E\u043B\u043E\u043D\u043A\u0430"
     }),
-    title: createWebsiteBuilderLocalizedDefault14({
+    title: createPhotonLocalizedDefault14({
       en: "Horizontal containers finally become obvious in the live demo",
       ru: "\u0413\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u044B\u0435 \u043A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440\u044B \u043D\u0430\u043A\u043E\u043D\u0435\u0446 \u0432\u044B\u0433\u043B\u044F\u0434\u044F\u0442 \u043E\u0447\u0435\u0432\u0438\u0434\u043D\u043E \u0432 \u0436\u0438\u0432\u043E\u043C \u0434\u0435\u043C\u043E"
     }),
-    caption: createWebsiteBuilderLocalizedDefault14({
+    caption: createPhotonLocalizedDefault14({
       en: "The left column can stay pinned while the right column scrolls through richer editorial blocks. On mobile the same structure collapses into a clean single-column stack.",
       ru: "\u041B\u0435\u0432\u0430\u044F \u043A\u043E\u043B\u043E\u043D\u043A\u0430 \u043C\u043E\u0436\u0435\u0442 \u043E\u0441\u0442\u0430\u0432\u0430\u0442\u044C\u0441\u044F \u0437\u0430\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u043D\u043E\u0439, \u043F\u043E\u043A\u0430 \u043F\u0440\u0430\u0432\u0430\u044F \u0441\u043A\u0440\u043E\u043B\u043B\u0438\u0442\u0441\u044F \u0447\u0435\u0440\u0435\u0437 \u0431\u043E\u043B\u0435\u0435 \u0431\u043E\u0433\u0430\u0442\u044B\u0435 editorial-\u0431\u043B\u043E\u043A\u0438. \u041D\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0442\u0430 \u0436\u0435 \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430 \u0441\u0445\u043B\u043E\u043F\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0432 \u0447\u0438\u0441\u0442\u044B\u0439 \u043E\u0434\u043D\u043E\u043A\u043E\u043B\u043E\u043D\u043E\u0447\u043D\u044B\u0439 \u0441\u0442\u0435\u043A."
     }),
@@ -4458,63 +4458,63 @@ var mediaFrameDefinition = defineWebsiteBuilderBlockDefinition14({
 
 // src/blocks/media-gallery.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault15,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition15,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault15,
+  definePhotonBlockDefinition as definePhotonBlockDefinition15,
   EditableGallery,
   EditableText as EditableText15,
   EditableTextarea as EditableTextarea12,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth6,
-  useWebsiteBuilderStore as useWebsiteBuilderStore10
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth6,
+  usePhotonStore as usePhotonStore10
+} from "@init/photon/public";
 import { jsx as jsx25, jsxs as jsxs23 } from "react/jsx-runtime";
 var galleryToneStyles = {
   default: {},
   light: {
-    "--wb-gallery-card-border": "rgba(231, 229, 228, 0.95)",
-    "--wb-gallery-card-bg": "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,240,231,0.96))",
-    "--wb-gallery-card-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
-    "--wb-gallery-fallback-bg": "radial-gradient(circle_at_top,rgba(217,119,6,0.08),transparent_28%),linear-gradient(180deg,rgba(255,251,245,0.96),rgba(243,234,219,0.98))",
-    "--wb-gallery-fallback-text": "rgb(120 113 108 / 0.9)",
-    "--wb-gallery-chip-border": "rgba(214, 211, 209, 0.9)",
-    "--wb-gallery-chip-bg": "rgba(255, 255, 255, 0.88)",
-    "--wb-gallery-chip-text": "rgb(120 113 108 / 0.9)",
-    "--wb-gallery-chip-accent-border": "rgba(13, 148, 136, 0.24)",
-    "--wb-gallery-chip-accent-bg": "rgba(240, 253, 250, 0.96)",
-    "--wb-gallery-chip-accent-text": "rgb(15 118 110 / 0.92)",
-    "--wb-gallery-control-border": "rgba(214, 211, 209, 0.96)",
-    "--wb-gallery-control-bg": "rgba(255, 255, 255, 0.9)",
-    "--wb-gallery-control-text": "rgb(87 83 78 / 0.88)",
-    "--wb-gallery-remove-border": "rgba(251, 113, 133, 0.28)",
-    "--wb-gallery-remove-bg": "rgba(255, 241, 242, 0.92)",
-    "--wb-gallery-remove-text": "rgb(190 24 93 / 0.84)",
-    "--wb-gallery-label": "rgb(120 113 108 / 0.92)",
-    "--wb-gallery-caption": "rgb(68 64 60 / 0.9)",
-    "--wb-gallery-file-border": "rgba(231, 229, 228, 0.96)",
-    "--wb-gallery-file-bg": "rgba(255, 255, 255, 0.9)",
-    "--wb-gallery-file-text": "rgb(120 113 108 / 0.88)",
-    "--wb-gallery-empty-border": "rgba(214, 211, 209, 0.9)",
-    "--wb-gallery-empty-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
-    "--wb-gallery-empty-text": "rgb(87 83 78 / 0.74)",
-    "--wb-gallery-empty-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
-    "--wb-gallery-empty-title": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-empty-body": "rgb(87 83 78 / 0.84)",
-    "--wb-gallery-empty-button-border": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-empty-button-bg": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-empty-button-text": "rgb(250 250 249 / 1)",
-    "--wb-gallery-add-border": "rgba(214, 211, 209, 0.92)",
-    "--wb-gallery-add-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
-    "--wb-gallery-add-text": "rgb(87 83 78 / 0.74)",
-    "--wb-gallery-add-title": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-add-body": "rgb(87 83 78 / 0.84)",
-    "--wb-gallery-add-button-border": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-add-button-bg": "rgb(28 25 23 / 0.96)",
-    "--wb-gallery-add-button-text": "rgb(250 250 249 / 1)"
+    "--photon-gallery-card-border": "rgba(231, 229, 228, 0.95)",
+    "--photon-gallery-card-bg": "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,240,231,0.96))",
+    "--photon-gallery-card-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
+    "--photon-gallery-fallback-bg": "radial-gradient(circle_at_top,rgba(217,119,6,0.08),transparent_28%),linear-gradient(180deg,rgba(255,251,245,0.96),rgba(243,234,219,0.98))",
+    "--photon-gallery-fallback-text": "rgb(120 113 108 / 0.9)",
+    "--photon-gallery-chip-border": "rgba(214, 211, 209, 0.9)",
+    "--photon-gallery-chip-bg": "rgba(255, 255, 255, 0.88)",
+    "--photon-gallery-chip-text": "rgb(120 113 108 / 0.9)",
+    "--photon-gallery-chip-accent-border": "rgba(13, 148, 136, 0.24)",
+    "--photon-gallery-chip-accent-bg": "rgba(240, 253, 250, 0.96)",
+    "--photon-gallery-chip-accent-text": "rgb(15 118 110 / 0.92)",
+    "--photon-gallery-control-border": "rgba(214, 211, 209, 0.96)",
+    "--photon-gallery-control-bg": "rgba(255, 255, 255, 0.9)",
+    "--photon-gallery-control-text": "rgb(87 83 78 / 0.88)",
+    "--photon-gallery-remove-border": "rgba(251, 113, 133, 0.28)",
+    "--photon-gallery-remove-bg": "rgba(255, 241, 242, 0.92)",
+    "--photon-gallery-remove-text": "rgb(190 24 93 / 0.84)",
+    "--photon-gallery-label": "rgb(120 113 108 / 0.92)",
+    "--photon-gallery-caption": "rgb(68 64 60 / 0.9)",
+    "--photon-gallery-file-border": "rgba(231, 229, 228, 0.96)",
+    "--photon-gallery-file-bg": "rgba(255, 255, 255, 0.9)",
+    "--photon-gallery-file-text": "rgb(120 113 108 / 0.88)",
+    "--photon-gallery-empty-border": "rgba(214, 211, 209, 0.9)",
+    "--photon-gallery-empty-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
+    "--photon-gallery-empty-text": "rgb(87 83 78 / 0.74)",
+    "--photon-gallery-empty-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
+    "--photon-gallery-empty-title": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-empty-body": "rgb(87 83 78 / 0.84)",
+    "--photon-gallery-empty-button-border": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-empty-button-bg": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-empty-button-text": "rgb(250 250 249 / 1)",
+    "--photon-gallery-add-border": "rgba(214, 211, 209, 0.92)",
+    "--photon-gallery-add-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
+    "--photon-gallery-add-text": "rgb(87 83 78 / 0.74)",
+    "--photon-gallery-add-title": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-add-body": "rgb(87 83 78 / 0.84)",
+    "--photon-gallery-add-button-border": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-add-button-bg": "rgb(28 25 23 / 0.96)",
+    "--photon-gallery-add-button-text": "rgb(250 250 249 / 1)"
   }
 };
 var MediaGallery = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore10(
+  const siteDesign = usePhotonStore10(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4523,18 +4523,18 @@ var MediaGallery = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth6();
+  const renderDepth = usePhotonRenderDepth6();
   const galleryTone = variant === "air" ? "light" : "default";
   const galleryThemeStyle = galleryToneStyles[galleryTone];
   const framelessGallery = theme.surfaceStyle === "frameless";
   const resolvedGalleryThemeStyle = framelessGallery ? {
     ...galleryThemeStyle,
-    "--wb-gallery-card-border": "transparent",
-    "--wb-gallery-file-border": "transparent",
-    "--wb-gallery-empty-border": "transparent",
-    "--wb-gallery-add-border": "transparent",
-    "--wb-gallery-chip-border": "transparent",
-    "--wb-gallery-control-border": "transparent"
+    "--photon-gallery-card-border": "transparent",
+    "--photon-gallery-file-border": "transparent",
+    "--photon-gallery-empty-border": "transparent",
+    "--photon-gallery-add-border": "transparent",
+    "--photon-gallery-chip-border": "transparent",
+    "--photon-gallery-control-border": "transparent"
   } : galleryThemeStyle;
   return /* @__PURE__ */ jsxs23(
     "section",
@@ -4597,7 +4597,7 @@ var MediaGallery = ({
     }
   );
 };
-var mediaGalleryDefinition = defineWebsiteBuilderBlockDefinition15({
+var mediaGalleryDefinition = definePhotonBlockDefinition15({
   type: "media-gallery",
   label: "Media Gallery",
   labelKey: "marketingDemoKit.blocks.mediaGallery.label",
@@ -4608,27 +4608,27 @@ var mediaGalleryDefinition = defineWebsiteBuilderBlockDefinition15({
   component: MediaGallery,
   defaults: {
     variant: "default",
-    eyebrow: createWebsiteBuilderLocalizedDefault15({
+    eyebrow: createPhotonLocalizedDefault15({
       en: "Media workflow",
       ru: "\u041C\u0435\u0434\u0438\u0430 workflow"
     }),
-    title: createWebsiteBuilderLocalizedDefault15({
+    title: createPhotonLocalizedDefault15({
       en: "Temporary uploads now have a real home inside the builder",
       ru: "\u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0442\u0435\u043F\u0435\u0440\u044C \u0436\u0438\u0432\u0443\u0442 \u0432 builder \u043F\u043E-\u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0435\u043C\u0443"
     }),
-    body: createWebsiteBuilderLocalizedDefault15({
+    body: createPhotonLocalizedDefault15({
       en: "This block exists to prove the media pipeline, not just decorate the demo. Upload a few images, reorder them, edit alt text and captions, then save a new profile revision to finalize them on the backend.",
       ru: "\u042D\u0442\u043E\u0442 \u0431\u043B\u043E\u043A \u043D\u0443\u0436\u0435\u043D \u043D\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043A\u0440\u0430\u0441\u043E\u0442\u044B, \u0430 \u0447\u0442\u043E\u0431\u044B \u0434\u043E\u043A\u0430\u0437\u0430\u0442\u044C media-pipeline. \u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0439, \u043F\u043E\u043C\u0435\u043D\u044F\u0439\u0442\u0435 \u0438\u0445 \u043F\u043E\u0440\u044F\u0434\u043E\u043A, \u043F\u043E\u043F\u0440\u0430\u0432\u044C\u0442\u0435 alt-\u0442\u0435\u043A\u0441\u0442 \u0438 \u043F\u043E\u0434\u043F\u0438\u0441\u0438, \u0430 \u0437\u0430\u0442\u0435\u043C \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442, \u0447\u0442\u043E\u0431\u044B \u0444\u0438\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0438\u0445 \u043D\u0430 \u0431\u044D\u043A\u0435\u043D\u0434\u0435."
     }),
-    emptyTitle: createWebsiteBuilderLocalizedDefault15({
+    emptyTitle: createPhotonLocalizedDefault15({
       en: "Build a live media gallery",
       ru: "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u0436\u0438\u0432\u0443\u044E \u043C\u0435\u0434\u0438\u0430-\u0433\u0430\u043B\u0435\u0440\u0435\u044E"
     }),
-    emptyBody: createWebsiteBuilderLocalizedDefault15({
+    emptyBody: createPhotonLocalizedDefault15({
       en: "Upload stills, product frames or editorial images and keep them editable directly on the page.",
       ru: "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0439\u0442\u0435 \u043A\u0430\u0434\u0440\u044B \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430, stills \u0438\u043B\u0438 editorial-\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0438 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0438\u0445 \u043F\u0440\u044F\u043C\u043E \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435."
     }),
-    items: createWebsiteBuilderLocalizedDefault15({
+    items: createPhotonLocalizedDefault15({
       en: [
         {
           id: "gallery-1",
@@ -4728,18 +4728,18 @@ var mediaGalleryDefinition = defineWebsiteBuilderBlockDefinition15({
 
 // src/blocks/proof-strip.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault16,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition16,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault16,
+  definePhotonBlockDefinition as definePhotonBlockDefinition16,
   EditableRepeaterValue as EditableRepeaterValue3,
   EditableText as EditableText16,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth7,
-  useWebsiteBuilderStore as useWebsiteBuilderStore11
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth7,
+  usePhotonStore as usePhotonStore11
+} from "@init/photon/public";
 import { jsx as jsx26, jsxs as jsxs24 } from "react/jsx-runtime";
 var ProofStrip = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore11(
+  const siteDesign = usePhotonStore11(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4748,7 +4748,7 @@ var ProofStrip = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth7();
+  const renderDepth = usePhotonRenderDepth7();
   const framelessRibbon = theme.surfaceStyle === "frameless";
   const { ref, atLeastSm, atLeastMd, atLeastXl } = useSurfaceBreakpoints();
   return /* @__PURE__ */ jsxs24(
@@ -4812,7 +4812,7 @@ var ProofStrip = ({
     }
   );
 };
-var proofStripDefinition = defineWebsiteBuilderBlockDefinition16({
+var proofStripDefinition = definePhotonBlockDefinition16({
   type: "proof-strip",
   label: "Proof Strip",
   labelKey: "marketingDemoKit.blocks.proofStrip.label",
@@ -4823,11 +4823,11 @@ var proofStripDefinition = defineWebsiteBuilderBlockDefinition16({
   component: ProofStrip,
   defaults: {
     variant: "default",
-    title: createWebsiteBuilderLocalizedDefault16({
+    title: createPhotonLocalizedDefault16({
       en: "What the MVP already proves",
       ru: "\u0427\u0442\u043E \u0443\u0436\u0435 \u0434\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0442\u0435\u043A\u0443\u0449\u0438\u0439 MVP"
     }),
-    items: createWebsiteBuilderLocalizedDefault16({
+    items: createPhotonLocalizedDefault16({
       en: [
         {
           value: "2 modes",
@@ -4905,20 +4905,20 @@ var proofStripDefinition = defineWebsiteBuilderBlockDefinition16({
 
 // src/blocks/publication-spotlight.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault17,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition17,
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault17,
+  definePhotonBlockDefinition as definePhotonBlockDefinition17,
   EditableImage as EditableImage3,
   EditableText as EditableText17,
   EditableTextarea as EditableTextarea13,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth8,
-  useWebsiteBuilderStore as useWebsiteBuilderStore12,
-  WebsiteBuilderLink as WebsiteBuilderLink8
-} from "@init-modules/website-builder/public";
+  usePhotonRenderDepth as usePhotonRenderDepth8,
+  usePhotonStore as usePhotonStore12,
+  PhotonLink as PhotonLink8
+} from "@init/photon/public";
 import { jsx as jsx27, jsxs as jsxs25 } from "react/jsx-runtime";
 var PublicationSpotlight = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore12(
+  const siteDesign = usePhotonStore12(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4927,7 +4927,7 @@ var PublicationSpotlight = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth8();
+  const renderDepth = usePhotonRenderDepth8();
   const stacked = variant === "air";
   const framelessSpotlight = theme.surfaceStyle === "frameless";
   return /* @__PURE__ */ jsxs25(
@@ -4992,7 +4992,7 @@ var PublicationSpotlight = ({
                   /* @__PURE__ */ jsx27(EditableText17, { blockId: block.id, path: "readTime" })
                 ] }),
                 /* @__PURE__ */ jsx27(
-                  WebsiteBuilderLink8,
+                  PhotonLink8,
                   {
                     href: String(block.props.ctaHref),
                     className: theme.secondaryButton,
@@ -5014,7 +5014,7 @@ var PublicationSpotlight = ({
     }
   );
 };
-var publicationSpotlightDefinition = defineWebsiteBuilderBlockDefinition17({
+var publicationSpotlightDefinition = definePhotonBlockDefinition17({
   type: "publication-spotlight",
   label: "Publication Spotlight",
   labelKey: "marketingDemoKit.blocks.publicationSpotlight.label",
@@ -5025,29 +5025,29 @@ var publicationSpotlightDefinition = defineWebsiteBuilderBlockDefinition17({
   component: PublicationSpotlight,
   defaults: {
     variant: "default",
-    tag: createWebsiteBuilderLocalizedDefault17({
-      en: "publication-website-builder",
-      ru: "publication-website-builder"
+    tag: createPhotonLocalizedDefault17({
+      en: "publication-photon",
+      ru: "publication-photon"
     }),
-    title: createWebsiteBuilderLocalizedDefault17({
+    title: createPhotonLocalizedDefault17({
       en: "A publication package should bring its own blocks and backend manifest producers",
       ru: "Publication package \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u0442\u044C \u0441\u0432\u043E\u0438 \u0431\u043B\u043E\u043A\u0438 \u0438 backend manifest producers"
     }),
-    excerpt: createWebsiteBuilderLocalizedDefault17({
+    excerpt: createPhotonLocalizedDefault17({
       en: "This block represents the future integration path: a publication package exposes manifest fragments on Laravel, and the mirrored npm kit renders the same block family in Next.js with zero copy-paste glue.",
       ru: "\u042D\u0442\u043E\u0442 \u0431\u043B\u043E\u043A \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u0439 \u043F\u0443\u0442\u044C \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438: publication package \u043E\u0442\u0434\u0430\u0435\u0442 manifest fragments \u043D\u0430 Laravel, \u0430 \u0437\u0435\u0440\u043A\u0430\u043B\u044C\u043D\u044B\u0439 npm kit \u0440\u0435\u043D\u0434\u0435\u0440\u0438\u0442 \u0442\u0443 \u0436\u0435 \u0441\u0435\u043C\u044C\u044E \u0431\u043B\u043E\u043A\u043E\u0432 \u0432 Next.js \u0431\u0435\u0437 copy-paste glue-\u043A\u043E\u0434\u0430."
     }),
-    author: createWebsiteBuilderLocalizedDefault17({
+    author: createPhotonLocalizedDefault17({
       en: "Lead package architecture",
       ru: "Lead package architecture"
     }),
-    readTime: createWebsiteBuilderLocalizedDefault17({
+    readTime: createPhotonLocalizedDefault17({
       en: "6 min walkthrough",
       ru: "6 \u043C\u0438\u043D\u0443\u0442 \u0447\u0442\u0435\u043D\u0438\u044F"
     }),
     imageUrl: "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80",
     imageAlt: "Editorial workspace with notebooks and camera",
-    ctaLabel: createWebsiteBuilderLocalizedDefault17({
+    ctaLabel: createPhotonLocalizedDefault17({
       en: "Open package strategy",
       ru: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C package strategy"
     }),
@@ -5130,16 +5130,16 @@ var publicationSpotlightDefinition = defineWebsiteBuilderBlockDefinition17({
 
 // src/blocks/rich-text.tsx
 import {
-  createWebsiteBuilderLocalizedDefault as createWebsiteBuilderLocalizedDefault18,
-  defineWebsiteBuilderBlockDefinition as defineWebsiteBuilderBlockDefinition18,
-  useWebsiteBuilderRenderDepth as useWebsiteBuilderRenderDepth9,
-  useWebsiteBuilderStore as useWebsiteBuilderStore13
-} from "@init-modules/website-builder/public";
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault18,
+  definePhotonBlockDefinition as definePhotonBlockDefinition18,
+  usePhotonRenderDepth as usePhotonRenderDepth9,
+  usePhotonStore as usePhotonStore13
+} from "@init/photon/public";
 import { jsx as jsx28 } from "react/jsx-runtime";
 var RichTextBlock = ({
   block
 }) => {
-  const siteDesign = useWebsiteBuilderStore13(
+  const siteDesign = usePhotonStore13(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -5148,7 +5148,7 @@ var RichTextBlock = ({
     siteDesign
   });
   const theme = getMarketingDemoVariantTheme(variant);
-  const renderDepth = useWebsiteBuilderRenderDepth9();
+  const renderDepth = usePhotonRenderDepth9();
   const frameless = theme.surfaceStyle === "frameless";
   return /* @__PURE__ */ jsx28(
     "section",
@@ -5173,10 +5173,10 @@ var RichTextBlock = ({
               containerClassName: "min-w-0",
               className: [
                 theme.richText,
-                "[&_blockquote]:text-[var(--wb-site-muted-text)]",
-                "[&_h2]:text-[var(--wb-site-text)] [&_h3]:text-[var(--wb-site-text)]",
-                "[&_li]:text-[var(--wb-site-text)] [&_p]:text-[var(--wb-site-text)]",
-                "[&_strong]:text-[var(--wb-site-text)]"
+                "[&_blockquote]:text-[var(--photon-site-muted-text)]",
+                "[&_h2]:text-[var(--photon-site-text)] [&_h3]:text-[var(--photon-site-text)]",
+                "[&_li]:text-[var(--photon-site-text)] [&_p]:text-[var(--photon-site-text)]",
+                "[&_strong]:text-[var(--photon-site-text)]"
               ].join(" ")
             }
           )
@@ -5185,7 +5185,7 @@ var RichTextBlock = ({
     }
   );
 };
-var richTextDefinition = defineWebsiteBuilderBlockDefinition18({
+var richTextDefinition = definePhotonBlockDefinition18({
   type: "rich-text",
   label: "Rich Text",
   labelKey: "marketingDemoKit.blocks.richText.label",
@@ -5196,7 +5196,7 @@ var richTextDefinition = defineWebsiteBuilderBlockDefinition18({
   component: RichTextBlock,
   defaults: {
     variant: "default",
-    content: createWebsiteBuilderLocalizedDefault18({
+    content: createPhotonLocalizedDefault18({
       en: "<h2>Content mode can now persist richer editorial structure</h2><p>The builder no longer has to flatten everything into plain textareas. This block stores real rich text markup, keeps it in the manifest, survives branch changes and still renders directly on the public website.</p><p>The point is not a detached CMS page. The point is staying on the live surface while editing:</p><ul><li>short narrative paragraphs</li><li>lists for product proof</li><li>quotes or subheads when a section needs rhythm</li></ul><blockquote>The same saved document can feed preview, content mode and profile history.</blockquote>",
       ru: "<h2>Content mode \u0442\u0435\u043F\u0435\u0440\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442 \u0431\u043E\u043B\u0435\u0435 \u0431\u043E\u0433\u0430\u0442\u0443\u044E editorial-\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0443</h2><p>Builder \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u043E\u0431\u044F\u0437\u0430\u043D \u0441\u043F\u043B\u044E\u0449\u0438\u0432\u0430\u0442\u044C \u0432\u0441\u0435 \u0432 \u043E\u0431\u044B\u0447\u043D\u044B\u0435 textareas. \u042D\u0442\u043E\u0442 \u0431\u043B\u043E\u043A \u0445\u0440\u0430\u043D\u0438\u0442 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0439 rich text markup, \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442 \u0435\u0433\u043E \u0432 manifest, \u043F\u0435\u0440\u0435\u0436\u0438\u0432\u0430\u0435\u0442 \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0432\u0435\u0442\u043E\u043A \u0438 \u043F\u0440\u0438 \u044D\u0442\u043E\u043C \u0440\u0435\u043D\u0434\u0435\u0440\u0438\u0442\u0441\u044F \u043F\u0440\u044F\u043C\u043E \u043D\u0430 \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u043E\u043C \u0441\u0430\u0439\u0442\u0435.</p><p>\u0421\u043C\u044B\u0441\u043B \u043D\u0435 \u0432 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E\u0439 CMS-\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435. \u0421\u043C\u044B\u0441\u043B \u0432 \u0442\u043E\u043C, \u0447\u0442\u043E\u0431\u044B \u043E\u0441\u0442\u0430\u0432\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u0436\u0438\u0432\u043E\u0439 \u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u0438 \u0432\u043E \u0432\u0440\u0435\u043C\u044F \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F:</p><ul><li>\u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0435 \u043F\u043E\u0432\u0435\u0441\u0442\u0432\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0430\u0431\u0437\u0430\u0446\u044B</li><li>\u0441\u043F\u0438\u0441\u043A\u0438 \u0434\u043B\u044F \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0445 \u0434\u043E\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432</li><li>\u0446\u0438\u0442\u0430\u0442\u044B \u0438 \u043F\u043E\u0434\u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0438, \u043A\u043E\u0433\u0434\u0430 \u0441\u0435\u043A\u0446\u0438\u0438 \u043D\u0443\u0436\u0435\u043D \u0440\u0438\u0442\u043C</li></ul><blockquote>\u041E\u0434\u0438\u043D \u0438 \u0442\u043E\u0442 \u0436\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442 \u043C\u043E\u0436\u0435\u0442 \u043A\u043E\u0440\u043C\u0438\u0442\u044C preview, content mode \u0438 \u0438\u0441\u0442\u043E\u0440\u0438\u044E \u043F\u0440\u043E\u0444\u0438\u043B\u044F.</blockquote>"
     })

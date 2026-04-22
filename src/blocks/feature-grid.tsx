@@ -1,15 +1,15 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableRepeaterValue,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import { useSurfaceBreakpoints } from "../hooks/use-surface-breakpoints";
 import {
@@ -33,9 +33,9 @@ type FeatureGridProps = {
 export const FeatureGrid = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<FeatureGridProps>;
+	block: PhotonBlock<FeatureGridProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -44,7 +44,7 @@ export const FeatureGrid = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const framelessGrid = theme.surfaceStyle === "frameless";
 	const { ref, atLeastSm, atLeastMd, atLeastLg, atLeastXl } =
 		useSurfaceBreakpoints<HTMLElement>();
@@ -123,7 +123,7 @@ export const FeatureGrid = ({
 };
 
 export const featureGridDefinition =
-	defineWebsiteBuilderBlockDefinition<FeatureGridProps>({
+	definePhotonBlockDefinition<FeatureGridProps>({
 		type: "feature-grid",
 		label: "Feature Grid",
 		labelKey: "marketingDemoKit.blocks.featureGrid.label",
@@ -134,19 +134,19 @@ export const featureGridDefinition =
 		component: FeatureGrid,
 		defaults: {
 			variant: "default",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Editor capabilities",
 				ru: "Возможности редактора",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "One framework, two editor personalities",
 				ru: "Один фреймворк, два режима работы редактора",
 			}),
-			body: createWebsiteBuilderLocalizedDefault({
+			body: createPhotonLocalizedDefault({
 				en: "The same manifest powers public rendering, inline content edits and the full builder chrome. Domain teams can publish their own kits instead of patching a single giant application.",
 				ru: "Один и тот же manifest питает публичный рендер, inline-редактирование контента и полный builder chrome. Доменные команды могут публиковать свои kit-пакеты вместо патчей в одно монолитное приложение.",
 			}),
-			features: createWebsiteBuilderLocalizedDefault({
+			features: createPhotonLocalizedDefault({
 				en: [
 					{
 						title: "Inline content controls",

@@ -1,4 +1,4 @@
-import type { WebsiteBuilderDocument } from "@init-modules/website-builder/server";
+import type { PhotonDocument } from "@init/photon/server";
 import {
 	cloneBaseDocument,
 	cloneDocumentBlockById,
@@ -9,9 +9,9 @@ import {
 } from "../shared";
 
 export const createPaperFlowDocument = (
-	baseDocument: WebsiteBuilderDocument,
+	baseDocument: PhotonDocument,
 	locale: MarketingDemoLocale,
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	const hero = patchBlockProps(
 		cloneDocumentBlockById(baseDocument, "hero-spotlight"),
 		locale === "ru"

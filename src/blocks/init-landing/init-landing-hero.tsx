@@ -1,13 +1,13 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-} from "@init-modules/website-builder/public";
+	usePhotonStore,
+	type PhotonBlockComponentProps,
+	type PhotonField,
+} from "@init/photon/public";
 import {
 	InitStatusPill,
 	InitStatWidget,
@@ -43,7 +43,7 @@ export type InitLandingHeroProps = {
 	title: string;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "badge",
 		label: "Badge",
@@ -146,8 +146,8 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingHeroBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingHeroProps>) => {
-	const mode = useWebsiteBuilderStore((state) => state.mode);
+}: PhotonBlockComponentProps<InitLandingHeroProps>) => {
+	const mode = usePhotonStore((state) => state.mode);
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastSm, atLeastLg, atLeastXl } =
 		useInitLandingSurfaceBreakpoints();
@@ -155,14 +155,14 @@ const InitLandingHeroBlock = ({
 	return (
 		<section
 			ref={ref}
-			data-testid="wb-init-landing-hero"
+			data-testid="photon-init-landing-hero"
 			className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
 			style={bleedStyle}
 		>
 			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<div className="animate-pulse-slow absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_8%,transparent)] blur-[100px]" />
-				<div className="animate-pulse-slow animation-delay-200 absolute bottom-1/3 left-1/5 h-[400px] w-[400px] rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_6%,transparent)] blur-[80px]" />
-				<div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[color-mix(in_oklab,var(--wb-site-accent)_4%,transparent)] blur-[120px]" />
+				<div className="animate-pulse-slow absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_8%,transparent)] blur-[100px]" />
+				<div className="animate-pulse-slow animation-delay-200 absolute bottom-1/3 left-1/5 h-[400px] w-[400px] rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_6%,transparent)] blur-[80px]" />
+				<div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[color-mix(in_oklab,var(--photon-site-accent)_4%,transparent)] blur-[120px]" />
 				<InitLandingHeroGridCanvas />
 			</div>
 
@@ -172,13 +172,13 @@ const InitLandingHeroBlock = ({
 						<EditableText
 							blockId={block.id}
 							path="badge"
-							className="text-sm font-medium text-[var(--wb-site-muted-text)]"
+							className="text-sm font-medium text-[var(--photon-site-muted-text)]"
 						/>
 					</InitStatusPill>
 
 					<h1
 						className={[
-							"animate-fade-up animation-delay-100 text-balance leading-[1.1] font-semibold tracking-tight text-[var(--wb-site-text)]",
+							"animate-fade-up animation-delay-100 text-balance leading-[1.1] font-semibold tracking-tight text-[var(--photon-site-text)]",
 							atLeastXl
 								? "text-7xl"
 								: atLeastLg
@@ -190,12 +190,12 @@ const InitLandingHeroBlock = ({
 					>
 						<EditableText blockId={block.id} path="title" />{" "}
 						<span className="relative mt-2 inline-block">
-							<span className="relative z-10 text-[var(--wb-site-accent)]">
+							<span className="relative z-10 text-[var(--photon-site-accent)]">
 								<EditableText blockId={block.id} path="highlightedTitle" />
 							</span>
 							<svg
 								aria-hidden="true"
-								className="absolute -bottom-2 left-0 h-3 w-full text-[color-mix(in_oklab,var(--wb-site-accent)_20%,transparent)]"
+								className="absolute -bottom-2 left-0 h-3 w-full text-[color-mix(in_oklab,var(--photon-site-accent)_20%,transparent)]"
 								viewBox="0 0 200 12"
 								preserveAspectRatio="none"
 							>
@@ -247,7 +247,7 @@ const InitLandingHeroBlock = ({
               return (
                 <div
                   key={`${item.icon}:${item.label}`}
-                  className="flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_50%,transparent)] px-4 py-2 text-sm text-[var(--wb-site-muted-text)] transition-colors hover:bg-[var(--wb-site-surface)] hover:text-[var(--wb-site-text)]"
+                  className="flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_50%,transparent)] px-4 py-2 text-sm text-[var(--photon-site-muted-text)] transition-colors hover:bg-[var(--photon-site-surface)] hover:text-[var(--photon-site-text)]"
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
@@ -260,7 +260,7 @@ const InitLandingHeroBlock = ({
 						{block.props.stats.map((stat, index) => (
 							<div
 								key={`${stat.label}:${stat.value}`}
-								className={`animation-delay-${(index + 5) * 100} rounded-2xl border border-[color-mix(in_oklab,var(--wb-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--wb-site-surface)_50%,transparent)] p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-[var(--wb-site-border)] hover:bg-[var(--wb-site-surface)] hover:shadow-lg`}
+								className={`animation-delay-${(index + 5) * 100} rounded-2xl border border-[color-mix(in_oklab,var(--photon-site-border)_50%,transparent)] bg-[color-mix(in_oklab,var(--photon-site-surface)_50%,transparent)] p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-[var(--photon-site-border)] hover:bg-[var(--photon-site-surface)] hover:shadow-lg`}
 							>
 								{mode === "preview" ? (
 									<InitStatWidget
@@ -273,7 +273,7 @@ const InitLandingHeroBlock = ({
 									<div className="text-center">
 										<div
 											className={[
-												"font-semibold text-[var(--wb-site-text)]",
+												"font-semibold text-[var(--photon-site-text)]",
 												atLeastLg ? "text-4xl" : "text-3xl",
 											].join(" ")}
 										>
@@ -290,7 +290,7 @@ const InitLandingHeroBlock = ({
 										<EditableText
 											blockId={block.id}
 											path={`stats.${index}.label`}
-											className="mt-1 text-sm text-[var(--wb-site-muted-text)]"
+											className="mt-1 text-sm text-[var(--photon-site-muted-text)]"
 										/>
 									</div>
 								)}
@@ -300,7 +300,7 @@ const InitLandingHeroBlock = ({
 				</div>
 
 				<div className="animate-fade-up animation-delay-700 absolute bottom-8 left-1/2 -translate-x-1/2">
-					<div className="flex flex-col items-center gap-2 text-[var(--wb-site-muted-text)]">
+					<div className="flex flex-col items-center gap-2 text-[var(--photon-site-muted-text)]">
 						<span className="text-xs uppercase tracking-widest">Scroll</span>
 						<div className="flex h-8 w-5 items-start justify-center rounded-full border-2 border-current p-1">
 							<div className="h-2 w-1 animate-bounce rounded-full bg-current" />
@@ -310,15 +310,15 @@ const InitLandingHeroBlock = ({
 			</div>
 
 			<div className="pointer-events-none absolute inset-x-0 bottom-0 h-28">
-				<div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--wb-site-background)_55%,transparent)] to-[var(--wb-site-background)]" />
-				<div className="absolute inset-x-0 bottom-0 h-px bg-[color-mix(in_oklab,var(--wb-site-border)_70%,transparent)]" />
+				<div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--photon-site-background)_55%,transparent)] to-[var(--photon-site-background)]" />
+				<div className="absolute inset-x-0 bottom-0 h-px bg-[color-mix(in_oklab,var(--photon-site-border)_70%,transparent)]" />
 			</div>
 		</section>
 	);
 };
 
 export const initLandingHeroDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingHeroProps>({
+	definePhotonBlockDefinition<InitLandingHeroProps>({
 		type: "init-landing-hero",
 		label: "Init Landing Hero",
 		description: "Hero section from the Init landing page.",
@@ -328,15 +328,15 @@ export const initLandingHeroDefinition =
 		fields,
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
-			badge: createWebsiteBuilderLocalizedDefault({
+			badge: createPhotonLocalizedDefault({
 				en: "Сайты без лишней сложности",
 				ru: "Сайты без лишней сложности",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Разрабатываем сайты",
 				ru: "Разрабатываем сайты",
 			}),
-			highlightedTitle: createWebsiteBuilderLocalizedDefault({
+			highlightedTitle: createPhotonLocalizedDefault({
 				en: "под задачу и рост",
 				ru: "под задачу и рост",
 			}),

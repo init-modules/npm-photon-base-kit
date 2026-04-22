@@ -1,16 +1,16 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableImage,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+	PhotonLink,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import { useSurfaceBreakpoints } from "../hooks/use-surface-breakpoints";
 import {
@@ -39,9 +39,9 @@ type HeroSpotlightProps = {
 export const HeroSpotlight = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<HeroSpotlightProps>;
+	block: PhotonBlock<HeroSpotlightProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -51,7 +51,7 @@ export const HeroSpotlight = ({
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
 	const airHero = variant === "air";
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const stackedHero = airHero;
 	const framelessHero = theme.surfaceStyle === "frameless";
 	const { ref, atLeastSm, atLeastMd, atLeastLg, atLeastXl } =
@@ -112,7 +112,7 @@ export const HeroSpotlight = ({
 					/>
 
 					<div className={`flex gap-3 ${atLeastSm ? "flex-row" : "flex-col"}`}>
-						<WebsiteBuilderLink
+						<PhotonLink
 							href={String(block.props.primaryHref)}
 							className={`${theme.primaryButton} gap-3`}
 						>
@@ -126,8 +126,8 @@ export const HeroSpotlight = ({
 								path="primaryMetaLabel"
 								className={theme.metaText}
 							/>
-						</WebsiteBuilderLink>
-						<WebsiteBuilderLink
+						</PhotonLink>
+						<PhotonLink
 							href={String(block.props.secondaryHref)}
 							className={theme.secondaryButton}
 						>
@@ -136,7 +136,7 @@ export const HeroSpotlight = ({
 								path="secondaryLabel"
 								className="text-sm font-semibold"
 							/>
-						</WebsiteBuilderLink>
+						</PhotonLink>
 					</div>
 				</div>
 
@@ -184,7 +184,7 @@ export const HeroSpotlight = ({
 };
 
 export const heroSpotlightDefinition =
-	defineWebsiteBuilderBlockDefinition<HeroSpotlightProps>({
+	definePhotonBlockDefinition<HeroSpotlightProps>({
 		type: "hero-spotlight",
 		label: "Hero Spotlight",
 		labelKey: "marketingDemoKit.blocks.heroSpotlight.label",
@@ -196,37 +196,37 @@ export const heroSpotlightDefinition =
 		component: HeroSpotlight,
 		defaults: {
 			variant: "default",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Package-first builder system",
 				ru: "Package-first система builder",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Edit the real website, not a fake admin copy",
 				ru: "Редактируйте реальный сайт, а не отдельную админскую копию",
 			}),
-			body: createWebsiteBuilderLocalizedDefault({
-				en: "Website Builder turns your actual Next.js surface into the editing canvas. Content mode focuses on inline edits, while Builder mode exposes a full control room with palette, drag-and-drop and inspector panels.",
-				ru: "Website Builder превращает вашу реальную Next.js-поверхность в холст редактирования. Content mode оставляет редактирование инлайновым, а Builder mode открывает полноценный control room с palette, drag-and-drop и inspector-панелями.",
+			body: createPhotonLocalizedDefault({
+				en: "Photon turns your actual Next.js surface into the editing canvas. Content mode focuses on inline edits, while Builder mode exposes a full control room with palette, drag-and-drop and inspector panels.",
+				ru: "Photon превращает вашу реальную Next.js-поверхность в холст редактирования. Content mode оставляет редактирование инлайновым, а Builder mode открывает полноценный control room с palette, drag-and-drop и inspector-панелями.",
 			}),
-			primaryLabel: createWebsiteBuilderLocalizedDefault({
+			primaryLabel: createPhotonLocalizedDefault({
 				en: "Enter builder mode",
 				ru: "Открыть builder mode",
 			}),
-			primaryMetaLabel: createWebsiteBuilderLocalizedDefault({
+			primaryMetaLabel: createPhotonLocalizedDefault({
 				en: "Launch",
 				ru: "Запуск",
 			}),
 			primaryHref: "#builder",
-			secondaryLabel: createWebsiteBuilderLocalizedDefault({
+			secondaryLabel: createPhotonLocalizedDefault({
 				en: "See package architecture",
 				ru: "Смотреть архитектуру пакетов",
 			}),
 			secondaryHref: "#packages",
-			spotlightLabel: createWebsiteBuilderLocalizedDefault({
+			spotlightLabel: createPhotonLocalizedDefault({
 				en: "Target shape",
 				ru: "Целевая форма",
 			}),
-			spotlightValue: createWebsiteBuilderLocalizedDefault({
+			spotlightValue: createPhotonLocalizedDefault({
 				en: "Next.js + Laravel + installable block kits",
 				ru: "Next.js + Laravel + installable block kits",
 			}),

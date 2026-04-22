@@ -1,4 +1,4 @@
-import { WebsiteBuilderSiteDesignAppearance } from '@init-modules/website-builder/server';
+import { PhotonSiteDesignAppearance } from '@init/photon/server';
 import { CSSProperties } from 'react';
 
 declare const marketingDemoBlockVariants: readonly ["default", "air"];
@@ -41,7 +41,7 @@ declare const isMarketingDemoFramelessVariant: (variant: MarketingDemoBlockVaria
 type MarketingDemoDesignPreset = {
     id: string;
     label: string;
-    appearance: WebsiteBuilderSiteDesignAppearance;
+    appearance: PhotonSiteDesignAppearance;
     description: string;
     componentVariants: MarketingDemoBlockVariantMap;
 };
@@ -52,6 +52,6 @@ declare const resolveMarketingDemoBlockVariant: ({ blockType, explicitVariant, s
     explicitVariant?: unknown;
     siteDesign?: unknown;
 }) => MarketingDemoBlockVariant;
-declare const baseWebsiteBuilderThemes: MarketingDemoDesignPreset[];
+declare const basePhotonThemes: MarketingDemoDesignPreset[];
 
-export { type MarketingDemoBlockType as M, type MarketingDemoBlockVariant as a, type MarketingDemoBlockVariantMap as b, type MarketingDemoDesignPreset as c, type MarketingDemoDesignPresetId as d, type MarketingDemoVariantTheme as e, airMarketingDemoVariantTheme as f, baseWebsiteBuilderThemes as g, createMarketingDemoVariantMap as h, defaultMarketingDemoVariantTheme as i, getMarketingDemoFramelessBleedStyle as j, getMarketingDemoVariantTheme as k, isMarketingDemoFramelessVariant as l, marketingDemoBlockTypes as m, marketingDemoBlockVariants as n, marketingDemoDesignPresets as o, marketingDemoVariantThemes as p, resolveMarketingDemoSiteVariant as q, resolveMarketingDemoBlockVariant as r };
+export { type MarketingDemoBlockType as M, type MarketingDemoBlockVariant as a, type MarketingDemoBlockVariantMap as b, type MarketingDemoDesignPreset as c, type MarketingDemoDesignPresetId as d, type MarketingDemoVariantTheme as e, airMarketingDemoVariantTheme as f, basePhotonThemes as g, createMarketingDemoVariantMap as h, defaultMarketingDemoVariantTheme as i, getMarketingDemoFramelessBleedStyle as j, getMarketingDemoVariantTheme as k, isMarketingDemoFramelessVariant as l, marketingDemoBlockTypes as m, marketingDemoBlockVariants as n, marketingDemoDesignPresets as o, marketingDemoVariantThemes as p, resolveMarketingDemoSiteVariant as q, resolveMarketingDemoBlockVariant as r };

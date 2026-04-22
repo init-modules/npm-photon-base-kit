@@ -1,10 +1,10 @@
 "use client";
 
 import {
-	createWebsiteBuilderKit,
-	type WebsiteBuilderInstallableKit,
-	type WebsiteBuilderModule,
-} from "@init-modules/website-builder/public";
+	createPhotonKit,
+	type PhotonInstallableKit,
+	type PhotonModule,
+} from "@init/photon/public";
 import {
 	breadcrumbsDefinition,
 	commandCenterCtaDefinition,
@@ -26,9 +26,9 @@ import {
 	richTextDefinition,
 } from "./blocks";
 
-export const basePublicWebsiteBuilderModule: WebsiteBuilderModule = {
+export const basePublicPhotonModule: PhotonModule = {
 	module: "marketing-demo",
-	label: "Website Builder Base Kit",
+	label: "Photon Base Kit",
 	labelKey: "marketingDemoKit.module.label",
 	version: "0.1.0",
 	blocks: [
@@ -53,9 +53,9 @@ export const basePublicWebsiteBuilderModule: WebsiteBuilderModule = {
 	],
 };
 
-export const basePublicWebsiteBuilderKit: WebsiteBuilderInstallableKit =
-	createWebsiteBuilderKit({
-		key: "website-builder-base",
-		label: "Website Builder Base Kit",
-		modules: [basePublicWebsiteBuilderModule],
+export const basePublicPhotonKit: PhotonInstallableKit =
+	createPhotonKit({
+		key: "photon-base",
+		label: "Photon Base Kit",
+		modules: [basePublicPhotonModule],
 	});

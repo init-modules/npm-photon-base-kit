@@ -1,14 +1,14 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	type PhotonBlockComponentProps,
+	type PhotonField,
+	PhotonLink,
+} from "@init/photon/public";
 import {
 	createInitLandingBlockLocalizationSchema,
 	InitBrandMark,
@@ -28,7 +28,7 @@ export type InitLandingFooterProps = {
 	services: InitLandingLinkItem[];
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "brandLabel",
 		label: "Brand label",
@@ -105,7 +105,7 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingFooterBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingFooterProps>) => {
+}: PhotonBlockComponentProps<InitLandingFooterProps>) => {
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastSm, atLeastMd, atLeastLg } =
 		useInitLandingSurfaceBreakpoints();
@@ -113,7 +113,7 @@ const InitLandingFooterBlock = ({
 	return (
 		<footer
 			ref={ref}
-			className="border-t border-[var(--wb-site-border)] bg-[var(--wb-site-surface)]"
+			className="border-t border-[var(--photon-site-border)] bg-[var(--photon-site-surface)]"
 			style={bleedStyle}
 		>
 			<div
@@ -134,82 +134,82 @@ const InitLandingFooterBlock = ({
 							" ",
 						)}
 					>
-						<WebsiteBuilderLink
+						<PhotonLink
 							href={String(block.props.homeHref)}
 							className="group flex items-center gap-2"
 						>
 							<InitBrandMark
 								label={<EditableText blockId={block.id} path="brandLabel" />}
 							/>
-						</WebsiteBuilderLink>
+						</PhotonLink>
 						<EditableTextarea
 							blockId={block.id}
 							path="brandDescription"
-							className="mt-4 max-w-xs text-sm leading-relaxed text-[var(--wb-site-muted-text)]"
+							className="mt-4 max-w-xs text-sm leading-relaxed text-[var(--photon-site-muted-text)]"
 						/>
 					</div>
 					<div>
-						<h3 className="mb-4 text-sm font-semibold text-[var(--wb-site-text)]">
+						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
 							Услуги
 						</h3>
 						<ul className="space-y-3">
 							{block.props.services.map((item, index) => (
 								<li key={`${item.name ?? item.label}:${item.href}`}>
-									<WebsiteBuilderLink
+									<PhotonLink
 										href={item.href}
-										className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
+										className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 									>
 										<EditableText
 											blockId={block.id}
 											path={`services.${index}.name`}
 										/>
-									</WebsiteBuilderLink>
+									</PhotonLink>
 								</li>
 							))}
 						</ul>
 					</div>
 					<div>
-						<h3 className="mb-4 text-sm font-semibold text-[var(--wb-site-text)]">
+						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
 							Компания
 						</h3>
 						<ul className="space-y-3">
 							{block.props.company.map((item, index) => (
 								<li key={`${item.name ?? item.label}:${item.href}`}>
-									<WebsiteBuilderLink
+									<PhotonLink
 										href={item.href}
-										className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
+										className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 									>
 										<EditableText
 											blockId={block.id}
 											path={`company.${index}.name`}
 										/>
-									</WebsiteBuilderLink>
+									</PhotonLink>
 								</li>
 							))}
 						</ul>
 					</div>
 					<div>
-						<h3 className="mb-4 text-sm font-semibold text-[var(--wb-site-text)]">
+						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
 							Контакты
 						</h3>
 						<ul className="space-y-3">
 							<li>
-								<WebsiteBuilderLink
+								<PhotonLink
 									href={`mailto:${block.props.contact.email}`}
-									className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
+									className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 								>
 									<EditableText blockId={block.id} path="contact.email" />
-								</WebsiteBuilderLink>
+								</PhotonLink>
 							</li>
 							<li>
-								<WebsiteBuilderLink
+								<PhotonLink
 									href={`tel:${block.props.contact.phone}`}
-									className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
+									className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 								>
 									<EditableText blockId={block.id} path="contact.phone" />
-								</WebsiteBuilderLink>
+								</PhotonLink>
 							</li>
-							<li className="text-sm text-[var(--wb-site-muted-text)]">
+							<li className="text-sm text-[var(--photon-site-muted-text)]">
 								<EditableText blockId={block.id} path="contact.location" />
 							</li>
 						</ul>
@@ -218,22 +218,22 @@ const InitLandingFooterBlock = ({
 
 				<div
 					className={[
-						"mt-12 flex items-center justify-between gap-4 border-t border-[var(--wb-site-border)] pt-8",
+						"mt-12 flex items-center justify-between gap-4 border-t border-[var(--photon-site-border)] pt-8",
 						atLeastSm ? "flex-row" : "flex-col",
 					].join(" ")}
 				>
-					<p className="text-sm text-[var(--wb-site-muted-text)]">
+					<p className="text-sm text-[var(--photon-site-muted-text)]">
 						&copy; {new Date().getFullYear()} init. All rights reserved.
 					</p>
 					<div className="flex items-center gap-6">
 						{block.props.legal.map((item, index) => (
-							<WebsiteBuilderLink
+							<PhotonLink
 								key={`${item.name ?? item.label}:${item.href}:legal`}
 								href={item.href}
-								className="text-sm text-[var(--wb-site-muted-text)] transition-colors hover:text-[var(--wb-site-text)]"
+								className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 							>
 								<EditableText blockId={block.id} path={`legal.${index}.name`} />
-							</WebsiteBuilderLink>
+							</PhotonLink>
 						))}
 					</div>
 				</div>
@@ -243,7 +243,7 @@ const InitLandingFooterBlock = ({
 };
 
 export const initLandingFooterDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingFooterProps>({
+	definePhotonBlockDefinition<InitLandingFooterProps>({
 		type: "init-landing-footer",
 		label: "Init Landing Footer",
 		description: "Footer from the Init landing page.",
@@ -253,12 +253,12 @@ export const initLandingFooterDefinition =
 		fields,
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
-			brandLabel: createWebsiteBuilderLocalizedDefault({
+			brandLabel: createPhotonLocalizedDefault({
 				en: "init",
 				ru: "init",
 			}),
 			homeHref: "/",
-			brandDescription: createWebsiteBuilderLocalizedDefault({
+			brandDescription: createPhotonLocalizedDefault({
 				en: "Разработка сайтов в нескольких форматах: готовые решения, модульная сборка через конструктор и индивидуальный custom.",
 				ru: "Разработка сайтов в нескольких форматах: готовые решения, модульная сборка через конструктор и индивидуальный custom.",
 			}),

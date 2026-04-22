@@ -1,10 +1,10 @@
-import * as _init_modules_website_builder_server from '@init-modules/website-builder/server';
-import { WebsiteBuilderDocument, WebsiteBuilderDocumentsMap } from '@init-modules/website-builder/server';
-import { d as MarketingDemoDesignPresetId, o as marketingDemoDesignPresets } from './design-presets-BjdDyqrP.js';
+import * as _init_photon_server from '@init/photon/server';
+import { PhotonDocument, PhotonDocumentsMap } from '@init/photon/server';
+import { d as MarketingDemoDesignPresetId, o as marketingDemoDesignPresets } from './design-presets-j2te0UgP.js';
 import 'react';
 
-declare const createInitLandingHeaderDocument: () => WebsiteBuilderDocument;
-declare const createInitLandingFooterDocument: () => WebsiteBuilderDocument;
+declare const createInitLandingHeaderDocument: () => PhotonDocument;
+declare const createInitLandingFooterDocument: () => PhotonDocument;
 
 type MarketingDemoLocale = "en" | "ru";
 type MarketingDemoProfileStarterPreset = {
@@ -38,7 +38,7 @@ type BaseProfileStarterSource = {
 declare const createBaseStarterProfileTree: (locale: MarketingDemoLocale, source: BaseProfileStarterSource) => {
     pages: {
         home: {
-            document: WebsiteBuilderDocument;
+            document: PhotonDocument;
             settings: {
                 page: {
                     name: string;
@@ -60,14 +60,14 @@ declare const createBaseStarterProfileTree: (locale: MarketingDemoLocale, source
     site: {
         regions: {
             header: {
-                document: WebsiteBuilderDocument;
+                document: PhotonDocument;
             };
             footer: {
-                document: WebsiteBuilderDocument;
+                document: PhotonDocument;
             };
         };
         settings: {
-            design: _init_modules_website_builder_server.WebsiteBuilderResolvedSiteDesignSettings;
+            design: _init_photon_server.PhotonResolvedSiteDesignSettings;
         } | {
             design?: undefined;
         };
@@ -86,19 +86,19 @@ declare const createBaseStarterProfileTree: (locale: MarketingDemoLocale, source
         source: string;
     };
 };
-declare const createMarketingDemoDesignTemplateDocument: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createMarketingDemoDocument: (locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createMarketingDemoProfileDocumentFromPresetSource: (presetId: MarketingDemoDesignPresetId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createMarketingDemoProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
+declare const createMarketingDemoDesignTemplateDocument: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createMarketingDemoDocument: (locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createMarketingDemoProfileDocumentFromPresetSource: (presetId: MarketingDemoDesignPresetId, locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createMarketingDemoProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
 declare const marketingDemoDesignTemplates: MarketingDemoDesignTemplate[];
 
-declare const marketingWebsiteBuilderDocuments: WebsiteBuilderDocumentsMap;
+declare const marketingPhotonDocuments: PhotonDocumentsMap;
 declare const baseDesignTemplates: MarketingDemoDesignTemplate[];
 declare const baseProfileStarterPresets: MarketingDemoProfileStarterPreset[];
-declare const baseWebsiteBuilderDocuments: WebsiteBuilderDocumentsMap;
-declare const createBaseWebsiteBuilderDocument: (locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createBaseDesignTemplateDocument: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createBaseProfileDocumentFromPresetSource: (presetId: MarketingDemoDesignPresetId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
-declare const createBaseProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => WebsiteBuilderDocument;
+declare const basePhotonDocuments: PhotonDocumentsMap;
+declare const createBasePhotonDocument: (locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createBaseDesignTemplateDocument: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createBaseProfileDocumentFromPresetSource: (presetId: MarketingDemoDesignPresetId, locale?: MarketingDemoLocale) => PhotonDocument;
+declare const createBaseProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
 
-export { type BaseProfileStarterSource, type MarketingDemoDesignTemplate, type MarketingDemoDesignTemplateId, type MarketingDemoLocale, type MarketingDemoProfileStarterPreset, baseDesignTemplates, baseProfileStarterPresets, baseWebsiteBuilderDocuments, createBaseDesignTemplateDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createBaseWebsiteBuilderDocument, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignPresets, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingWebsiteBuilderDocuments };
+export { type BaseProfileStarterSource, type MarketingDemoDesignTemplate, type MarketingDemoDesignTemplateId, type MarketingDemoLocale, type MarketingDemoProfileStarterPreset, baseDesignTemplates, basePhotonDocuments, baseProfileStarterPresets, createBaseDesignTemplateDocument, createBasePhotonDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignPresets, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingPhotonDocuments };

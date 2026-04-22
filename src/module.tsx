@@ -1,10 +1,10 @@
 "use client";
 
 import {
-	createWebsiteBuilderKit,
-	type WebsiteBuilderInstallableKit,
-	type WebsiteBuilderModule,
-} from "@init-modules/website-builder/public";
+	createPhotonKit,
+	type PhotonInstallableKit,
+	type PhotonModule,
+} from "@init/photon/public";
 import {
 	breadcrumbsDefinition,
 	commandCenterCtaDefinition,
@@ -32,13 +32,13 @@ import {
 	createMarketingDemoProfileDocumentFromTemplateSource,
 	marketingDemoDesignTemplates,
 	marketingDemoProfileStarterPresets,
-	marketingWebsiteBuilderDocuments,
+	marketingPhotonDocuments,
 } from "./documents";
 import { marketingDemoDesignPresets } from "./themes";
 
-export const marketingWebsiteBuilderModule: WebsiteBuilderModule = {
+export const marketingPhotonModule: PhotonModule = {
 	module: "marketing-demo",
-	label: "Website Builder Base Kit",
+	label: "Photon Base Kit",
 	labelKey: "marketingDemoKit.module.label",
 	version: "0.1.0",
 	blocks: [
@@ -71,16 +71,16 @@ export {
 	marketingDemoDesignPresets,
 	marketingDemoDesignTemplates,
 	marketingDemoProfileStarterPresets,
-	marketingWebsiteBuilderDocuments,
+	marketingPhotonDocuments,
 };
 
-export const marketingWebsiteBuilderKit: WebsiteBuilderInstallableKit =
-	createWebsiteBuilderKit({
-		key: "website-builder-base",
-		label: "Website Builder Base Kit",
-		modules: [marketingWebsiteBuilderModule],
-		documents: marketingWebsiteBuilderDocuments,
+export const marketingPhotonKit: PhotonInstallableKit =
+	createPhotonKit({
+		key: "photon-base",
+		label: "Photon Base Kit",
+		modules: [marketingPhotonModule],
+		documents: marketingPhotonDocuments,
 	});
 
-export const baseWebsiteBuilderModule = marketingWebsiteBuilderModule;
-export const baseWebsiteBuilderKit = marketingWebsiteBuilderKit;
+export const basePhotonModule = marketingPhotonModule;
+export const basePhotonKit = marketingPhotonKit;

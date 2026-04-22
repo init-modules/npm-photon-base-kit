@@ -1,8 +1,8 @@
 import {
-  baseWebsiteBuilderThemes,
+  basePhotonThemes,
   marketingDemoDesignPresets,
   resolveMarketingDemoBlockVariant
-} from "../chunk-UMLVE55O.js";
+} from "../chunk-OIRP3NX4.js";
 import {
   airMarketingDemoVariantTheme,
   createMarketingDemoVariantMap,
@@ -15,10 +15,10 @@ import {
   marketingDemoBlockVariants,
   marketingDemoVariantThemes,
   resolveMarketingDemoSiteVariant
-} from "../chunk-ZZUPCLBS.js";
+} from "../chunk-C3ON53CY.js";
 export {
   airMarketingDemoVariantTheme,
-  baseWebsiteBuilderThemes,
+  basePhotonThemes,
   createMarketingDemoVariantMap,
   defaultMarketingDemoVariantTheme,
   getMarketingDemoFramelessBleedStyle,

@@ -1,7 +1,7 @@
 import {
-	cloneWebsiteBuilderValue,
-	type WebsiteBuilderDocument,
-} from "@init-modules/website-builder/server";
+	clonePhotonValue,
+	type PhotonDocument,
+} from "@init/photon/server";
 import type { MarketingDemoDesignPresetId } from "../themes";
 import { createInitLandingDocument } from "./scenarios/init-landing";
 import { createPaperFlowDocument } from "./scenarios/paper-flow";
@@ -9,15 +9,15 @@ import type { MarketingDemoLocale } from "./shared";
 
 export const createPresetScenarioDocument = (
 	presetId: MarketingDemoDesignPresetId,
-	baseDocument: WebsiteBuilderDocument,
+	baseDocument: PhotonDocument,
 	locale: MarketingDemoLocale,
-): WebsiteBuilderDocument => {
+): PhotonDocument => {
 	switch (presetId) {
 		case "init-landing":
 			return createInitLandingDocument(baseDocument, locale);
 		case "paper-flow":
 			return createPaperFlowDocument(baseDocument, locale);
 		default:
-			return cloneWebsiteBuilderValue(baseDocument);
+			return clonePhotonValue(baseDocument);
 	}
 };

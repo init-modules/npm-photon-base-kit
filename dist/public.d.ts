@@ -1,6 +1,6 @@
-import { WebsiteBuilderInstallableKit, WebsiteBuilderModule } from '@init-modules/website-builder/public';
+import { PhotonInstallableKit, PhotonModule } from '@init/photon/public';
 
-declare const basePublicWebsiteBuilderModule: WebsiteBuilderModule;
-declare const basePublicWebsiteBuilderKit: WebsiteBuilderInstallableKit;
+declare const basePublicPhotonModule: PhotonModule;
+declare const basePublicPhotonKit: PhotonInstallableKit;
 
-export { basePublicWebsiteBuilderKit, basePublicWebsiteBuilderModule };
+export { basePublicPhotonKit, basePublicPhotonModule };

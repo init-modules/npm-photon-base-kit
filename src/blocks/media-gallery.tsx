@@ -1,15 +1,15 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableGallery,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+} from "@init/photon/public";
 import type { CSSProperties } from "react";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import {
@@ -20,53 +20,53 @@ import {
 } from "../runtime-theme";
 
 type GalleryThemeStyle = CSSProperties &
-	Record<`--wb-gallery-${string}`, string>;
+	Record<`--photon-gallery-${string}`, string>;
 
 const galleryToneStyles: Record<"default" | "light", GalleryThemeStyle> = {
 	default: {},
 	light: {
-		"--wb-gallery-card-border": "rgba(231, 229, 228, 0.95)",
-		"--wb-gallery-card-bg":
+		"--photon-gallery-card-border": "rgba(231, 229, 228, 0.95)",
+		"--photon-gallery-card-bg":
 			"linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,240,231,0.96))",
-		"--wb-gallery-card-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
-		"--wb-gallery-fallback-bg":
+		"--photon-gallery-card-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
+		"--photon-gallery-fallback-bg":
 			"radial-gradient(circle_at_top,rgba(217,119,6,0.08),transparent_28%),linear-gradient(180deg,rgba(255,251,245,0.96),rgba(243,234,219,0.98))",
-		"--wb-gallery-fallback-text": "rgb(120 113 108 / 0.9)",
-		"--wb-gallery-chip-border": "rgba(214, 211, 209, 0.9)",
-		"--wb-gallery-chip-bg": "rgba(255, 255, 255, 0.88)",
-		"--wb-gallery-chip-text": "rgb(120 113 108 / 0.9)",
-		"--wb-gallery-chip-accent-border": "rgba(13, 148, 136, 0.24)",
-		"--wb-gallery-chip-accent-bg": "rgba(240, 253, 250, 0.96)",
-		"--wb-gallery-chip-accent-text": "rgb(15 118 110 / 0.92)",
-		"--wb-gallery-control-border": "rgba(214, 211, 209, 0.96)",
-		"--wb-gallery-control-bg": "rgba(255, 255, 255, 0.9)",
-		"--wb-gallery-control-text": "rgb(87 83 78 / 0.88)",
-		"--wb-gallery-remove-border": "rgba(251, 113, 133, 0.28)",
-		"--wb-gallery-remove-bg": "rgba(255, 241, 242, 0.92)",
-		"--wb-gallery-remove-text": "rgb(190 24 93 / 0.84)",
-		"--wb-gallery-label": "rgb(120 113 108 / 0.92)",
-		"--wb-gallery-caption": "rgb(68 64 60 / 0.9)",
-		"--wb-gallery-file-border": "rgba(231, 229, 228, 0.96)",
-		"--wb-gallery-file-bg": "rgba(255, 255, 255, 0.9)",
-		"--wb-gallery-file-text": "rgb(120 113 108 / 0.88)",
-		"--wb-gallery-empty-border": "rgba(214, 211, 209, 0.9)",
-		"--wb-gallery-empty-bg":
+		"--photon-gallery-fallback-text": "rgb(120 113 108 / 0.9)",
+		"--photon-gallery-chip-border": "rgba(214, 211, 209, 0.9)",
+		"--photon-gallery-chip-bg": "rgba(255, 255, 255, 0.88)",
+		"--photon-gallery-chip-text": "rgb(120 113 108 / 0.9)",
+		"--photon-gallery-chip-accent-border": "rgba(13, 148, 136, 0.24)",
+		"--photon-gallery-chip-accent-bg": "rgba(240, 253, 250, 0.96)",
+		"--photon-gallery-chip-accent-text": "rgb(15 118 110 / 0.92)",
+		"--photon-gallery-control-border": "rgba(214, 211, 209, 0.96)",
+		"--photon-gallery-control-bg": "rgba(255, 255, 255, 0.9)",
+		"--photon-gallery-control-text": "rgb(87 83 78 / 0.88)",
+		"--photon-gallery-remove-border": "rgba(251, 113, 133, 0.28)",
+		"--photon-gallery-remove-bg": "rgba(255, 241, 242, 0.92)",
+		"--photon-gallery-remove-text": "rgb(190 24 93 / 0.84)",
+		"--photon-gallery-label": "rgb(120 113 108 / 0.92)",
+		"--photon-gallery-caption": "rgb(68 64 60 / 0.9)",
+		"--photon-gallery-file-border": "rgba(231, 229, 228, 0.96)",
+		"--photon-gallery-file-bg": "rgba(255, 255, 255, 0.9)",
+		"--photon-gallery-file-text": "rgb(120 113 108 / 0.88)",
+		"--photon-gallery-empty-border": "rgba(214, 211, 209, 0.9)",
+		"--photon-gallery-empty-bg":
 			"linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
-		"--wb-gallery-empty-text": "rgb(87 83 78 / 0.74)",
-		"--wb-gallery-empty-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
-		"--wb-gallery-empty-title": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-empty-body": "rgb(87 83 78 / 0.84)",
-		"--wb-gallery-empty-button-border": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-empty-button-bg": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-empty-button-text": "rgb(250 250 249 / 1)",
-		"--wb-gallery-add-border": "rgba(214, 211, 209, 0.92)",
-		"--wb-gallery-add-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
-		"--wb-gallery-add-text": "rgb(87 83 78 / 0.74)",
-		"--wb-gallery-add-title": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-add-body": "rgb(87 83 78 / 0.84)",
-		"--wb-gallery-add-button-border": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-add-button-bg": "rgb(28 25 23 / 0.96)",
-		"--wb-gallery-add-button-text": "rgb(250 250 249 / 1)",
+		"--photon-gallery-empty-text": "rgb(87 83 78 / 0.74)",
+		"--photon-gallery-empty-shadow": "0 18px 40px rgba(120, 113, 108, 0.12)",
+		"--photon-gallery-empty-title": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-empty-body": "rgb(87 83 78 / 0.84)",
+		"--photon-gallery-empty-button-border": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-empty-button-bg": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-empty-button-text": "rgb(250 250 249 / 1)",
+		"--photon-gallery-add-border": "rgba(214, 211, 209, 0.92)",
+		"--photon-gallery-add-bg": "linear-gradient(180deg, #fffdf8 0%, #f3eadb 100%)",
+		"--photon-gallery-add-text": "rgb(87 83 78 / 0.74)",
+		"--photon-gallery-add-title": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-add-body": "rgb(87 83 78 / 0.84)",
+		"--photon-gallery-add-button-border": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-add-button-bg": "rgb(28 25 23 / 0.96)",
+		"--photon-gallery-add-button-text": "rgb(250 250 249 / 1)",
 	},
 };
 
@@ -88,9 +88,9 @@ type MediaGalleryProps = {
 export const MediaGallery = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<MediaGalleryProps>;
+	block: PhotonBlock<MediaGalleryProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -99,19 +99,19 @@ export const MediaGallery = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const galleryTone = variant === "air" ? "light" : "default";
 	const galleryThemeStyle = galleryToneStyles[galleryTone];
 	const framelessGallery = theme.surfaceStyle === "frameless";
 	const resolvedGalleryThemeStyle = framelessGallery
 		? {
 				...galleryThemeStyle,
-				"--wb-gallery-card-border": "transparent",
-				"--wb-gallery-file-border": "transparent",
-				"--wb-gallery-empty-border": "transparent",
-				"--wb-gallery-add-border": "transparent",
-				"--wb-gallery-chip-border": "transparent",
-				"--wb-gallery-control-border": "transparent",
+				"--photon-gallery-card-border": "transparent",
+				"--photon-gallery-file-border": "transparent",
+				"--photon-gallery-empty-border": "transparent",
+				"--photon-gallery-add-border": "transparent",
+				"--photon-gallery-chip-border": "transparent",
+				"--photon-gallery-control-border": "transparent",
 			}
 		: galleryThemeStyle;
 
@@ -167,7 +167,7 @@ export const MediaGallery = ({
 };
 
 export const mediaGalleryDefinition =
-	defineWebsiteBuilderBlockDefinition<MediaGalleryProps>({
+	definePhotonBlockDefinition<MediaGalleryProps>({
 		type: "media-gallery",
 		label: "Media Gallery",
 		labelKey: "marketingDemoKit.blocks.mediaGallery.label",
@@ -179,27 +179,27 @@ export const mediaGalleryDefinition =
 		component: MediaGallery,
 		defaults: {
 			variant: "default",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Media workflow",
 				ru: "Медиа workflow",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Temporary uploads now have a real home inside the builder",
 				ru: "Временные загрузки теперь живут в builder по-настоящему",
 			}),
-			body: createWebsiteBuilderLocalizedDefault({
+			body: createPhotonLocalizedDefault({
 				en: "This block exists to prove the media pipeline, not just decorate the demo. Upload a few images, reorder them, edit alt text and captions, then save a new profile revision to finalize them on the backend.",
 				ru: "Этот блок нужен не только для красоты, а чтобы доказать media-pipeline. Загрузите несколько изображений, поменяйте их порядок, поправьте alt-текст и подписи, а затем сохраните документ, чтобы финализировать их на бэкенде.",
 			}),
-			emptyTitle: createWebsiteBuilderLocalizedDefault({
+			emptyTitle: createPhotonLocalizedDefault({
 				en: "Build a live media gallery",
 				ru: "Соберите живую медиа-галерею",
 			}),
-			emptyBody: createWebsiteBuilderLocalizedDefault({
+			emptyBody: createPhotonLocalizedDefault({
 				en: "Upload stills, product frames or editorial images and keep them editable directly on the page.",
 				ru: "Загружайте кадры продукта, stills или editorial-изображения и редактируйте их прямо на странице.",
 			}),
-			items: createWebsiteBuilderLocalizedDefault({
+			items: createPhotonLocalizedDefault({
 				en: [
 					{
 						id: "gallery-1",

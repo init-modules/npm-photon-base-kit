@@ -1,7 +1,7 @@
 // src/runtime-theme.ts
-import { getWebsiteBuilderSurfaceModeStyle } from "@init-modules/website-builder/public";
+import { getPhotonSurfaceModeStyle } from "@init/photon/public";
 var marketingDemoBlockVariants = ["default", "air"];
-var getMarketingDemoFramelessBleedStyle = (frameless, allowBleed = true) => frameless && allowBleed ? getWebsiteBuilderSurfaceModeStyle("bleed") : void 0;
+var getMarketingDemoFramelessBleedStyle = (frameless, allowBleed = true) => frameless && allowBleed ? getPhotonSurfaceModeStyle("bleed") : void 0;
 var marketingDemoBlockTypes = [
   "hero-spotlight",
   "proof-strip",

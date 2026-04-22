@@ -1,15 +1,15 @@
 "use client";
 
 import {
-	createWebsiteBuilderBlockLocalizationSchema,
-	getWebsiteBuilderSurfaceModeStyle,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlockLocalizationSchema,
-	type WebsiteBuilderField,
-	type WebsiteBuilderFieldOption,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	createPhotonBlockLocalizationSchema,
+	getPhotonSurfaceModeStyle,
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlockLocalizationSchema,
+	type PhotonField,
+	type PhotonFieldOption,
+	PhotonLink,
+} from "@init/photon/public";
 import {
 	ArrowRight,
 	Award,
@@ -66,16 +66,16 @@ export const initLandingIcons: Record<InitLandingIconKey, LucideIcon> = {
 	zap: Zap,
 } as const;
 
-export const initLandingIconFieldOptions: WebsiteBuilderFieldOption[] =
+export const initLandingIconFieldOptions: PhotonFieldOption[] =
 	Object.keys(initLandingIcons).map((key) => ({
 		label: key,
 		value: key,
 	}));
 
 export const createInitLandingBlockLocalizationSchema = (
-	fields: WebsiteBuilderField[],
-): WebsiteBuilderBlockLocalizationSchema => {
-	const schema = createWebsiteBuilderBlockLocalizationSchema(fields);
+	fields: PhotonField[],
+): PhotonBlockLocalizationSchema => {
+	const schema = createPhotonBlockLocalizationSchema(fields);
 
 	return {
 		localized: schema.localized,
@@ -149,18 +149,18 @@ export type InitLandingFooterContact = {
 export const sectionFrameClassName = "mx-auto max-w-7xl px-6 lg:px-8";
 
 export const headingEyebrowClassName =
-	"mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]";
+	"mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]";
 
 export const secondaryCardClassName =
-	"rounded-[1.75rem] border border-[color-mix(in_srgb,var(--wb-site-border)_88%,white)] bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)] shadow-[0_20px_60px_-30px_rgba(32,22,18,0.18)]";
+	"rounded-[1.75rem] border border-[color-mix(in_srgb,var(--photon-site-border)_88%,white)] bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)] shadow-[0_20px_60px_-30px_rgba(32,22,18,0.18)]";
 
 export const useInitLandingSectionBleedStyle = ():
 	| CSSProperties
 	| undefined => {
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 
 	return renderDepth === 0
-		? getWebsiteBuilderSurfaceModeStyle("bleed")
+		? getPhotonSurfaceModeStyle("bleed")
 		: undefined;
 };
 
@@ -169,7 +169,7 @@ export const useInitLandingSurfaceBreakpoints = () =>
 
 export const useInitLandingReveal = <T extends HTMLElement = HTMLElement>() => {
 	const sectionRef = useRef<T | null>(null);
-	const mode = useWebsiteBuilderStore((state) => state.mode);
+	const mode = usePhotonStore((state) => state.mode);
 
 	useEffect(() => {
 		const scope = sectionRef.current;
@@ -177,7 +177,7 @@ export const useInitLandingReveal = <T extends HTMLElement = HTMLElement>() => {
 			return;
 		}
 
-		const elements = scope.querySelectorAll<HTMLElement>(".wb-init-reveal");
+		const elements = scope.querySelectorAll<HTMLElement>(".photon-init-reveal");
 
 		if (mode !== "preview") {
 			elements.forEach((element) => {
@@ -212,16 +212,16 @@ export const useInitLandingReveal = <T extends HTMLElement = HTMLElement>() => {
 };
 
 export const revealClassName =
-	"wb-init-reveal translate-y-4 opacity-0 transition-all duration-700";
+	"photon-init-reveal translate-y-4 opacity-0 transition-all duration-700";
 
 export const InitBrandMark = ({ label }: { label: ReactNode }) => (
 	<>
-		<div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--wb-site-accent)] transition-transform duration-300 group-hover:scale-105">
+		<div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--photon-site-accent)] transition-transform duration-300 group-hover:scale-105">
 			<span className="font-mono text-sm font-bold tracking-tighter text-white">
 				{"{i}"}
 			</span>
 		</div>
-		<span className="text-xl font-semibold tracking-tight text-[var(--wb-site-text)]">
+		<span className="text-xl font-semibold tracking-tight text-[var(--photon-site-text)]">
 			{label}
 		</span>
 	</>
@@ -238,21 +238,21 @@ export const InitLandingActionButton = ({
 	inverted?: boolean;
 	outline?: boolean;
 }) => (
-	<WebsiteBuilderLink
+	<PhotonLink
 		href={href}
 		className={[
 			"inline-flex items-center justify-center rounded-[1.2rem] px-6 py-3 text-base font-medium transition-all duration-300",
 			inverted
 				? outline
 					? "border border-white/30 text-white hover:bg-white/10"
-					: "bg-white text-[var(--wb-site-text)] hover:bg-white/90 hover:shadow-lg"
+					: "bg-white text-[var(--photon-site-text)] hover:bg-white/90 hover:shadow-lg"
 				: outline
-					? "border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-transparent text-[var(--wb-site-text)] hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]"
-					: "bg-[var(--wb-site-accent)] text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--wb-site-accent)_28%,transparent)]",
+					? "border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-transparent text-[var(--photon-site-text)] hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
+					: "bg-[var(--photon-site-accent)] text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[color-mix(in_srgb,var(--photon-site-accent)_28%,transparent)]",
 		].join(" ")}
 	>
 		{children}
-	</WebsiteBuilderLink>
+	</PhotonLink>
 );
 
 export const InitLandingNavLink = ({
@@ -264,17 +264,17 @@ export const InitLandingNavLink = ({
 	label: ReactNode;
 	onNavigate?: () => void;
 }) => (
-	<WebsiteBuilderLink
+	<PhotonLink
 		href={href}
-		className="relative text-sm font-medium text-[var(--wb-site-muted-text)] transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--wb-site-accent)] after:transition-all after:duration-300 hover:text-[var(--wb-site-text)] hover:after:w-full"
+		className="relative text-sm font-medium text-[var(--photon-site-muted-text)] transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--photon-site-accent)] after:transition-all after:duration-300 hover:text-[var(--photon-site-text)] hover:after:w-full"
 		onClick={onNavigate}
 	>
 		{label}
-	</WebsiteBuilderLink>
+	</PhotonLink>
 );
 
 export const usePreviewSurface = () => {
-	const mode = useWebsiteBuilderStore((state) => state.mode);
+	const mode = usePhotonStore((state) => state.mode);
 	return mode === "preview";
 };
 

@@ -6,15 +6,15 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
-} from "@init-modules/ui";
+} from "@init/ui";
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderBlockDefinition,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	type PhotonBlockComponentProps,
+	type PhotonBlockDefinition,
+	PhotonLink,
+} from "@init/photon/public";
 
 type BreadcrumbItemProps = {
 	label: unknown;
@@ -59,7 +59,7 @@ const normalizeItems = (items: unknown): BreadcrumbItemProps[] =>
 
 const BreadcrumbsBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<BreadcrumbsBlockProps>) => {
+}: PhotonBlockComponentProps<BreadcrumbsBlockProps>) => {
 	const items = normalizeItems(block.props.items);
 
 	if (items.length === 0) {
@@ -67,7 +67,7 @@ const BreadcrumbsBlock = ({
 	}
 
 	return (
-		<section className="bg-[var(--wb-site-background)] px-5 pt-8 text-[var(--wb-site-text)] sm:px-8">
+		<section className="bg-[var(--photon-site-background)] px-5 pt-8 text-[var(--photon-site-text)] sm:px-8">
 			<div className="mx-auto max-w-[96rem]">
 				<Breadcrumb>
 					<BreadcrumbList>
@@ -84,15 +84,15 @@ const BreadcrumbsBlock = ({
 											/>
 										</BreadcrumbPage>
 									) : (
-										<WebsiteBuilderLink
+										<PhotonLink
 											href={item.href}
-											className="transition hover:text-[var(--wb-site-text)]"
+											className="transition hover:text-[var(--photon-site-text)]"
 										>
 											<EditableText
 												blockId={block.id}
 												path={`items.${index}.label`}
 											/>
-										</WebsiteBuilderLink>
+										</PhotonLink>
 									)}
 									{index < items.length - 1 ? <BreadcrumbSeparator /> : null}
 								</BreadcrumbItem>
@@ -105,8 +105,8 @@ const BreadcrumbsBlock = ({
 	);
 };
 
-export const breadcrumbsDefinition: WebsiteBuilderBlockDefinition<BreadcrumbsBlockProps> =
-	defineWebsiteBuilderBlockDefinition<BreadcrumbsBlockProps>({
+export const breadcrumbsDefinition: PhotonBlockDefinition<BreadcrumbsBlockProps> =
+	definePhotonBlockDefinition<BreadcrumbsBlockProps>({
 		type: "breadcrumbs",
 		label: "Breadcrumbs",
 		labelKey: "marketingDemoKit.breadcrumbs.label",
@@ -117,7 +117,7 @@ export const breadcrumbsDefinition: WebsiteBuilderBlockDefinition<BreadcrumbsBlo
 		defaults: {
 			items: [
 				{
-					label: createWebsiteBuilderLocalizedDefault({
+					label: createPhotonLocalizedDefault({
 						en: "Home",
 						ru: "Главная",
 					}),
@@ -125,7 +125,7 @@ export const breadcrumbsDefinition: WebsiteBuilderBlockDefinition<BreadcrumbsBlo
 					current: false,
 				},
 				{
-					label: createWebsiteBuilderLocalizedDefault({
+					label: createPhotonLocalizedDefault({
 						en: "Current page",
 						ru: "Текущая страница",
 					}),
@@ -141,7 +141,7 @@ export const breadcrumbsDefinition: WebsiteBuilderBlockDefinition<BreadcrumbsBlo
 				kind: "repeater",
 				group: "content",
 				localization: "localized",
-				itemFields: [
+				fields: [
 					{ path: "label", label: "Label", kind: "text" },
 					{ path: "href", label: "Href", kind: "url", localization: "shared" },
 					{

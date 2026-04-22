@@ -1,16 +1,16 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableImage,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+	PhotonLink,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import {
 	getMarketingDemoFramelessBleedStyle,
@@ -35,9 +35,9 @@ type PublicationSpotlightProps = {
 export const PublicationSpotlight = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<PublicationSpotlightProps>;
+	block: PhotonBlock<PublicationSpotlightProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -46,7 +46,7 @@ export const PublicationSpotlight = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const stacked = variant === "air";
 	const framelessSpotlight = theme.surfaceStyle === "frameless";
 
@@ -106,7 +106,7 @@ export const PublicationSpotlight = ({
 						<EditableText blockId={block.id} path="readTime" />
 					</div>
 
-					<WebsiteBuilderLink
+					<PhotonLink
 						href={String(block.props.ctaHref)}
 						className={theme.secondaryButton}
 					>
@@ -115,7 +115,7 @@ export const PublicationSpotlight = ({
 							path="ctaLabel"
 							className="text-sm font-semibold"
 						/>
-					</WebsiteBuilderLink>
+					</PhotonLink>
 				</div>
 			</div>
 		</section>
@@ -123,7 +123,7 @@ export const PublicationSpotlight = ({
 };
 
 export const publicationSpotlightDefinition =
-	defineWebsiteBuilderBlockDefinition<PublicationSpotlightProps>({
+	definePhotonBlockDefinition<PublicationSpotlightProps>({
 		type: "publication-spotlight",
 		label: "Publication Spotlight",
 		labelKey: "marketingDemoKit.blocks.publicationSpotlight.label",
@@ -135,30 +135,30 @@ export const publicationSpotlightDefinition =
 		component: PublicationSpotlight,
 		defaults: {
 			variant: "default",
-			tag: createWebsiteBuilderLocalizedDefault({
-				en: "publication-website-builder",
-				ru: "publication-website-builder",
+			tag: createPhotonLocalizedDefault({
+				en: "publication-photon",
+				ru: "publication-photon",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "A publication package should bring its own blocks and backend manifest producers",
 				ru: "Publication package должен приносить свои блоки и backend manifest producers",
 			}),
-			excerpt: createWebsiteBuilderLocalizedDefault({
+			excerpt: createPhotonLocalizedDefault({
 				en: "This block represents the future integration path: a publication package exposes manifest fragments on Laravel, and the mirrored npm kit renders the same block family in Next.js with zero copy-paste glue.",
 				ru: "Этот блок показывает будущий путь интеграции: publication package отдает manifest fragments на Laravel, а зеркальный npm kit рендерит ту же семью блоков в Next.js без copy-paste glue-кода.",
 			}),
-			author: createWebsiteBuilderLocalizedDefault({
+			author: createPhotonLocalizedDefault({
 				en: "Lead package architecture",
 				ru: "Lead package architecture",
 			}),
-			readTime: createWebsiteBuilderLocalizedDefault({
+			readTime: createPhotonLocalizedDefault({
 				en: "6 min walkthrough",
 				ru: "6 минут чтения",
 			}),
 			imageUrl:
 				"https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80",
 			imageAlt: "Editorial workspace with notebooks and camera",
-			ctaLabel: createWebsiteBuilderLocalizedDefault({
+			ctaLabel: createPhotonLocalizedDefault({
 				en: "Open package strategy",
 				ru: "Открыть package strategy",
 			}),

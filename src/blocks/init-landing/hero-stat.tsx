@@ -42,14 +42,14 @@ export const InitLandingHeroStat = ({
 		<div className="text-center">
 			<div
 				className={[
-					"font-semibold text-[var(--wb-site-text)]",
+					"font-semibold text-[var(--photon-site-text)]",
 					atLeastLg ? "text-4xl" : "text-3xl",
 				].join(" ")}
 			>
 				{displayValue}
 				{suffix}
 			</div>
-			<div className="mt-1 text-sm text-[var(--wb-site-muted-text)]">
+			<div className="mt-1 text-sm text-[var(--photon-site-muted-text)]">
 				{label}
 			</div>
 		</div>

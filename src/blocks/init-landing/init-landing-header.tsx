@@ -1,16 +1,16 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
-	useWebsiteBuilderI18n,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-	WebsiteBuilderLink,
-	WebsiteBuilderSiteSearch,
-} from "@init-modules/website-builder/public";
+	usePhotonI18n,
+	usePhotonStore,
+	type PhotonBlockComponentProps,
+	type PhotonField,
+	PhotonLink,
+	PhotonSiteSearch,
+} from "@init/photon/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
 import {
@@ -58,7 +58,7 @@ export type InitLandingHeaderProps = {
 	showLoginAction?: boolean;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "brandLabel",
 		label: "Brand label",
@@ -216,15 +216,15 @@ const InitLandingLocaleSelect = ({
 
 const InitLandingHeaderBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingHeaderProps>) => {
+}: PhotonBlockComponentProps<InitLandingHeaderProps>) => {
 	const menu = useInitLandingMobileMenu();
-	const currentRoute = useWebsiteBuilderStore((state) => state.document.route);
-	const isAdmin = useWebsiteBuilderStore((state) => state.isAdmin);
-	const mode = useWebsiteBuilderStore((state) => state.mode);
-	const requestAuth = useWebsiteBuilderStore((state) => state.requestAuth);
+	const currentRoute = usePhotonStore((state) => state.document.route);
+	const isAdmin = usePhotonStore((state) => state.isAdmin);
+	const mode = usePhotonStore((state) => state.mode);
+	const requestAuth = usePhotonStore((state) => state.requestAuth);
 	const previewSurface = usePreviewSurface();
 	const stickyPreviewSurface = previewSurface && mode === "preview";
-	const { locale, publicLocales, translate } = useWebsiteBuilderI18n();
+	const { locale, publicLocales, translate } = usePhotonI18n();
 	const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
 	const localeSwitcherVisible =
 		block.props.showLocaleSwitcher !== false && publicLocales.length > 1;
@@ -237,15 +237,15 @@ const InitLandingHeaderBlock = ({
 	return (
 		<header
 			ref={ref}
-			data-testid="wb-init-landing-header"
+			data-testid="photon-init-landing-header"
 			className={[
 				"left-0 right-0 z-50 transition-all duration-500",
 				stickyPreviewSurface
-					? "fixed bg-[var(--wb-site-background)]/95 backdrop-blur-md shadow-sm"
+					? "fixed bg-[var(--photon-site-background)]/95 backdrop-blur-md shadow-sm"
 					: "relative bg-transparent",
 			].join(" ")}
 			style={
-				stickyPreviewSurface ? { top: "var(--wb-dock-offset, 0px)" } : undefined
+				stickyPreviewSurface ? { top: "var(--photon-dock-offset, 0px)" } : undefined
 			}
 		>
 			<div
@@ -254,14 +254,14 @@ const InitLandingHeaderBlock = ({
 				)}
 			>
 				<nav className="flex min-h-20 items-center justify-between gap-6 py-4">
-					<WebsiteBuilderLink
+					<PhotonLink
 						href={String(block.props.homeHref)}
 						className="group flex items-center gap-2"
 					>
 						<InitBrandMark
 							label={<EditableText blockId={block.id} path="brandLabel" />}
 						/>
-					</WebsiteBuilderLink>
+					</PhotonLink>
 
 					{atLeastLg ? (
 						<>
@@ -287,14 +287,14 @@ const InitLandingHeaderBlock = ({
 										locale={locale}
 										locales={publicLocales}
 										label={translate(
-											"websiteBuilder.localeSwitcher.label",
+											"photon.localeSwitcher.label",
 											"Language",
 										)}
 									/>
 								) : null}
 
 								<div className="w-[18rem] xl:w-[22rem]">
-									<WebsiteBuilderSiteSearch
+									<PhotonSiteSearch
 										blockId={block.id}
 										placeholderPath="searchPlaceholder"
 									/>
@@ -304,7 +304,7 @@ const InitLandingHeaderBlock = ({
 									<button
 										type="button"
 										onClick={requestAuth}
-										className="inline-flex cursor-pointer items-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--wb-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]"
+										className="inline-flex cursor-pointer items-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
 									>
 										<LogIn className="h-4 w-4" />
 										<EditableText blockId={block.id} path="loginLabel" />
@@ -325,13 +325,13 @@ const InitLandingHeaderBlock = ({
 							onClick={menu.toggle}
 							aria-label="Toggle menu"
 						>
-							<menu.icon className="h-6 w-6 text-[var(--wb-site-text)]" />
+							<menu.icon className="h-6 w-6 text-[var(--photon-site-text)]" />
 						</button>
 					)}
 				</nav>
 
 				{menu.isOpen && !atLeastLg ? (
-					<div className="border-t border-[var(--wb-site-border)] py-4">
+					<div className="border-t border-[var(--photon-site-border)] py-4">
 						<div className="flex flex-col gap-4">
 							{block.props.navItems.map((item, index) => (
 								<InitLandingNavLink
@@ -352,12 +352,12 @@ const InitLandingHeaderBlock = ({
 									locale={locale}
 									locales={publicLocales}
 									label={translate(
-										"websiteBuilder.localeSwitcher.label",
+										"photon.localeSwitcher.label",
 										"Language",
 									)}
 								/>
 							) : null}
-							<WebsiteBuilderSiteSearch
+							<PhotonSiteSearch
 								blockId={block.id}
 								placeholderPath="searchPlaceholder"
 							/>
@@ -368,7 +368,7 @@ const InitLandingHeaderBlock = ({
 										menu.close();
 										requestAuth();
 									}}
-									className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--wb-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--wb-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--wb-site-surface)_96%,white)]"
+									className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
 								>
 									<LogIn className="h-4 w-4" />
 									<EditableText blockId={block.id} path="loginLabel" />
@@ -386,7 +386,7 @@ const InitLandingHeaderBlock = ({
 };
 
 export const initLandingHeaderDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingHeaderProps>({
+	definePhotonBlockDefinition<InitLandingHeaderProps>({
 		type: "init-landing-header",
 		label: "Init Landing Header",
 		description: "Fixed warm landing header with navigation and CTA.",
@@ -396,7 +396,7 @@ export const initLandingHeaderDefinition =
 		fields,
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
-			brandLabel: createWebsiteBuilderLocalizedDefault({
+			brandLabel: createPhotonLocalizedDefault({
 				en: "init",
 				ru: "init",
 			}),
@@ -408,13 +408,13 @@ export const initLandingHeaderDefinition =
 				{ label: "Этапы", href: "#process" },
 			],
 			cta: { label: "Обсудить сайт", href: "#contact" },
-			searchPlaceholder: createWebsiteBuilderLocalizedDefault({
+			searchPlaceholder: createPhotonLocalizedDefault({
 				en: "Search the website",
 				ru: "Поиск по сайту",
 			}),
 			showLocaleSwitcher: true,
 			showLoginAction: false,
-			loginLabel: createWebsiteBuilderLocalizedDefault({
+			loginLabel: createPhotonLocalizedDefault({
 				en: "Admin sign in",
 				ru: "Вход для админа",
 			}),

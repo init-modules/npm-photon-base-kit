@@ -1,12 +1,12 @@
 import {
   baseDesignTemplates,
+  basePhotonDocuments,
   baseProfileStarterPresets,
-  baseWebsiteBuilderDocuments,
   createBaseDesignTemplateDocument,
+  createBasePhotonDocument,
   createBaseProfileDocumentFromPresetSource,
   createBaseProfileDocumentFromTemplateSource,
   createBaseStarterProfileTree,
-  createBaseWebsiteBuilderDocument,
   createInitLandingFooterDocument,
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
@@ -15,21 +15,21 @@ import {
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
-  marketingWebsiteBuilderDocuments
-} from "./chunk-EPIILNDN.js";
+  marketingPhotonDocuments
+} from "./chunk-OKGMI2PK.js";
 import {
   marketingDemoDesignPresets
-} from "./chunk-UMLVE55O.js";
-import "./chunk-ZZUPCLBS.js";
+} from "./chunk-OIRP3NX4.js";
+import "./chunk-C3ON53CY.js";
 export {
   baseDesignTemplates,
+  basePhotonDocuments,
   baseProfileStarterPresets,
-  baseWebsiteBuilderDocuments,
   createBaseDesignTemplateDocument,
+  createBasePhotonDocument,
   createBaseProfileDocumentFromPresetSource,
   createBaseProfileDocumentFromTemplateSource,
   createBaseStarterProfileTree,
-  createBaseWebsiteBuilderDocument,
   createInitLandingFooterDocument,
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
@@ -39,5 +39,5 @@ export {
   marketingDemoDesignPresets,
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
-  marketingWebsiteBuilderDocuments
+  marketingPhotonDocuments
 };

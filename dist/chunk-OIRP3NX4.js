@@ -2,13 +2,13 @@ import {
   marketingDemoBlockTypes,
   marketingDemoBlockVariants,
   resolveMarketingDemoSiteVariant
-} from "./chunk-ZZUPCLBS.js";
+} from "./chunk-C3ON53CY.js";
 
 // src/themes/design-presets.ts
 import {
-  getWebsiteBuilderSiteDesignPreset,
-  websiteBuilderSiteDesignPresets
-} from "@init-modules/website-builder/server";
+  getPhotonSiteDesignPreset,
+  photonSiteDesignPresets
+} from "@init/photon/server";
 var marketingDemoVariantSet = new Set(marketingDemoBlockVariants);
 var marketingDemoVariantFallbackByPresetId = {
   "aurora-current": "default",
@@ -30,7 +30,7 @@ var resolvePresetVariantMap = (preset) => {
   }
   return Object.fromEntries(entries);
 };
-var marketingDemoDesignPresets = websiteBuilderSiteDesignPresets.map((preset) => {
+var marketingDemoDesignPresets = photonSiteDesignPresets.map((preset) => {
   const componentVariants = resolvePresetVariantMap(preset);
   if (!componentVariants) {
     return null;
@@ -60,7 +60,7 @@ var resolveMarketingDemoBlockVariant = ({
     return mappedVariant;
   }
   if (typeof candidate.presetId === "string") {
-    const preset = getWebsiteBuilderSiteDesignPreset(candidate.presetId);
+    const preset = getPhotonSiteDesignPreset(candidate.presetId);
     const presetVariantMap = preset ? resolvePresetVariantMap(preset) : void 0;
     if (presetVariantMap) {
       return presetVariantMap[blockType] ?? "default";
@@ -68,10 +68,10 @@ var resolveMarketingDemoBlockVariant = ({
   }
   return "default";
 };
-var baseWebsiteBuilderThemes = marketingDemoDesignPresets;
+var basePhotonThemes = marketingDemoDesignPresets;
 
 export {
   marketingDemoDesignPresets,
   resolveMarketingDemoBlockVariant,
-  baseWebsiteBuilderThemes
+  basePhotonThemes
 };

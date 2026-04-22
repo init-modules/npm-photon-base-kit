@@ -1,13 +1,13 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-} from "@init-modules/website-builder/public";
+	type PhotonBlockComponentProps,
+	type PhotonField,
+} from "@init/photon/public";
 import {
 	createInitLandingBlockLocalizationSchema,
 	type InitLandingProcessStep,
@@ -26,7 +26,7 @@ export type InitLandingProcessProps = {
 	title: string;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "sectionId",
 		label: "Section id",
@@ -73,7 +73,7 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingProcessBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingProcessProps>) => {
+}: PhotonBlockComponentProps<InitLandingProcessProps>) => {
 	const sectionRef = useInitLandingReveal<HTMLDivElement>();
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
@@ -83,7 +83,7 @@ const InitLandingProcessBlock = ({
 			ref={ref}
 			id={block.props.sectionId}
 			className={[
-				"bg-[var(--wb-site-surface)] py-24",
+				"bg-[var(--photon-site-surface)] py-24",
 				atLeastLg ? "py-32" : "",
 			].join(" ")}
 			style={bleedStyle}
@@ -95,27 +95,27 @@ const InitLandingProcessBlock = ({
 					<EditableText
 						blockId={block.id}
 						path="eyebrow"
-						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
 					/>
 					<EditableText
 						blockId={block.id}
 						path="title"
 						as="h2"
 						className={[
-							"text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+							"text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
 							atLeastLg ? "text-4xl" : "text-3xl",
 						].join(" ")}
 					/>
 					<EditableTextarea
 						blockId={block.id}
 						path="description"
-						className="mt-4 text-lg text-[var(--wb-site-muted-text)]"
+						className="mt-4 text-lg text-[var(--photon-site-muted-text)]"
 					/>
 				</div>
 
 				<div className="relative">
 					{atLeastLg ? (
-						<div className="absolute left-[calc(12.5%+1rem)] right-[calc(12.5%+1rem)] top-12 h-px bg-[var(--wb-site-border)]" />
+						<div className="absolute left-[calc(12.5%+1rem)] right-[calc(12.5%+1rem)] top-12 h-px bg-[var(--photon-site-border)]" />
 					) : null}
 					<div
 						className={[
@@ -129,8 +129,8 @@ const InitLandingProcessBlock = ({
 								className={`${revealClassName} group relative`}
 								style={{ transitionDelay: `${index * 150}ms` }}
 							>
-								<div className="relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[var(--wb-site-border)] bg-[var(--wb-site-background)] transition-all duration-300 group-hover:border-[var(--wb-site-accent)] group-hover:scale-105">
-									<span className="text-2xl font-semibold text-[var(--wb-site-accent)]">
+								<div className="relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[var(--photon-site-border)] bg-[var(--photon-site-background)] transition-all duration-300 group-hover:border-[var(--photon-site-accent)] group-hover:scale-105">
+									<span className="text-2xl font-semibold text-[var(--photon-site-accent)]">
 										<EditableText
 											blockId={block.id}
 											path={`steps.${index}.number`}
@@ -138,7 +138,7 @@ const InitLandingProcessBlock = ({
 									</span>
 								</div>
 								<div className="text-center">
-									<h3 className="mb-3 text-xl font-semibold text-[var(--wb-site-text)]">
+									<h3 className="mb-3 text-xl font-semibold text-[var(--photon-site-text)]">
 										<EditableText
 											blockId={block.id}
 											path={`steps.${index}.title`}
@@ -147,7 +147,7 @@ const InitLandingProcessBlock = ({
 									<EditableTextarea
 										blockId={block.id}
 										path={`steps.${index}.description`}
-										className="leading-relaxed text-[var(--wb-site-muted-text)]"
+										className="leading-relaxed text-[var(--photon-site-muted-text)]"
 									/>
 								</div>
 							</div>
@@ -160,7 +160,7 @@ const InitLandingProcessBlock = ({
 };
 
 export const initLandingProcessDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingProcessProps>({
+	definePhotonBlockDefinition<InitLandingProcessProps>({
 		type: "init-landing-process",
 		label: "Init Landing Process",
 		description: "Process section from the Init landing page.",
@@ -171,15 +171,15 @@ export const initLandingProcessDefinition =
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
 			sectionId: "process",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Как идём в работу",
 				ru: "Как идём в работу",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Путь от задачи до запуска без лишней бюрократии",
 				ru: "Путь от задачи до запуска без лишней бюрократии",
 			}),
-			description: createWebsiteBuilderLocalizedDefault({
+			description: createPhotonLocalizedDefault({
 				en: "Процесс отличается по глубине, но логика одна: сначала определяем правильный формат, потом собираем и запускаем.",
 				ru: "Процесс отличается по глубине, но логика одна: сначала определяем правильный формат, потом собираем и запускаем.",
 			}),

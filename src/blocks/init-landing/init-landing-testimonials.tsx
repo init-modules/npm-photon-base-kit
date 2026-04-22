@@ -1,13 +1,13 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
-	type WebsiteBuilderBlockComponentProps,
-	type WebsiteBuilderField,
-} from "@init-modules/website-builder/public";
+	type PhotonBlockComponentProps,
+	type PhotonField,
+} from "@init/photon/public";
 import { InitTestimonialCard, InitTestimonialProfile } from "../../primitives";
 import {
 	createInitLandingBlockLocalizationSchema,
@@ -26,7 +26,7 @@ export type InitLandingTestimonialsProps = {
 	title: string;
 };
 
-const fields: WebsiteBuilderField[] = [
+const fields: PhotonField[] = [
 	{
 		path: "sectionId",
 		label: "Section id",
@@ -67,7 +67,7 @@ const fields: WebsiteBuilderField[] = [
 
 const InitLandingTestimonialsBlock = ({
 	block,
-}: WebsiteBuilderBlockComponentProps<InitLandingTestimonialsProps>) => {
+}: PhotonBlockComponentProps<InitLandingTestimonialsProps>) => {
 	const sectionRef = useInitLandingReveal<HTMLDivElement>();
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
@@ -86,14 +86,14 @@ const InitLandingTestimonialsBlock = ({
 					<EditableText
 						blockId={block.id}
 						path="eyebrow"
-						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--wb-site-accent)]"
+						className="mb-4 text-sm font-medium uppercase tracking-wider text-[var(--photon-site-accent)]"
 					/>
 					<EditableText
 						blockId={block.id}
 						path="title"
 						as="h2"
 						className={[
-							"text-balance font-semibold tracking-tight text-[var(--wb-site-text)]",
+							"text-balance font-semibold tracking-tight text-[var(--photon-site-text)]",
 							atLeastLg ? "text-4xl" : "text-3xl",
 						].join(" ")}
 					/>
@@ -146,7 +146,7 @@ const InitLandingTestimonialsBlock = ({
 };
 
 export const initLandingTestimonialsDefinition =
-	defineWebsiteBuilderBlockDefinition<InitLandingTestimonialsProps>({
+	definePhotonBlockDefinition<InitLandingTestimonialsProps>({
 		type: "init-landing-testimonials",
 		label: "Init Landing Testimonials",
 		description: "Testimonials section from the Init landing page.",
@@ -157,11 +157,11 @@ export const initLandingTestimonialsDefinition =
 		localizationSchema: createInitLandingBlockLocalizationSchema(fields),
 		defaults: {
 			sectionId: "testimonials",
-			eyebrow: createWebsiteBuilderLocalizedDefault({
+			eyebrow: createPhotonLocalizedDefault({
 				en: "Что говорят клиенты",
 				ru: "Что говорят клиенты",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Нам доверяют запуск сайтов под разные бизнес-сценарии",
 				ru: "Нам доверяют запуск сайтов под разные бизнес-сценарии",
 			}),

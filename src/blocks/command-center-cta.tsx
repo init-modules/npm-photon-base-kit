@@ -1,16 +1,16 @@
 "use client";
 
 import {
-	createWebsiteBuilderLocalizedDefault,
-	defineWebsiteBuilderBlockDefinition,
+	createPhotonLocalizedDefault,
+	definePhotonBlockDefinition,
 	EditableRepeaterValue,
 	EditableText,
 	EditableTextarea,
-	useWebsiteBuilderRenderDepth,
-	useWebsiteBuilderStore,
-	type WebsiteBuilderBlock,
-	WebsiteBuilderLink,
-} from "@init-modules/website-builder/public";
+	usePhotonRenderDepth,
+	usePhotonStore,
+	type PhotonBlock,
+	PhotonLink,
+} from "@init/photon/public";
 import { marketingDemoBlockVariantOptions } from "../block-options";
 import {
 	getMarketingDemoFramelessBleedStyle,
@@ -36,9 +36,9 @@ type CommandCenterCtaProps = {
 export const CommandCenterCta = ({
 	block,
 }: {
-	block: WebsiteBuilderBlock<CommandCenterCtaProps>;
+	block: PhotonBlock<CommandCenterCtaProps>;
 }) => {
-	const siteDesign = useWebsiteBuilderStore(
+	const siteDesign = usePhotonStore(
 		(state) => state.site.settings.design,
 	);
 	const variant = resolveMarketingDemoBlockVariant({
@@ -47,7 +47,7 @@ export const CommandCenterCta = ({
 		siteDesign,
 	});
 	const theme = getMarketingDemoVariantTheme(variant);
-	const renderDepth = useWebsiteBuilderRenderDepth();
+	const renderDepth = usePhotonRenderDepth();
 	const centered = variant === "air";
 	const framelessCta = theme.surfaceStyle === "frameless";
 
@@ -96,7 +96,7 @@ export const CommandCenterCta = ({
 							centered ? "justify-center flex-wrap" : "flex-col sm:flex-row"
 						}`}
 					>
-						<WebsiteBuilderLink
+						<PhotonLink
 							href={String(block.props.primaryHref)}
 							className={theme.primaryButton}
 						>
@@ -105,8 +105,8 @@ export const CommandCenterCta = ({
 								path="primaryLabel"
 								className="text-sm font-semibold"
 							/>
-						</WebsiteBuilderLink>
-						<WebsiteBuilderLink
+						</PhotonLink>
+						<PhotonLink
 							href={String(block.props.secondaryHref)}
 							className={theme.secondaryButton}
 						>
@@ -115,7 +115,7 @@ export const CommandCenterCta = ({
 								path="secondaryLabel"
 								className="text-sm font-semibold"
 							/>
-						</WebsiteBuilderLink>
+						</PhotonLink>
 					</div>
 				</div>
 
@@ -154,7 +154,7 @@ export const CommandCenterCta = ({
 };
 
 export const commandCenterCtaDefinition =
-	defineWebsiteBuilderBlockDefinition<CommandCenterCtaProps>({
+	definePhotonBlockDefinition<CommandCenterCtaProps>({
 		type: "command-center-cta",
 		label: "Command Center CTA",
 		labelKey: "marketingDemoKit.blocks.commandCenterCta.label",
@@ -165,37 +165,37 @@ export const commandCenterCtaDefinition =
 		component: CommandCenterCta,
 		defaults: {
 			variant: "default",
-			badge: createWebsiteBuilderLocalizedDefault({
+			badge: createPhotonLocalizedDefault({
 				en: "MVP control room",
 				ru: "MVP control room",
 			}),
-			title: createWebsiteBuilderLocalizedDefault({
+			title: createPhotonLocalizedDefault({
 				en: "Ship the foundation now, then let domain packages plug into it cleanly",
 				ru: "Сначала выпустите foundation, а затем дайте доменным пакетам чисто подключаться к нему",
 			}),
-			body: createWebsiteBuilderLocalizedDefault({
+			body: createPhotonLocalizedDefault({
 				en: "This is the pragmatic path: establish the contract, show the editing experience on the real site, and leave enough extension points so future packages can register blocks without editing the core app every time.",
 				ru: "Это прагматичный путь: зафиксировать контракт, показать опыт редактирования на реальном сайте и оставить достаточно extension points, чтобы будущие пакеты регистрировали блоки без правок core app каждый раз.",
 			}),
-			primaryLabel: createWebsiteBuilderLocalizedDefault({
+			primaryLabel: createPhotonLocalizedDefault({
 				en: "Publish foundation packages",
 				ru: "Опубликовать foundation packages",
 			}),
 			primaryHref: "#publish",
-			secondaryLabel: createWebsiteBuilderLocalizedDefault({
+			secondaryLabel: createPhotonLocalizedDefault({
 				en: "Read manual",
 				ru: "Читать manual",
 			}),
 			secondaryHref: "#manual",
-			panelEyebrow: createWebsiteBuilderLocalizedDefault({
+			panelEyebrow: createPhotonLocalizedDefault({
 				en: "System mode",
 				ru: "Системный режим",
 			}),
-			panelLabel: createWebsiteBuilderLocalizedDefault({
+			panelLabel: createPhotonLocalizedDefault({
 				en: "Builder chrome online",
 				ru: "Builder chrome в онлайне",
 			}),
-			panelItems: createWebsiteBuilderLocalizedDefault({
+			panelItems: createPhotonLocalizedDefault({
 				en: [
 					"Content editor turns the live site into inputs, uploads and textareas.",
 					"Builder mode exposes real layout chrome with drag-and-drop blocks.",
