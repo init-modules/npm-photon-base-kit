@@ -12,8 +12,7 @@ import {
 var marketingDemoVariantSet = new Set(marketingDemoBlockVariants);
 var marketingDemoVariantFallbackByPresetId = {
   "aurora-current": "default",
-  "init-landing": "air",
-  "paper-flow": "air"
+  "init-landing": "air"
 };
 var readSiteDesignCandidate = (value) => typeof value === "object" && value !== null ? value : {};
 var resolvePresetVariantMap = (preset) => {

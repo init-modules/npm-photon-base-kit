@@ -16,10 +16,10 @@ import {
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingPhotonDocuments
-} from "./chunk-OKGMI2PK.js";
+} from "./chunk-BYNTZ7U7.js";
 import {
   marketingDemoDesignPresets
-} from "./chunk-OIRP3NX4.js";
+} from "./chunk-XBR4MLWG.js";
 import "./chunk-C3ON53CY.js";
 export {
   baseDesignTemplates,

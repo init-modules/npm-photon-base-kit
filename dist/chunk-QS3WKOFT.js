@@ -1309,10 +1309,13 @@ var initLandingCtaDefinition = definePhotonBlockDefinition5({
 
 // src/blocks/init-landing/init-landing-footer.tsx
 import {
+  collectPhotonFooterExtensionItems,
   createPhotonLocalizedDefault as createPhotonLocalizedDefault6,
   definePhotonBlockDefinition as definePhotonBlockDefinition6,
   EditableText as EditableText6,
   EditableTextarea as EditableTextarea5,
+  resolvePhotonSiteFrameExtensions,
+  usePhotonStore as usePhotonStore7,
   PhotonLink as PhotonLink5
 } from "@init/photon/public";
 import { jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
@@ -1378,6 +1381,20 @@ var fields2 = [
     ]
   },
   {
+    path: "disabledExtensionIds",
+    label: "Disabled package extensions",
+    kind: "tags",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "disabledExtensionItemIds",
+    label: "Disabled package extension items",
+    kind: "tags",
+    group: "layout",
+    localization: "shared"
+  },
+  {
     path: "contact",
     label: "Contact",
     kind: "object",
@@ -1390,11 +1407,111 @@ var fields2 = [
     ]
   }
 ];
+var normalizeFooterStringItems = (value) => Array.isArray(value) ? value.map((item) => typeof item === "string" ? item.trim() : "").filter(Boolean) : [];
+var normalizeFooterHref = (href) => typeof href === "string" ? href.trim() : "";
+var getFooterLinkPathname = (href) => {
+  const cleanHref = normalizeFooterHref(href);
+  if (!cleanHref.startsWith("/") || cleanHref.startsWith("//")) {
+    return cleanHref;
+  }
+  return (cleanHref.split(/[?#]/u)[0] ?? "/").replace(/\/+$/u, "") || "/";
+};
+var getFooterLinkDedupeKey = (href) => `route:${getFooterLinkPathname(href).toLowerCase()}`;
+var collectUniqueFooterLinks = (links, hiddenKeys = /* @__PURE__ */ new Set()) => {
+  const seenKeys = /* @__PURE__ */ new Set();
+  return links.filter((link) => {
+    const key = getFooterLinkDedupeKey(link.href);
+    if (key === "route:" || hiddenKeys.has(key) || seenKeys.has(key)) {
+      return false;
+    }
+    seenKeys.add(key);
+    return true;
+  });
+};
+var normalizeExtensionFooterColumn = (column) => ({
+  id: column.id,
+  title: column.title,
+  links: column.links.map((link) => ({
+    ...link,
+    name: link.label
+  }))
+});
 var InitLandingFooterBlock = ({
   block
 }) => {
+  const currentRoute = usePhotonStore7((state) => state.document.route);
+  const document2 = usePhotonStore7((state) => state.document);
+  const isAdmin = usePhotonStore7((state) => state.isAdmin);
+  const mode = usePhotonStore7((state) => state.mode);
+  const pageSettings = usePhotonStore7((state) => state.pageSettings);
+  const resources = usePhotonStore7((state) => state.resources);
+  const site = usePhotonStore7((state) => state.site);
+  const siteFrameExtensions = usePhotonStore7(
+    (state) => state.siteFrameExtensions
+  );
   const bleedStyle = useInitLandingSectionBleedStyle();
   const { ref, atLeastSm, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
+  const extensionContext = {
+    document: document2,
+    resources,
+    pageSettings,
+    site,
+    mode,
+    isAdmin,
+    currentRoute
+  };
+  const footerExtensionItems = collectPhotonFooterExtensionItems(
+    resolvePhotonSiteFrameExtensions(
+      siteFrameExtensions,
+      normalizeFooterStringItems(block.props.disabledExtensionIds)
+    ),
+    normalizeFooterStringItems(block.props.disabledExtensionItemIds),
+    extensionContext
+  );
+  const localFooterColumns = [
+    {
+      title: "\u0423\u0441\u043B\u0443\u0433\u0438",
+      links: block.props.services.map((item, index) => ({
+        ...item,
+        labelPath: `services.${index}.name`
+      }))
+    },
+    {
+      title: "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F",
+      links: block.props.company.map((item, index) => ({
+        ...item,
+        labelPath: `company.${index}.name`
+      }))
+    }
+  ];
+  const footerColumns = [
+    ...localFooterColumns,
+    ...footerExtensionItems.slots.navigation.navigationColumns.map(
+      normalizeExtensionFooterColumn
+    )
+  ].map((column) => ({
+    ...column,
+    links: collectUniqueFooterLinks(column.links)
+  })).filter((column) => column.links.length > 0);
+  const footerColumnKeys = new Set(
+    footerColumns.flatMap(
+      (column) => column.links.map((link) => getFooterLinkDedupeKey(link.href))
+    )
+  );
+  const legalLinks = collectUniqueFooterLinks(
+    [
+      ...block.props.legal.map((item, index) => ({
+        ...item,
+        labelPath: `legal.${index}.name`
+      })),
+      ...footerExtensionItems.slots.legal.links.map((link) => ({
+        ...link,
+        name: link.label
+      }))
+    ],
+    footerColumnKeys
+  );
+  const renderFooterLinkLabel = (link) => link.labelPath ? /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: link.labelPath }) : link.name ?? link.label;
   return /* @__PURE__ */ jsx7(
     "footer",
     {
@@ -1449,40 +1566,19 @@ var InitLandingFooterBlock = ({
                       ]
                     }
                   ),
-                  /* @__PURE__ */ jsxs7("div", { children: [
-                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u0423\u0441\u043B\u0443\u0433\u0438" }),
-                    /* @__PURE__ */ jsx7("ul", { className: "space-y-3", children: block.props.services.map((item, index) => /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
+                  footerColumns.map((column) => /* @__PURE__ */ jsxs7("div", { children: [
+                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: column.titlePath ? /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: column.titlePath }) : column.title }),
+                    /* @__PURE__ */ jsx7("ul", { className: "space-y-3", children: column.links.map((item) => /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
                       PhotonLink5,
                       {
                         href: item.href,
+                        target: item.target,
+                        rel: item.rel,
                         className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
-                        children: /* @__PURE__ */ jsx7(
-                          EditableText6,
-                          {
-                            blockId: block.id,
-                            path: `services.${index}.name`
-                          }
-                        )
+                        children: renderFooterLinkLabel(item)
                       }
-                    ) }, `${item.name ?? item.label}:${item.href}`)) })
-                  ] }),
-                  /* @__PURE__ */ jsxs7("div", { children: [
-                    /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F" }),
-                    /* @__PURE__ */ jsx7("ul", { className: "space-y-3", children: block.props.company.map((item, index) => /* @__PURE__ */ jsx7("li", { children: /* @__PURE__ */ jsx7(
-                      PhotonLink5,
-                      {
-                        href: item.href,
-                        className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
-                        children: /* @__PURE__ */ jsx7(
-                          EditableText6,
-                          {
-                            blockId: block.id,
-                            path: `company.${index}.name`
-                          }
-                        )
-                      }
-                    ) }, `${item.name ?? item.label}:${item.href}`)) })
-                  ] }),
+                    ) }, `${column.id ?? column.title}:${item.name ?? item.label}:${item.href}`)) })
+                  ] }, column.id ?? column.title)),
                   /* @__PURE__ */ jsxs7("div", { children: [
                     /* @__PURE__ */ jsx7("h3", { className: "mb-4 text-sm font-semibold text-[var(--photon-site-text)]", children: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B" }),
                     /* @__PURE__ */ jsxs7("ul", { className: "space-y-3", children: [
@@ -1521,12 +1617,14 @@ var InitLandingFooterBlock = ({
                     (/* @__PURE__ */ new Date()).getFullYear(),
                     " init. All rights reserved."
                   ] }),
-                  /* @__PURE__ */ jsx7("div", { className: "flex items-center gap-6", children: block.props.legal.map((item, index) => /* @__PURE__ */ jsx7(
+                  /* @__PURE__ */ jsx7("div", { className: "flex items-center gap-6", children: legalLinks.map((item) => /* @__PURE__ */ jsx7(
                     PhotonLink5,
                     {
                       href: item.href,
+                      target: item.target,
+                      rel: item.rel,
                       className: "text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]",
-                      children: /* @__PURE__ */ jsx7(EditableText6, { blockId: block.id, path: `legal.${index}.name` })
+                      children: renderFooterLinkLabel(item)
                     },
                     `${item.name ?? item.label}:${item.href}:legal`
                   )) })
@@ -1584,16 +1682,21 @@ var initLandingFooterDefinition = definePhotonBlockDefinition6({
 
 // src/blocks/init-landing/init-landing-header.tsx
 import {
+  collectPhotonHeaderExtensionItems,
   createPhotonLocalizedDefault as createPhotonLocalizedDefault7,
   definePhotonBlockDefinition as definePhotonBlockDefinition7,
   EditableText as EditableText7,
+  resolvePhotonSiteFrameExtensions as resolvePhotonSiteFrameExtensions2,
   usePhotonI18n,
-  usePhotonStore as usePhotonStore7,
+  usePhotonStore as usePhotonStore8,
   PhotonLink as PhotonLink6,
-  PhotonSiteSearch
+  PhotonSiteSearch,
+  resolvePhotonSiteFrameMobileControls,
+  usePhotonSiteFrameScrollLock
 } from "@init/photon/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
+import { useEffect as useEffect3 } from "react";
 import { Fragment as Fragment2, jsx as jsx8, jsxs as jsxs8 } from "react/jsx-runtime";
 var appendCurrentSearchParams = (href) => {
   if (typeof window === "undefined" || window.location.search === "") {
@@ -1669,6 +1772,48 @@ var fields3 = [
     localization: "shared"
   },
   {
+    path: "mobile.menu.fixedTrigger",
+    label: "Fixed mobile burger button",
+    kind: "toggle",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "mobile.menu.scrollLock",
+    label: "Lock scroll when mobile menu is open",
+    kind: "toggle",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "mobile.menu.floating",
+    label: "Floating mobile burger",
+    kind: "toggle",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "mobile.menu.disableFloatingOnSmallScreens",
+    label: "Disable floating burger on small screens",
+    kind: "toggle",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "disabledExtensionIds",
+    label: "Disabled package extensions",
+    kind: "tags",
+    group: "layout",
+    localization: "shared"
+  },
+  {
+    path: "disabledExtensionItemIds",
+    label: "Disabled package extension items",
+    kind: "tags",
+    group: "layout",
+    localization: "shared"
+  },
+  {
     path: "loginLabel",
     label: "Auth button label",
     kind: "text",
@@ -1676,6 +1821,32 @@ var fields3 = [
     localization: "localized"
   }
 ];
+var normalizeHeaderStringItems = (value) => Array.isArray(value) ? value.map((item) => typeof item === "string" ? item.trim() : "").filter(Boolean) : [];
+var normalizeHeaderHref = (href) => typeof href === "string" ? href.trim() : "";
+var getHeaderLinkPathname = (href) => {
+  const cleanHref = normalizeHeaderHref(href);
+  if (!cleanHref.startsWith("/") || cleanHref.startsWith("//")) {
+    return cleanHref;
+  }
+  return (cleanHref.split(/[?#]/u)[0] ?? "/").replace(/\/+$/u, "") || "/";
+};
+var getHeaderLinkDedupeKey = (href) => `route:${getHeaderLinkPathname(href).toLowerCase()}`;
+var hasAuthenticatedUser = (resources) => {
+  const auth = resources.auth;
+  return Boolean(auth?.user);
+};
+var getActionVisibleHref = (action, authenticatedUser) => authenticatedUser && (action.kind ?? "link") === "auth" ? action.authenticatedHref ?? action.href : action.href;
+var collectUniqueHeaderLinks = (links, hiddenKeys = /* @__PURE__ */ new Set()) => {
+  const seenKeys = /* @__PURE__ */ new Set();
+  return links.filter((link) => {
+    const key = getHeaderLinkDedupeKey(link.href);
+    if (key === "route:" || hiddenKeys.has(key) || seenKeys.has(key)) {
+      return false;
+    }
+    seenKeys.add(key);
+    return true;
+  });
+};
 var InitLandingLocaleSelect = ({
   currentRoute,
   locale,
@@ -1746,17 +1917,227 @@ var InitLandingHeaderBlock = ({
   block
 }) => {
   const menu = useInitLandingMobileMenu();
-  const currentRoute = usePhotonStore7((state) => state.document.route);
-  const isAdmin = usePhotonStore7((state) => state.isAdmin);
-  const mode = usePhotonStore7((state) => state.mode);
-  const requestAuth = usePhotonStore7((state) => state.requestAuth);
+  const mobileControls = resolvePhotonSiteFrameMobileControls(block.props.mobile);
+  const currentRoute = usePhotonStore8((state) => state.document.route);
+  const document2 = usePhotonStore8((state) => state.document);
+  const isAdmin = usePhotonStore8((state) => state.isAdmin);
+  const mode = usePhotonStore8((state) => state.mode);
+  const pageSettings = usePhotonStore8((state) => state.pageSettings);
+  const requestAuth = usePhotonStore8((state) => state.requestAuth);
+  const resources = usePhotonStore8((state) => state.resources);
+  const site = usePhotonStore8((state) => state.site);
+  const siteFrameExtensions = usePhotonStore8(
+    (state) => state.siteFrameExtensions
+  );
   const previewSurface = usePreviewSurface();
   const stickyPreviewSurface = previewSurface && mode === "preview";
   const { locale, publicLocales, translate } = usePhotonI18n();
-  const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
+  const { ref, width, atLeastXl } = useInitLandingSurfaceBreakpoints();
+  const desktopLayout = atLeastXl && width >= 1440;
+  const extensionContext = {
+    document: document2,
+    resources,
+    pageSettings,
+    site,
+    mode,
+    isAdmin,
+    currentRoute
+  };
+  const headerExtensionItems = collectPhotonHeaderExtensionItems(
+    resolvePhotonSiteFrameExtensions2(
+      siteFrameExtensions,
+      normalizeHeaderStringItems(block.props.disabledExtensionIds)
+    ),
+    normalizeHeaderStringItems(block.props.disabledExtensionItemIds),
+    extensionContext
+  );
   const localeSwitcherVisible = block.props.showLocaleSwitcher !== false && publicLocales.length > 1;
-  const authButtonVisible = block.props.showLoginAction !== false && !isAdmin && mode !== "builder" && typeof requestAuth === "function";
-  return /* @__PURE__ */ jsx8(
+  const authenticatedUser = hasAuthenticatedUser(resources);
+  const rawExtensionActions = collectUniqueHeaderLinks(
+    [
+      ...headerExtensionItems.slots.actions.links,
+      ...headerExtensionItems.slots.actions.actions
+    ]
+  ).filter((action) => {
+    const visibleHref = getActionVisibleHref(action, authenticatedUser);
+    return Boolean(action.component) || normalizeHeaderHref(visibleHref) !== "";
+  });
+  const extensionActionKeys = /* @__PURE__ */ new Set();
+  for (const action of rawExtensionActions) {
+    extensionActionKeys.add(getHeaderLinkDedupeKey(action.href));
+    if (action.authenticatedHref) {
+      extensionActionKeys.add(getHeaderLinkDedupeKey(action.authenticatedHref));
+    }
+  }
+  const ctaKey = getHeaderLinkDedupeKey(block.props.cta.href);
+  const shouldRenderCta = normalizeHeaderHref(block.props.cta.href) !== "" && !extensionActionKeys.has(ctaKey);
+  const prominentLinks = collectUniqueHeaderLinks(
+    headerExtensionItems.slots.prominent.links,
+    /* @__PURE__ */ new Set([
+      ...extensionActionKeys,
+      ...shouldRenderCta ? [ctaKey] : []
+    ])
+  );
+  const prominentKeys = new Set(
+    prominentLinks.map((item) => getHeaderLinkDedupeKey(item.href))
+  );
+  const editableNavItems = block.props.navItems.map((item, index) => ({
+    ...item,
+    labelPath: `navItems.${index}.label`
+  }));
+  const navItems = collectUniqueHeaderLinks(
+    [
+      ...editableNavItems,
+      ...headerExtensionItems.slots.navigation.links
+    ],
+    /* @__PURE__ */ new Set([
+      ...extensionActionKeys,
+      ...prominentKeys,
+      ...shouldRenderCta ? [ctaKey] : []
+    ])
+  );
+  const hasExtensionAuthAction = rawExtensionActions.some(
+    (action) => (action.kind ?? "link") === "auth"
+  );
+  const authButtonVisible = block.props.showLoginAction !== false && !isAdmin && !authenticatedUser && !hasExtensionAuthAction && mode !== "builder" && typeof requestAuth === "function";
+  const actionClassName = "inline-flex items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]";
+  const renderExtensionAction = (action, suffix = "") => {
+    if (action.component) {
+      const ActionComponent = action.component;
+      return /* @__PURE__ */ jsx8(
+        ActionComponent,
+        {
+          action,
+          className: actionClassName,
+          context: extensionContext,
+          requestAuth
+        },
+        `${action.id ?? `${action.label}:${action.href}`}${suffix}`
+      );
+    }
+    if ((action.kind ?? "link") === "auth") {
+      if (authenticatedUser) {
+        const authenticatedHref = action.authenticatedHref ?? action.href;
+        if (!authenticatedHref) {
+          return null;
+        }
+        return /* @__PURE__ */ jsx8(
+          PhotonLink6,
+          {
+            href: authenticatedHref,
+            target: action.authenticatedTarget,
+            rel: action.authenticatedRel,
+            className: actionClassName,
+            children: action.authenticatedLabel ?? action.label
+          },
+          `${action.id ?? `${action.authenticatedLabel ?? action.label}:${authenticatedHref}`}${suffix}`
+        );
+      }
+      if (typeof requestAuth !== "function") {
+        return null;
+      }
+      return /* @__PURE__ */ jsx8(
+        "button",
+        {
+          type: "button",
+          onClick: () => {
+            menu.close();
+            requestAuth();
+          },
+          className: actionClassName,
+          children: action.label
+        },
+        `${action.id ?? `${action.label}:${action.href}`}${suffix}`
+      );
+    }
+    return /* @__PURE__ */ jsx8(
+      PhotonLink6,
+      {
+        href: action.href,
+        target: action.target,
+        rel: action.rel,
+        onClick: suffix ? menu.close : void 0,
+        className: actionClassName,
+        children: action.label
+      },
+      `${action.id ?? `${action.label}:${action.href}`}${suffix}`
+    );
+  };
+  const renderNavLabel = (item) => "labelPath" in item && item.labelPath ? /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: item.labelPath }) : item.label;
+  const mobilePanelClassName = [
+    "fixed right-3 z-[55] max-h-[calc(100dvh-6rem)] w-[min(24rem,calc(100vw-1.5rem))] overflow-y-auto rounded-[1.6rem] border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] p-4 text-[var(--photon-site-text)] shadow-[0_26px_80px_rgba(32,22,18,0.18)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-300 ease-in-out",
+    menu.isOpen ? "visible pointer-events-auto translate-x-0 opacity-100" : "invisible pointer-events-none translate-x-[calc(100%+1rem)] opacity-0"
+  ].join(" ");
+  const mobileTriggerClassName = [
+    isAdmin ? "absolute top-3" : "fixed",
+    mobileControls.menu.floating ? "right-3 rounded-[1.2rem]" : "right-0 rounded-l-[1.2rem] rounded-r-none border-r-0",
+    mobileControls.menu.floating && mobileControls.menu.disableFloatingOnSmallScreens ? "max-[420px]:right-0 max-[420px]:rounded-l-[1.2rem] max-[420px]:rounded-r-none max-[420px]:border-r-0" : "",
+    "z-[60] inline-flex h-12 w-12 cursor-pointer items-center justify-center border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] text-[var(--photon-site-text)] opacity-100 shadow-[0_18px_44px_rgba(32,22,18,0.16)] backdrop-blur-xl transition-[background-color,border-color,color,transform] duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]"
+  ].join(" ");
+  const renderMobileMenuContent = () => /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4", children: [
+    navItems.map((item) => /* @__PURE__ */ jsx8(
+      InitLandingNavLink,
+      {
+        href: item.href,
+        label: renderNavLabel(item),
+        onNavigate: menu.close
+      },
+      `${"id" in item ? item.id : ""}:${item.href}:${item.label}:mobile`
+    )),
+    localeSwitcherVisible ? /* @__PURE__ */ jsx8(
+      InitLandingLocaleSelect,
+      {
+        currentRoute,
+        locale,
+        locales: publicLocales,
+        label: translate("photon.localeSwitcher.label", "Language")
+      }
+    ) : null,
+    /* @__PURE__ */ jsx8(
+      PhotonSiteSearch,
+      {
+        blockId: block.id,
+        placeholderPath: "searchPlaceholder"
+      }
+    ),
+    authButtonVisible ? /* @__PURE__ */ jsxs8(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          menu.close();
+          requestAuth();
+        },
+        className: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 ease-in-out hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]",
+        children: [
+          /* @__PURE__ */ jsx8(LogIn, { className: "h-4 w-4" }),
+          /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "loginLabel" })
+        ]
+      }
+    ) : null,
+    prominentLinks.map((item) => /* @__PURE__ */ jsx8(
+      InitLandingActionButton,
+      {
+        href: item.href,
+        outline: true,
+        children: item.label
+      },
+      item.id ?? `${item.href}:${item.label}:prominent:mobile`
+    )),
+    shouldRenderCta ? /* @__PURE__ */ jsx8(InitLandingActionButton, { href: block.props.cta.href, children: /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "cta.label" }) }) : null,
+    rawExtensionActions.map(
+      (action) => renderExtensionAction(action, ":mobile")
+    )
+  ] });
+  useEffect3(() => {
+    if (desktopLayout && menu.isOpen) {
+      menu.close();
+    }
+  }, [desktopLayout, menu]);
+  usePhotonSiteFrameScrollLock(
+    !desktopLayout && menu.isOpen && mobileControls.menu.scrollLock
+  );
+  return /* @__PURE__ */ jsxs8(
     "header",
     {
       ref,
@@ -1766,14 +2147,28 @@ var InitLandingHeaderBlock = ({
         stickyPreviewSurface ? "fixed bg-[var(--photon-site-background)]/95 backdrop-blur-md shadow-sm" : "relative bg-transparent"
       ].join(" "),
       style: stickyPreviewSurface ? { top: "var(--photon-dock-offset, 0px)" } : void 0,
-      children: /* @__PURE__ */ jsxs8(
-        "div",
-        {
-          className: ["mx-auto max-w-7xl px-6", atLeastLg ? "px-8" : ""].join(
-            " "
-          ),
-          children: [
-            /* @__PURE__ */ jsxs8("nav", { className: "flex min-h-20 items-center justify-between gap-6 py-4", children: [
+      children: [
+        mobileControls.menu.fixedTrigger && !desktopLayout ? /* @__PURE__ */ jsx8(
+          "button",
+          {
+            type: "button",
+            className: mobileTriggerClassName,
+            style: isAdmin ? void 0 : {
+              top: "calc(var(--photon-dock-offset, 0px) + env(safe-area-inset-top) + 0.75rem)"
+            },
+            onClick: menu.toggle,
+            "aria-label": menu.isOpen ? "Close menu" : "Open menu",
+            "aria-expanded": menu.isOpen,
+            children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-5 w-5 transition-transform duration-300 ease-in-out" })
+          }
+        ) : null,
+        /* @__PURE__ */ jsx8(
+          "div",
+          {
+            className: ["mx-auto max-w-7xl px-6", desktopLayout ? "px-8" : ""].join(
+              " "
+            ),
+            children: /* @__PURE__ */ jsxs8("nav", { className: "flex min-h-20 items-center justify-between gap-6 py-4", children: [
               /* @__PURE__ */ jsx8(
                 PhotonLink6,
                 {
@@ -1787,20 +2182,14 @@ var InitLandingHeaderBlock = ({
                   )
                 }
               ),
-              atLeastLg ? /* @__PURE__ */ jsxs8(Fragment2, { children: [
-                /* @__PURE__ */ jsx8("div", { className: "flex min-w-0 items-center gap-8", children: block.props.navItems.map((item, index) => /* @__PURE__ */ jsx8(
+              desktopLayout ? /* @__PURE__ */ jsxs8(Fragment2, { children: [
+                /* @__PURE__ */ jsx8("div", { className: "flex min-w-0 items-center gap-5", children: navItems.map((item) => /* @__PURE__ */ jsx8(
                   InitLandingNavLink,
                   {
                     href: item.href,
-                    label: /* @__PURE__ */ jsx8(
-                      EditableText7,
-                      {
-                        blockId: block.id,
-                        path: `navItems.${index}.label`
-                      }
-                    )
+                    label: renderNavLabel(item)
                   },
-                  `${item.href}:${item.label}`
+                  `${"id" in item ? item.id : ""}:${item.href}:${item.label}`
                 )) }),
                 /* @__PURE__ */ jsxs8("div", { className: "flex shrink-0 items-center justify-end gap-3", children: [
                   localeSwitcherVisible ? /* @__PURE__ */ jsx8(
@@ -1815,13 +2204,22 @@ var InitLandingHeaderBlock = ({
                       )
                     }
                   ) : null,
-                  /* @__PURE__ */ jsx8("div", { className: "w-[18rem] xl:w-[22rem]", children: /* @__PURE__ */ jsx8(
+                  /* @__PURE__ */ jsx8("div", { className: "w-[clamp(12rem,16vw,18rem)]", children: /* @__PURE__ */ jsx8(
                     PhotonSiteSearch,
                     {
                       blockId: block.id,
                       placeholderPath: "searchPlaceholder"
                     }
                   ) }),
+                  prominentLinks.map((item) => /* @__PURE__ */ jsx8(
+                    InitLandingActionButton,
+                    {
+                      href: item.href,
+                      outline: true,
+                      children: item.label
+                    },
+                    item.id ?? `${item.href}:${item.label}:prominent`
+                  )),
                   authButtonVisible ? /* @__PURE__ */ jsxs8(
                     "button",
                     {
@@ -1834,74 +2232,79 @@ var InitLandingHeaderBlock = ({
                       ]
                     }
                   ) : null,
-                  /* @__PURE__ */ jsx8("div", { children: /* @__PURE__ */ jsx8(InitLandingActionButton, { href: block.props.cta.href, children: /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "cta.label" }) }) })
+                  shouldRenderCta ? /* @__PURE__ */ jsx8(InitLandingActionButton, { href: block.props.cta.href, children: /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "cta.label" }) }) : null,
+                  rawExtensionActions.map(
+                    (action) => renderExtensionAction(action)
+                  )
                 ] })
-              ] }) : /* @__PURE__ */ jsx8(
+              ] }) : !mobileControls.menu.fixedTrigger ? /* @__PURE__ */ jsx8(
                 "button",
                 {
                   type: "button",
-                  className: "p-2",
                   onClick: menu.toggle,
-                  "aria-label": "Toggle menu",
-                  children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-6 w-6 text-[var(--photon-site-text)]" })
+                  "aria-label": menu.isOpen ? "Close menu" : "Open menu",
+                  "aria-expanded": menu.isOpen,
+                  className: "inline-flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-[1.2rem] border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] text-[var(--photon-site-text)] transition duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]",
+                  children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-5 w-5" })
                 }
-              )
-            ] }),
-            menu.isOpen && !atLeastLg ? /* @__PURE__ */ jsx8("div", { className: "border-t border-[var(--photon-site-border)] py-4", children: /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4", children: [
-              block.props.navItems.map((item, index) => /* @__PURE__ */ jsx8(
-                InitLandingNavLink,
-                {
-                  href: item.href,
-                  label: /* @__PURE__ */ jsx8(
-                    EditableText7,
-                    {
-                      blockId: block.id,
-                      path: `navItems.${index}.label`
-                    }
-                  ),
-                  onNavigate: menu.close
-                },
-                `${item.href}:${item.label}:mobile`
-              )),
-              localeSwitcherVisible ? /* @__PURE__ */ jsx8(
-                InitLandingLocaleSelect,
-                {
-                  currentRoute,
-                  locale,
-                  locales: publicLocales,
-                  label: translate(
-                    "photon.localeSwitcher.label",
-                    "Language"
-                  )
-                }
-              ) : null,
+              ) : null
+            ] })
+          }
+        ),
+        !desktopLayout ? /* @__PURE__ */ jsxs8(
+          "div",
+          {
+            className: [
+              "fixed inset-0 z-[55] transition-[visibility] duration-300 ease-in-out",
+              menu.isOpen ? "visible" : "invisible"
+            ].join(" "),
+            children: [
               /* @__PURE__ */ jsx8(
-                PhotonSiteSearch,
+                "button",
                 {
-                  blockId: block.id,
-                  placeholderPath: "searchPlaceholder"
+                  type: "button",
+                  "aria-label": "Close menu",
+                  className: [
+                    "absolute inset-0 cursor-default bg-black/25 backdrop-blur-[2px] transition-opacity duration-300 ease-in-out",
+                    menu.isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+                  ].join(" "),
+                  onClick: menu.close
                 }
               ),
-              authButtonVisible ? /* @__PURE__ */ jsxs8(
-                "button",
+              /* @__PURE__ */ jsxs8(
+                "div",
                 {
-                  type: "button",
-                  onClick: () => {
-                    menu.close();
-                    requestAuth();
+                  className: mobilePanelClassName,
+                  style: {
+                    top: "calc(var(--photon-dock-offset, 0px) + env(safe-area-inset-top) + 4.75rem)"
                   },
-                  className: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]",
                   children: [
-                    /* @__PURE__ */ jsx8(LogIn, { className: "h-4 w-4" }),
-                    /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "loginLabel" })
+                    /* @__PURE__ */ jsxs8("div", { className: "mb-4 flex items-center justify-between gap-3", children: [
+                      /* @__PURE__ */ jsx8(
+                        InitBrandMark,
+                        {
+                          label: /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "brandLabel" })
+                        }
+                      ),
+                      /* @__PURE__ */ jsx8(
+                        "button",
+                        {
+                          type: "button",
+                          "aria-label": "Close menu",
+                          onClick: menu.close,
+                          className: "inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-[1rem] border border-[var(--photon-site-border)] text-[var(--photon-site-text)] transition duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]",
+                          children: /* @__PURE__ */ jsx8(menu.icon, { className: "h-5 w-5" })
+                        }
+                      )
+                    ] }),
+                    renderMobileMenuContent()
                   ]
                 }
-              ) : null,
-              /* @__PURE__ */ jsx8(InitLandingActionButton, { href: block.props.cta.href, children: /* @__PURE__ */ jsx8(EditableText7, { blockId: block.id, path: "cta.label" }) })
-            ] }) }) : null
-          ]
-        }
-      )
+              )
+            ]
+          }
+        ) : null
+      ]
     }
   );
 };
@@ -1933,6 +2336,15 @@ var initLandingHeaderDefinition = definePhotonBlockDefinition7({
     }),
     showLocaleSwitcher: true,
     showLoginAction: false,
+    mobile: {
+      menu: {
+        type: "drawer",
+        fixedTrigger: true,
+        scrollLock: true,
+        floating: false,
+        disableFloatingOnSmallScreens: true
+      }
+    },
     loginLabel: createPhotonLocalizedDefault7({
       en: "Admin sign in",
       ru: "\u0412\u0445\u043E\u0434 \u0434\u043B\u044F \u0430\u0434\u043C\u0438\u043D\u0430"
@@ -1950,7 +2362,7 @@ var InitCheckListItem = ({ children }) => /* @__PURE__ */ jsxs9("li", { classNam
 
 // src/primitives/init-stat-widget.tsx
 import gsap from "gsap";
-import { useEffect as useEffect3, useRef as useRef3, useState as useState3 } from "react";
+import { useEffect as useEffect4, useRef as useRef3, useState as useState3 } from "react";
 import { jsx as jsx10, jsxs as jsxs10 } from "react/jsx-runtime";
 var InitStatWidget = ({
   atLeastLg,
@@ -1960,7 +2372,7 @@ var InitStatWidget = ({
 }) => {
   const [displayValue, setDisplayValue] = useState3(value);
   const startedRef = useRef3(false);
-  useEffect3(() => {
+  useEffect4(() => {
     if (startedRef.current) {
       return;
     }
@@ -2042,7 +2454,7 @@ var InitTestimonialProfile = ({
 
 // src/primitives/init-typed-text.tsx
 import gsap2 from "gsap";
-import { useEffect as useEffect4, useRef as useRef4, useState as useState4 } from "react";
+import { useEffect as useEffect5, useRef as useRef4, useState as useState4 } from "react";
 import { jsx as jsx14, jsxs as jsxs14 } from "react/jsx-runtime";
 var GLYPHS = ["0", "1", "/", "+", "-", "{", "}", "<", ">", "_"];
 var HOLD_SECONDS = 10;
@@ -2056,7 +2468,7 @@ var InitTypedText = ({
   const [showCaret, setShowCaret] = useState4(false);
   const caretRef = useRef4(null);
   const jobsRef = useRef4([]);
-  useEffect4(() => {
+  useEffect5(() => {
     setDisplayText(safeTexts[0]);
     setShowCaret(false);
     const clearJobs = () => {
@@ -2169,11 +2581,11 @@ import {
   createPhotonLocalizedDefault as createPhotonLocalizedDefault8,
   definePhotonBlockDefinition as definePhotonBlockDefinition8,
   EditableText as EditableText8,
-  usePhotonStore as usePhotonStore8
+  usePhotonStore as usePhotonStore9
 } from "@init/photon/public";
 
 // src/blocks/init-landing/hero-grid-canvas.tsx
-import { useEffect as useEffect5, useRef as useRef5 } from "react";
+import { useEffect as useEffect6, useRef as useRef5 } from "react";
 import { jsx as jsx16 } from "react/jsx-runtime";
 var GRID_SIZE = 60;
 var MAX_PULSES = 4;
@@ -2331,7 +2743,7 @@ var buildNodes = (width, height) => {
 };
 var InitLandingHeroGridCanvas = () => {
   const canvasRef = useRef5(null);
-  useEffect5(() => {
+  useEffect6(() => {
     const canvas = canvasRef.current;
     if (!canvas) {
       return;
@@ -2945,7 +3357,7 @@ var fields4 = [
 var InitLandingHeroBlock = ({
   block
 }) => {
-  const mode = usePhotonStore8((state) => state.mode);
+  const mode = usePhotonStore9((state) => state.mode);
   const bleedStyle = useInitLandingSectionBleedStyle();
   const { ref, atLeastSm, atLeastLg, atLeastXl } = useInitLandingSurfaceBreakpoints();
   return /* @__PURE__ */ jsxs16(
@@ -4307,13 +4719,13 @@ import {
   EditableText as EditableText14,
   EditableTextarea as EditableTextarea11,
   usePhotonRenderDepth as usePhotonRenderDepth5,
-  usePhotonStore as usePhotonStore9
+  usePhotonStore as usePhotonStore10
 } from "@init/photon/public";
 import { jsx as jsx24, jsxs as jsxs22 } from "react/jsx-runtime";
 var MediaFrame = ({
   block
 }) => {
-  const siteDesign = usePhotonStore9(
+  const siteDesign = usePhotonStore10(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4464,7 +4876,7 @@ import {
   EditableText as EditableText15,
   EditableTextarea as EditableTextarea12,
   usePhotonRenderDepth as usePhotonRenderDepth6,
-  usePhotonStore as usePhotonStore10
+  usePhotonStore as usePhotonStore11
 } from "@init/photon/public";
 import { jsx as jsx25, jsxs as jsxs23 } from "react/jsx-runtime";
 var galleryToneStyles = {
@@ -4514,7 +4926,7 @@ var galleryToneStyles = {
 var MediaGallery = ({
   block
 }) => {
-  const siteDesign = usePhotonStore10(
+  const siteDesign = usePhotonStore11(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4733,13 +5145,13 @@ import {
   EditableRepeaterValue as EditableRepeaterValue3,
   EditableText as EditableText16,
   usePhotonRenderDepth as usePhotonRenderDepth7,
-  usePhotonStore as usePhotonStore11
+  usePhotonStore as usePhotonStore12
 } from "@init/photon/public";
 import { jsx as jsx26, jsxs as jsxs24 } from "react/jsx-runtime";
 var ProofStrip = ({
   block
 }) => {
-  const siteDesign = usePhotonStore11(
+  const siteDesign = usePhotonStore12(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -4911,14 +5323,14 @@ import {
   EditableText as EditableText17,
   EditableTextarea as EditableTextarea13,
   usePhotonRenderDepth as usePhotonRenderDepth8,
-  usePhotonStore as usePhotonStore12,
+  usePhotonStore as usePhotonStore13,
   PhotonLink as PhotonLink8
 } from "@init/photon/public";
 import { jsx as jsx27, jsxs as jsxs25 } from "react/jsx-runtime";
 var PublicationSpotlight = ({
   block
 }) => {
-  const siteDesign = usePhotonStore12(
+  const siteDesign = usePhotonStore13(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({
@@ -5133,13 +5545,13 @@ import {
   createPhotonLocalizedDefault as createPhotonLocalizedDefault18,
   definePhotonBlockDefinition as definePhotonBlockDefinition18,
   usePhotonRenderDepth as usePhotonRenderDepth9,
-  usePhotonStore as usePhotonStore13
+  usePhotonStore as usePhotonStore14
 } from "@init/photon/public";
 import { jsx as jsx28 } from "react/jsx-runtime";
 var RichTextBlock = ({
   block
 }) => {
-  const siteDesign = usePhotonStore13(
+  const siteDesign = usePhotonStore14(
     (state) => state.site.settings.design
   );
   const variant = resolveMarketingDemoBlockVariant({

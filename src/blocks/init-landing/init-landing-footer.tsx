@@ -1,13 +1,19 @@
 "use client";
 
 import {
+	collectPhotonFooterExtensionItems,
 	createPhotonLocalizedDefault,
 	definePhotonBlockDefinition,
 	EditableText,
 	EditableTextarea,
+	resolvePhotonSiteFrameExtensions,
+	usePhotonStore,
 	type PhotonBlockComponentProps,
 	type PhotonField,
 	PhotonLink,
+	type PhotonSiteFrameExtensionContext,
+	type PhotonSiteFrameLinkItem,
+	type PhotonSiteFrameNavigationColumn,
 } from "@init/photon/public";
 import {
 	createInitLandingBlockLocalizationSchema,
@@ -23,6 +29,8 @@ export type InitLandingFooterProps = {
 	brandLabel: string;
 	company: InitLandingLinkItem[];
 	contact: InitLandingFooterContact;
+	disabledExtensionIds?: string[];
+	disabledExtensionItemIds?: string[];
 	homeHref: string;
 	legal: InitLandingLinkItem[];
 	services: InitLandingLinkItem[];
@@ -90,6 +98,20 @@ const fields: PhotonField[] = [
 		],
 	},
 	{
+		path: "disabledExtensionIds",
+		label: "Disabled package extensions",
+		kind: "tags",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "disabledExtensionItemIds",
+		label: "Disabled package extension items",
+		kind: "tags",
+		group: "layout",
+		localization: "shared",
+	},
+	{
 		path: "contact",
 		label: "Contact",
 		kind: "object",
@@ -103,12 +125,155 @@ const fields: PhotonField[] = [
 	},
 ];
 
+type FooterLink = InitLandingLinkItem &
+	Partial<PhotonSiteFrameLinkItem> & {
+		labelPath?: string;
+	};
+
+type FooterColumn = {
+	id?: string;
+	title: string;
+	titlePath?: string;
+	links: FooterLink[];
+};
+
+const normalizeFooterStringItems = (value: unknown): string[] =>
+	Array.isArray(value)
+		? value
+				.map((item) => (typeof item === "string" ? item.trim() : ""))
+				.filter(Boolean)
+		: [];
+
+const normalizeFooterHref = (href: unknown) =>
+	typeof href === "string" ? href.trim() : "";
+
+const getFooterLinkPathname = (href: unknown) => {
+	const cleanHref = normalizeFooterHref(href);
+
+	if (!cleanHref.startsWith("/") || cleanHref.startsWith("//")) {
+		return cleanHref;
+	}
+
+	return (cleanHref.split(/[?#]/u)[0] ?? "/").replace(/\/+$/u, "") || "/";
+};
+
+const getFooterLinkDedupeKey = (href: unknown) =>
+	`route:${getFooterLinkPathname(href).toLowerCase()}`;
+
+const collectUniqueFooterLinks = <TLink extends { href?: string }>(
+	links: TLink[],
+	hiddenKeys: ReadonlySet<string> = new Set(),
+): TLink[] => {
+	const seenKeys = new Set<string>();
+
+	return links.filter((link) => {
+		const key = getFooterLinkDedupeKey(link.href);
+
+		if (key === "route:" || hiddenKeys.has(key) || seenKeys.has(key)) {
+			return false;
+		}
+
+		seenKeys.add(key);
+
+		return true;
+	});
+};
+
+const normalizeExtensionFooterColumn = (
+	column: PhotonSiteFrameNavigationColumn,
+): FooterColumn => ({
+	id: column.id,
+	title: column.title,
+	links: column.links.map((link) => ({
+		...link,
+		name: link.label,
+	})),
+});
+
 const InitLandingFooterBlock = ({
 	block,
 }: PhotonBlockComponentProps<InitLandingFooterProps>) => {
+	const currentRoute = usePhotonStore((state) => state.document.route);
+	const document = usePhotonStore((state) => state.document);
+	const isAdmin = usePhotonStore((state) => state.isAdmin);
+	const mode = usePhotonStore((state) => state.mode);
+	const pageSettings = usePhotonStore((state) => state.pageSettings);
+	const resources = usePhotonStore((state) => state.resources);
+	const site = usePhotonStore((state) => state.site);
+	const siteFrameExtensions = usePhotonStore(
+		(state) => state.siteFrameExtensions,
+	);
 	const bleedStyle = useInitLandingSectionBleedStyle();
 	const { ref, atLeastSm, atLeastMd, atLeastLg } =
 		useInitLandingSurfaceBreakpoints();
+	const extensionContext: PhotonSiteFrameExtensionContext = {
+		document,
+		resources,
+		pageSettings,
+		site,
+		mode,
+		isAdmin,
+		currentRoute,
+	};
+	const footerExtensionItems = collectPhotonFooterExtensionItems(
+		resolvePhotonSiteFrameExtensions(
+			siteFrameExtensions,
+			normalizeFooterStringItems(block.props.disabledExtensionIds),
+		),
+		normalizeFooterStringItems(block.props.disabledExtensionItemIds),
+		extensionContext,
+	);
+	const localFooterColumns: FooterColumn[] = [
+		{
+			title: "Услуги",
+			links: block.props.services.map((item, index) => ({
+				...item,
+				labelPath: `services.${index}.name`,
+			})),
+		},
+		{
+			title: "Компания",
+			links: block.props.company.map((item, index) => ({
+				...item,
+				labelPath: `company.${index}.name`,
+			})),
+		},
+	];
+	const footerColumns = [
+		...localFooterColumns,
+		...footerExtensionItems.slots.navigation.navigationColumns.map(
+			normalizeExtensionFooterColumn,
+		),
+	]
+		.map((column) => ({
+			...column,
+			links: collectUniqueFooterLinks(column.links),
+		}))
+		.filter((column) => column.links.length > 0);
+	const footerColumnKeys = new Set(
+		footerColumns.flatMap((column) =>
+			column.links.map((link) => getFooterLinkDedupeKey(link.href)),
+		),
+	);
+	const legalLinks = collectUniqueFooterLinks<FooterLink>(
+		[
+			...block.props.legal.map((item, index) => ({
+				...item,
+				labelPath: `legal.${index}.name`,
+			})),
+			...footerExtensionItems.slots.legal.links.map((link) => ({
+				...link,
+				name: link.label,
+			})),
+		],
+		footerColumnKeys,
+	);
+	const renderFooterLinkLabel = (link: FooterLink) =>
+		link.labelPath ? (
+			<EditableText blockId={block.id} path={link.labelPath} />
+		) : (
+			link.name ?? link.label
+		);
 
 	return (
 		<footer
@@ -148,46 +313,31 @@ const InitLandingFooterBlock = ({
 							className="mt-4 max-w-xs text-sm leading-relaxed text-[var(--photon-site-muted-text)]"
 						/>
 					</div>
-					<div>
-						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
-							Услуги
-						</h3>
-						<ul className="space-y-3">
-							{block.props.services.map((item, index) => (
-								<li key={`${item.name ?? item.label}:${item.href}`}>
-									<PhotonLink
-										href={item.href}
-										className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
-									>
-										<EditableText
-											blockId={block.id}
-											path={`services.${index}.name`}
-										/>
-									</PhotonLink>
-								</li>
-							))}
-						</ul>
-					</div>
-					<div>
-						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
-							Компания
-						</h3>
-						<ul className="space-y-3">
-							{block.props.company.map((item, index) => (
-								<li key={`${item.name ?? item.label}:${item.href}`}>
-									<PhotonLink
-										href={item.href}
-										className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
-									>
-										<EditableText
-											blockId={block.id}
-											path={`company.${index}.name`}
-										/>
-									</PhotonLink>
-								</li>
-							))}
-						</ul>
-					</div>
+					{footerColumns.map((column) => (
+						<div key={column.id ?? column.title}>
+							<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
+								{column.titlePath ? (
+									<EditableText blockId={block.id} path={column.titlePath} />
+								) : (
+									column.title
+								)}
+							</h3>
+							<ul className="space-y-3">
+								{column.links.map((item) => (
+									<li key={`${column.id ?? column.title}:${item.name ?? item.label}:${item.href}`}>
+										<PhotonLink
+											href={item.href}
+											target={item.target}
+											rel={item.rel}
+											className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
+										>
+											{renderFooterLinkLabel(item)}
+										</PhotonLink>
+									</li>
+								))}
+							</ul>
+						</div>
+					))}
 					<div>
 						<h3 className="mb-4 text-sm font-semibold text-[var(--photon-site-text)]">
 							Контакты
@@ -226,13 +376,15 @@ const InitLandingFooterBlock = ({
 						&copy; {new Date().getFullYear()} init. All rights reserved.
 					</p>
 					<div className="flex items-center gap-6">
-						{block.props.legal.map((item, index) => (
+						{legalLinks.map((item) => (
 							<PhotonLink
 								key={`${item.name ?? item.label}:${item.href}:legal`}
 								href={item.href}
+								target={item.target}
+								rel={item.rel}
 								className="text-sm text-[var(--photon-site-muted-text)] transition-colors hover:text-[var(--photon-site-text)]"
 							>
-								<EditableText blockId={block.id} path={`legal.${index}.name`} />
+								{renderFooterLinkLabel(item)}
 							</PhotonLink>
 						))}
 					</div>

@@ -1,18 +1,27 @@
 "use client";
 
 import {
+	collectPhotonHeaderExtensionItems,
 	createPhotonLocalizedDefault,
 	definePhotonBlockDefinition,
 	EditableText,
+	resolvePhotonSiteFrameExtensions,
 	usePhotonI18n,
 	usePhotonStore,
 	type PhotonBlockComponentProps,
 	type PhotonField,
 	PhotonLink,
 	PhotonSiteSearch,
+	resolvePhotonSiteFrameMobileControls,
+	usePhotonSiteFrameScrollLock,
+	type PhotonSiteFrameActionItem,
+	type PhotonSiteFrameExtensionContext,
+	type PhotonSiteFrameLinkItem,
+	type PhotonSiteFrameMobileControls,
 } from "@init/photon/public";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, LogIn } from "lucide-react";
+import { useEffect } from "react";
 import {
 	createInitLandingBlockLocalizationSchema,
 	InitBrandMark,
@@ -50,8 +59,11 @@ const appendCurrentSearchParams = (href: string) => {
 export type InitLandingHeaderProps = {
 	brandLabel: string;
 	cta: InitLandingAction;
+	disabledExtensionIds?: string[];
+	disabledExtensionItemIds?: string[];
 	loginLabel: string;
 	homeHref: string;
+	mobile?: PhotonSiteFrameMobileControls;
 	navItems: InitLandingHeaderNavItem[];
 	searchPlaceholder: string;
 	showLocaleSwitcher?: boolean;
@@ -119,6 +131,48 @@ const fields: PhotonField[] = [
 		localization: "shared",
 	},
 	{
+		path: "mobile.menu.fixedTrigger",
+		label: "Fixed mobile burger button",
+		kind: "toggle",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "mobile.menu.scrollLock",
+		label: "Lock scroll when mobile menu is open",
+		kind: "toggle",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "mobile.menu.floating",
+		label: "Floating mobile burger",
+		kind: "toggle",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "mobile.menu.disableFloatingOnSmallScreens",
+		label: "Disable floating burger on small screens",
+		kind: "toggle",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "disabledExtensionIds",
+		label: "Disabled package extensions",
+		kind: "tags",
+		group: "layout",
+		localization: "shared",
+	},
+	{
+		path: "disabledExtensionItemIds",
+		label: "Disabled package extension items",
+		kind: "tags",
+		group: "layout",
+		localization: "shared",
+	},
+	{
 		path: "loginLabel",
 		label: "Auth button label",
 		kind: "text",
@@ -126,6 +180,64 @@ const fields: PhotonField[] = [
 		localization: "localized",
 	},
 ];
+
+const normalizeHeaderStringItems = (value: unknown): string[] =>
+	Array.isArray(value)
+		? value
+				.map((item) => (typeof item === "string" ? item.trim() : ""))
+				.filter(Boolean)
+		: [];
+
+const normalizeHeaderHref = (href: unknown) =>
+	typeof href === "string" ? href.trim() : "";
+
+const getHeaderLinkPathname = (href: unknown) => {
+	const cleanHref = normalizeHeaderHref(href);
+
+	if (!cleanHref.startsWith("/") || cleanHref.startsWith("//")) {
+		return cleanHref;
+	}
+
+	return (cleanHref.split(/[?#]/u)[0] ?? "/").replace(/\/+$/u, "") || "/";
+};
+
+const getHeaderLinkDedupeKey = (href: unknown) =>
+	`route:${getHeaderLinkPathname(href).toLowerCase()}`;
+
+const hasAuthenticatedUser = (resources: Record<string, unknown>) => {
+	const auth = resources.auth as
+		| { user?: null | Record<string, unknown> }
+		| undefined;
+
+	return Boolean(auth?.user);
+};
+
+const getActionVisibleHref = (
+	action: PhotonSiteFrameActionItem,
+	authenticatedUser: boolean,
+) =>
+	authenticatedUser && (action.kind ?? "link") === "auth"
+		? (action.authenticatedHref ?? action.href)
+		: action.href;
+
+const collectUniqueHeaderLinks = <TLink extends { href?: string }>(
+	links: TLink[],
+	hiddenKeys: ReadonlySet<string> = new Set(),
+): TLink[] => {
+	const seenKeys = new Set<string>();
+
+	return links.filter((link) => {
+		const key = getHeaderLinkDedupeKey(link.href);
+
+		if (key === "route:" || hiddenKeys.has(key) || seenKeys.has(key)) {
+			return false;
+		}
+
+		seenKeys.add(key);
+
+		return true;
+	});
+};
 
 const InitLandingLocaleSelect = ({
 	currentRoute,
@@ -218,21 +330,269 @@ const InitLandingHeaderBlock = ({
 	block,
 }: PhotonBlockComponentProps<InitLandingHeaderProps>) => {
 	const menu = useInitLandingMobileMenu();
+	const mobileControls = resolvePhotonSiteFrameMobileControls(block.props.mobile);
 	const currentRoute = usePhotonStore((state) => state.document.route);
+	const document = usePhotonStore((state) => state.document);
 	const isAdmin = usePhotonStore((state) => state.isAdmin);
 	const mode = usePhotonStore((state) => state.mode);
+	const pageSettings = usePhotonStore((state) => state.pageSettings);
 	const requestAuth = usePhotonStore((state) => state.requestAuth);
+	const resources = usePhotonStore((state) => state.resources);
+	const site = usePhotonStore((state) => state.site);
+	const siteFrameExtensions = usePhotonStore(
+		(state) => state.siteFrameExtensions,
+	);
 	const previewSurface = usePreviewSurface();
 	const stickyPreviewSurface = previewSurface && mode === "preview";
 	const { locale, publicLocales, translate } = usePhotonI18n();
-	const { ref, atLeastMd, atLeastLg } = useInitLandingSurfaceBreakpoints();
+	const { ref, width, atLeastXl } = useInitLandingSurfaceBreakpoints();
+	const desktopLayout = atLeastXl && width >= 1440;
+	const extensionContext: PhotonSiteFrameExtensionContext = {
+		document,
+		resources,
+		pageSettings,
+		site,
+		mode,
+		isAdmin,
+		currentRoute,
+	};
+	const headerExtensionItems = collectPhotonHeaderExtensionItems(
+		resolvePhotonSiteFrameExtensions(
+			siteFrameExtensions,
+			normalizeHeaderStringItems(block.props.disabledExtensionIds),
+		),
+		normalizeHeaderStringItems(block.props.disabledExtensionItemIds),
+		extensionContext,
+	);
 	const localeSwitcherVisible =
 		block.props.showLocaleSwitcher !== false && publicLocales.length > 1;
+	const authenticatedUser = hasAuthenticatedUser(resources);
+	const rawExtensionActions = collectUniqueHeaderLinks<PhotonSiteFrameActionItem>(
+		[
+			...headerExtensionItems.slots.actions.links,
+			...headerExtensionItems.slots.actions.actions,
+		],
+	).filter((action) => {
+		const visibleHref = getActionVisibleHref(action, authenticatedUser);
+
+		return Boolean(action.component) || normalizeHeaderHref(visibleHref) !== "";
+	});
+	const extensionActionKeys = new Set<string>();
+
+	for (const action of rawExtensionActions) {
+		extensionActionKeys.add(getHeaderLinkDedupeKey(action.href));
+
+		if (action.authenticatedHref) {
+			extensionActionKeys.add(getHeaderLinkDedupeKey(action.authenticatedHref));
+		}
+	}
+
+	const ctaKey = getHeaderLinkDedupeKey(block.props.cta.href);
+	const shouldRenderCta =
+		normalizeHeaderHref(block.props.cta.href) !== "" &&
+		!extensionActionKeys.has(ctaKey);
+	const prominentLinks = collectUniqueHeaderLinks<PhotonSiteFrameLinkItem>(
+		headerExtensionItems.slots.prominent.links,
+		new Set([
+			...extensionActionKeys,
+			...(shouldRenderCta ? [ctaKey] : []),
+		]),
+	);
+	const prominentKeys = new Set(
+		prominentLinks.map((item) => getHeaderLinkDedupeKey(item.href)),
+	);
+	const editableNavItems = block.props.navItems.map((item, index) => ({
+		...item,
+		labelPath: `navItems.${index}.label`,
+	}));
+	const navItems = collectUniqueHeaderLinks<
+		| (InitLandingHeaderNavItem & { labelPath?: string })
+		| PhotonSiteFrameLinkItem
+	>(
+		[
+			...editableNavItems,
+			...headerExtensionItems.slots.navigation.links,
+		],
+		new Set([
+			...extensionActionKeys,
+			...prominentKeys,
+			...(shouldRenderCta ? [ctaKey] : []),
+		]),
+	);
+	const hasExtensionAuthAction = rawExtensionActions.some(
+		(action) => (action.kind ?? "link") === "auth",
+	);
 	const authButtonVisible =
 		block.props.showLoginAction !== false &&
 		!isAdmin &&
+		!authenticatedUser &&
+		!hasExtensionAuthAction &&
 		mode !== "builder" &&
 		typeof requestAuth === "function";
+	const actionClassName =
+		"inline-flex items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]";
+
+	const renderExtensionAction = (
+		action: PhotonSiteFrameActionItem,
+		suffix = "",
+	) => {
+		if (action.component) {
+			const ActionComponent = action.component;
+
+			return (
+				<ActionComponent
+					key={`${action.id ?? `${action.label}:${action.href}`}${suffix}`}
+					action={action}
+					className={actionClassName}
+					context={extensionContext}
+					requestAuth={requestAuth}
+				/>
+			);
+		}
+
+		if ((action.kind ?? "link") === "auth") {
+			if (authenticatedUser) {
+				const authenticatedHref = action.authenticatedHref ?? action.href;
+
+				if (!authenticatedHref) {
+					return null;
+				}
+
+				return (
+					<PhotonLink
+						key={`${action.id ?? `${action.authenticatedLabel ?? action.label}:${authenticatedHref}`}${suffix}`}
+						href={authenticatedHref}
+						target={action.authenticatedTarget}
+						rel={action.authenticatedRel}
+						className={actionClassName}
+					>
+						{action.authenticatedLabel ?? action.label}
+					</PhotonLink>
+				);
+			}
+
+			if (typeof requestAuth !== "function") {
+				return null;
+			}
+
+			return (
+				<button
+					key={`${action.id ?? `${action.label}:${action.href}`}${suffix}`}
+					type="button"
+					onClick={() => {
+						menu.close();
+						requestAuth();
+					}}
+					className={actionClassName}
+				>
+					{action.label}
+				</button>
+			);
+		}
+
+		return (
+			<PhotonLink
+				key={`${action.id ?? `${action.label}:${action.href}`}${suffix}`}
+				href={action.href}
+				target={action.target}
+				rel={action.rel}
+				onClick={suffix ? menu.close : undefined}
+				className={actionClassName}
+			>
+				{action.label}
+			</PhotonLink>
+		);
+	};
+
+	const renderNavLabel = (
+		item:
+			| (InitLandingHeaderNavItem & { labelPath?: string })
+			| PhotonSiteFrameLinkItem,
+	) =>
+		"labelPath" in item && item.labelPath ? (
+			<EditableText blockId={block.id} path={item.labelPath} />
+		) : (
+			item.label
+		);
+	const mobilePanelClassName = [
+		"fixed right-3 z-[55] max-h-[calc(100dvh-6rem)] w-[min(24rem,calc(100vw-1.5rem))] overflow-y-auto rounded-[1.6rem] border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] p-4 text-[var(--photon-site-text)] shadow-[0_26px_80px_rgba(32,22,18,0.18)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-300 ease-in-out",
+		menu.isOpen
+			? "visible pointer-events-auto translate-x-0 opacity-100"
+			: "invisible pointer-events-none translate-x-[calc(100%+1rem)] opacity-0",
+	].join(" ");
+	const mobileTriggerClassName = [
+		isAdmin ? "absolute top-3" : "fixed",
+		mobileControls.menu.floating ? "right-3 rounded-[1.2rem]" : "right-0 rounded-l-[1.2rem] rounded-r-none border-r-0",
+		mobileControls.menu.floating &&
+		mobileControls.menu.disableFloatingOnSmallScreens
+			? "max-[420px]:right-0 max-[420px]:rounded-l-[1.2rem] max-[420px]:rounded-r-none max-[420px]:border-r-0"
+			: "",
+		"z-[60] inline-flex h-12 w-12 cursor-pointer items-center justify-center border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] text-[var(--photon-site-text)] opacity-100 shadow-[0_18px_44px_rgba(32,22,18,0.16)] backdrop-blur-xl transition-[background-color,border-color,color,transform] duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]",
+	].join(" ");
+	const renderMobileMenuContent = () => (
+		<div className="flex flex-col gap-4">
+			{navItems.map((item) => (
+				<InitLandingNavLink
+					key={`${"id" in item ? item.id : ""}:${item.href}:${item.label}:mobile`}
+					href={item.href}
+					label={renderNavLabel(item)}
+					onNavigate={menu.close}
+				/>
+			))}
+			{localeSwitcherVisible ? (
+				<InitLandingLocaleSelect
+					currentRoute={currentRoute}
+					locale={locale}
+					locales={publicLocales}
+					label={translate("photon.localeSwitcher.label", "Language")}
+				/>
+			) : null}
+			<PhotonSiteSearch
+				blockId={block.id}
+				placeholderPath="searchPlaceholder"
+			/>
+			{authButtonVisible ? (
+				<button
+					type="button"
+					onClick={() => {
+						menu.close();
+						requestAuth();
+					}}
+					className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 ease-in-out hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
+				>
+					<LogIn className="h-4 w-4" />
+					<EditableText blockId={block.id} path="loginLabel" />
+				</button>
+			) : null}
+			{prominentLinks.map((item) => (
+				<InitLandingActionButton
+					key={item.id ?? `${item.href}:${item.label}:prominent:mobile`}
+					href={item.href}
+					outline
+				>
+					{item.label}
+				</InitLandingActionButton>
+			))}
+			{shouldRenderCta ? (
+				<InitLandingActionButton href={block.props.cta.href}>
+					<EditableText blockId={block.id} path="cta.label" />
+				</InitLandingActionButton>
+			) : null}
+			{rawExtensionActions.map((action) =>
+				renderExtensionAction(action, ":mobile"),
+			)}
+		</div>
+	);
+
+	useEffect(() => {
+		if (desktopLayout && menu.isOpen) {
+			menu.close();
+		}
+	}, [desktopLayout, menu]);
+
+	usePhotonSiteFrameScrollLock(
+		!desktopLayout && menu.isOpen && mobileControls.menu.scrollLock,
+	);
 
 	return (
 		<header
@@ -248,8 +608,26 @@ const InitLandingHeaderBlock = ({
 				stickyPreviewSurface ? { top: "var(--photon-dock-offset, 0px)" } : undefined
 			}
 		>
+			{mobileControls.menu.fixedTrigger && !desktopLayout ? (
+				<button
+					type="button"
+					className={mobileTriggerClassName}
+					style={
+						isAdmin
+							? undefined
+							: {
+									top: "calc(var(--photon-dock-offset, 0px) + env(safe-area-inset-top) + 0.75rem)",
+								}
+					}
+					onClick={menu.toggle}
+					aria-label={menu.isOpen ? "Close menu" : "Open menu"}
+					aria-expanded={menu.isOpen}
+				>
+					<menu.icon className="h-5 w-5 transition-transform duration-300 ease-in-out" />
+				</button>
+			) : null}
 			<div
-				className={["mx-auto max-w-7xl px-6", atLeastLg ? "px-8" : ""].join(
+				className={["mx-auto max-w-7xl px-6", desktopLayout ? "px-8" : ""].join(
 					" ",
 				)}
 			>
@@ -263,19 +641,14 @@ const InitLandingHeaderBlock = ({
 						/>
 					</PhotonLink>
 
-					{atLeastLg ? (
+					{desktopLayout ? (
 						<>
-							<div className="flex min-w-0 items-center gap-8">
-								{block.props.navItems.map((item, index) => (
+							<div className="flex min-w-0 items-center gap-5">
+								{navItems.map((item) => (
 									<InitLandingNavLink
-										key={`${item.href}:${item.label}`}
+										key={`${"id" in item ? item.id : ""}:${item.href}:${item.label}`}
 										href={item.href}
-										label={
-											<EditableText
-												blockId={block.id}
-												path={`navItems.${index}.label`}
-											/>
-										}
+										label={renderNavLabel(item)}
 									/>
 								))}
 							</div>
@@ -293,12 +666,22 @@ const InitLandingHeaderBlock = ({
 									/>
 								) : null}
 
-								<div className="w-[18rem] xl:w-[22rem]">
+								<div className="w-[clamp(12rem,16vw,18rem)]">
 									<PhotonSiteSearch
 										blockId={block.id}
 										placeholderPath="searchPlaceholder"
 									/>
 								</div>
+
+								{prominentLinks.map((item) => (
+									<InitLandingActionButton
+										key={item.id ?? `${item.href}:${item.label}:prominent`}
+										href={item.href}
+										outline
+									>
+										{item.label}
+									</InitLandingActionButton>
+								))}
 
 								{authButtonVisible ? (
 									<button
@@ -311,76 +694,71 @@ const InitLandingHeaderBlock = ({
 									</button>
 								) : null}
 
-								<div>
+								{shouldRenderCta ? (
 									<InitLandingActionButton href={block.props.cta.href}>
 										<EditableText blockId={block.id} path="cta.label" />
 									</InitLandingActionButton>
-								</div>
+								) : null}
+
+								{rawExtensionActions.map((action) =>
+									renderExtensionAction(action),
+								)}
 							</div>
 						</>
-					) : (
+					) : !mobileControls.menu.fixedTrigger ? (
 						<button
 							type="button"
-							className="p-2"
 							onClick={menu.toggle}
-							aria-label="Toggle menu"
+							aria-label={menu.isOpen ? "Close menu" : "Open menu"}
+							aria-expanded={menu.isOpen}
+							className="inline-flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-[1.2rem] border border-[var(--photon-site-border)] bg-[var(--photon-site-surface)] text-[var(--photon-site-text)] transition duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]"
 						>
-							<menu.icon className="h-6 w-6 text-[var(--photon-site-text)]" />
+							<menu.icon className="h-5 w-5" />
 						</button>
-					)}
+					) : null}
 				</nav>
-
-				{menu.isOpen && !atLeastLg ? (
-					<div className="border-t border-[var(--photon-site-border)] py-4">
-						<div className="flex flex-col gap-4">
-							{block.props.navItems.map((item, index) => (
-								<InitLandingNavLink
-									key={`${item.href}:${item.label}:mobile`}
-									href={item.href}
-									label={
-										<EditableText
-											blockId={block.id}
-											path={`navItems.${index}.label`}
-										/>
-									}
-									onNavigate={menu.close}
-								/>
-							))}
-							{localeSwitcherVisible ? (
-								<InitLandingLocaleSelect
-									currentRoute={currentRoute}
-									locale={locale}
-									locales={publicLocales}
-									label={translate(
-										"photon.localeSwitcher.label",
-										"Language",
-									)}
-								/>
-							) : null}
-							<PhotonSiteSearch
-								blockId={block.id}
-								placeholderPath="searchPlaceholder"
-							/>
-							{authButtonVisible ? (
-								<button
-									type="button"
-									onClick={() => {
-										menu.close();
-										requestAuth();
-									}}
-									className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--photon-site-border)_84%,white)] bg-white/90 px-5 py-3 text-base font-medium text-[var(--photon-site-text)] transition-all duration-300 hover:bg-[color-mix(in_srgb,var(--photon-site-surface)_96%,white)]"
-								>
-									<LogIn className="h-4 w-4" />
-									<EditableText blockId={block.id} path="loginLabel" />
-								</button>
-							) : null}
-							<InitLandingActionButton href={block.props.cta.href}>
-								<EditableText blockId={block.id} path="cta.label" />
-							</InitLandingActionButton>
-						</div>
-					</div>
-				) : null}
 			</div>
+			{!desktopLayout ? (
+				<div
+					className={[
+						"fixed inset-0 z-[55] transition-[visibility] duration-300 ease-in-out",
+						menu.isOpen ? "visible" : "invisible",
+					].join(" ")}
+				>
+					<button
+						type="button"
+						aria-label="Close menu"
+						className={[
+							"absolute inset-0 cursor-default bg-black/25 backdrop-blur-[2px] transition-opacity duration-300 ease-in-out",
+							menu.isOpen
+								? "pointer-events-auto opacity-100"
+								: "pointer-events-none opacity-0",
+						].join(" ")}
+						onClick={menu.close}
+					/>
+					<div
+						className={mobilePanelClassName}
+						style={{
+							top: "calc(var(--photon-dock-offset, 0px) + env(safe-area-inset-top) + 4.75rem)",
+						}}
+					>
+						<div className="mb-4 flex items-center justify-between gap-3">
+							<InitBrandMark
+								label={<EditableText blockId={block.id} path="brandLabel" />}
+							/>
+							<button
+								type="button"
+								aria-label="Close menu"
+								onClick={menu.close}
+								className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-[1rem] border border-[var(--photon-site-border)] text-[var(--photon-site-text)] transition duration-300 ease-in-out hover:border-[var(--photon-site-accent)] hover:text-[var(--photon-site-accent)]"
+							>
+								<menu.icon className="h-5 w-5" />
+							</button>
+						</div>
+						{renderMobileMenuContent()}
+					</div>
+				</div>
+			) : null}
 		</header>
 	);
 };
@@ -414,6 +792,15 @@ export const initLandingHeaderDefinition =
 			}),
 			showLocaleSwitcher: true,
 			showLoginAction: false,
+			mobile: {
+				menu: {
+					type: "drawer",
+					fixedTrigger: true,
+					scrollLock: true,
+					floating: false,
+					disableFloatingOnSmallScreens: true,
+				},
+			},
 			loginLabel: createPhotonLocalizedDefault({
 				en: "Admin sign in",
 				ru: "Вход для админа",

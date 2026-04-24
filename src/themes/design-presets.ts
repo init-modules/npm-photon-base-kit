@@ -22,7 +22,6 @@ const marketingDemoVariantFallbackByPresetId: Record<
 > = {
 	"aurora-current": "default",
 	"init-landing": "air",
-	"paper-flow": "air",
 };
 
 type MarketingDemoSiteDesignCandidate = {

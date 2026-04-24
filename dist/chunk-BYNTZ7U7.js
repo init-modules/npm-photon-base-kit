@@ -1,6 +1,6 @@
 import {
   marketingDemoDesignPresets
-} from "./chunk-OIRP3NX4.js";
+} from "./chunk-XBR4MLWG.js";
 
 // src/documents.ts
 import {
@@ -282,37 +282,6 @@ var initLandingContent = {
 import {
   clonePhotonValue
 } from "@init/photon/server";
-var cloneDocumentBlockById = (document, blockId) => {
-  const block = document.blocks.find((item) => item.id === blockId);
-  if (!block) {
-    throw new Error(`Missing marketing demo block: ${blockId}`);
-  }
-  return clonePhotonValue(block);
-};
-var cloneSplitAreaBlock = (document, blockId, areaIndex, blockIndex) => {
-  const splitBlock = cloneDocumentBlockById(document, blockId);
-  const nestedBlock = splitBlock.areas?.[areaIndex]?.blocks?.[blockIndex];
-  if (!nestedBlock) {
-    throw new Error(
-      `Missing nested marketing demo block: ${blockId}.areas[${areaIndex}].blocks[${blockIndex}]`
-    );
-  }
-  return clonePhotonValue(nestedBlock);
-};
-var patchBlockProps = (block, props) => ({
-  ...block,
-  props: {
-    ...typeof block.props === "object" && block.props !== null ? block.props : {},
-    ...props
-  }
-});
-var patchSplitLayoutAreas = (block, areas) => ({
-  ...block,
-  areas: (block.areas ?? []).map((area) => ({
-    ...area,
-    blocks: areas[area.id] ?? area.blocks
-  }))
-});
 var cloneBaseDocument = (baseDocument) => clonePhotonValue(baseDocument);
 
 // src/profile-presets/scenarios/init-landing.ts
@@ -396,211 +365,11 @@ var createInitLandingFooterDocument = () => ({
   ]
 });
 
-// src/profile-presets/scenarios/paper-flow.ts
-var createPaperFlowDocument = (baseDocument, locale) => {
-  const hero = patchBlockProps(
-    cloneDocumentBlockById(baseDocument, "hero-spotlight"),
-    locale === "ru" ? {
-      eyebrow: "Product narrative system",
-      title: "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0438\u0445\u0438\u0439 product-led \u0441\u0430\u0439\u0442 \u0434\u043B\u044F \u0441\u0442\u0443\u0434\u0438\u0438, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0443\u043F\u0430\u043A\u043E\u0432\u044B\u0432\u0430\u0435\u0442 \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044E, \u0441\u0435\u0440\u0432\u0438\u0441\u044B \u0438 \u043A\u0435\u0439\u0441\u044B \u0432 \u043E\u0434\u0438\u043D \u043F\u043E\u0442\u043E\u043A",
-      body: "Paper Flow \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u043D\u0435 builder-demo, \u0430 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u043E\u0439 \u043F\u043E\u0432\u0435\u0440\u0445\u043D\u043E\u0441\u0442\u044C\u044E: \u0430\u043A\u043A\u0443\u0440\u0430\u0442\u043D\u044B\u0439 hero, \u0441\u043F\u043E\u043A\u043E\u0439\u043D\u0430\u044F \u0441\u0435\u043A\u0446\u0438\u043E\u043D\u043D\u0430\u044F \u0441\u043C\u0435\u043D\u0430 \u0444\u043E\u043D\u043E\u0432, narrative \u043F\u0440\u043E \u043F\u043E\u0434\u0445\u043E\u0434, \u0441\u0435\u0440\u0432\u0438\u0441\u043D\u044B\u0435 \u043B\u0438\u043D\u0438\u0438 \u0438 \u0440\u0430\u0431\u043E\u0447\u0438\u0435 \u0430\u0440\u0442\u0435\u0444\u0430\u043A\u0442\u044B.",
-      primaryLabel: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0443\u0441\u043B\u0443\u0433\u0438",
-      primaryMetaLabel: "Flow",
-      secondaryLabel: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0439 \u043F\u043E\u0434\u0445\u043E\u0434",
-      spotlightLabel: "\u0424\u043E\u0440\u043C\u0430 \u0441\u0430\u0439\u0442\u0430",
-      spotlightValue: "Product strategy studio + service narrative",
-      imageAlt: "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043F\u0440\u043E\u0435\u043A\u0442\u0438\u0440\u0443\u0435\u0442 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u0443\u044E \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044E \u0438 \u0441\u0435\u0440\u0432\u0438\u0441\u043D\u0443\u044E \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0443"
-    } : {
-      eyebrow: "Product narrative system",
-      title: "Build a quiet product-led site for a studio that packages strategy, services and proof into one flow",
-      body: "Paper Flow should stop reading like a builder demo and start behaving like a product surface: restrained hero, gentle section changes and a service narrative that feels editorial without becoming a magazine.",
-      primaryLabel: "See services",
-      primaryMetaLabel: "Flow",
-      secondaryLabel: "Open product approach",
-      spotlightLabel: "Site shape",
-      spotlightValue: "Product strategy studio + service narrative",
-      imageAlt: "Team shaping product strategy and service architecture"
-    }
-  );
-  const split = patchSplitLayoutAreas(
-    patchBlockProps(
-      cloneDocumentBlockById(baseDocument, "editorial-split-showcase"),
-      locale === "ru" ? {
-        eyebrow: "Service architecture",
-        title: "\u041E\u0434\u0438\u043D sticky rail \u0441 \u043A\u043B\u044E\u0447\u0435\u0432\u044B\u043C \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435\u043C \u0438 \u043E\u0434\u0438\u043D product-story stack \u0441\u043F\u0440\u0430\u0432\u0430",
-        body: "\u0412 Paper Flow \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u044B\u0439 \u043A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u043A\u0430\u043A narrative layout: \u0441\u043B\u0435\u0432\u0430 \u0444\u0438\u043A\u0441\u0438\u0440\u0443\u0435\u0442\u0441\u044F \u0432\u0438\u0437\u0443\u0430\u043B\u044C\u043D\u044B\u0439 \u044F\u043A\u043E\u0440\u044C \u0443\u0441\u043B\u0443\u0433\u0438, \u0441\u043F\u0440\u0430\u0432\u0430 \u0438\u0434\u0435\u0442 \u0441\u043F\u043E\u043A\u043E\u0439\u043D\u043E\u0435 \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u0430, deliverables \u0438 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432.",
-        columns: [
-          {
-            areaId: "primary",
-            label: "",
-            width: "minmax(18rem,0.92fr)",
-            sticky: true
-          },
-          {
-            areaId: "secondary",
-            label: "",
-            width: "minmax(0,1.08fr)",
-            sticky: false
-          }
-        ]
-      } : {
-        eyebrow: "Service architecture",
-        title: "One sticky rail for the core offer, one product-story stack on the right",
-        body: "In Paper Flow the horizontal container becomes a narrative layout: the left side pins the offer anchor, the right side explains method, deliverables and proof at a calmer pace.",
-        columns: [
-          {
-            areaId: "primary",
-            label: "",
-            width: "minmax(18rem,0.92fr)",
-            sticky: true
-          },
-          {
-            areaId: "secondary",
-            label: "",
-            width: "minmax(0,1.08fr)",
-            sticky: false
-          }
-        ]
-      }
-    ),
-    {
-      primary: [
-        patchBlockProps(
-          cloneSplitAreaBlock(baseDocument, "editorial-split-showcase", 0, 0),
-          locale === "ru" ? {
-            eyebrow: "\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u0430\u044F \u0440\u0430\u043C\u043A\u0430",
-            title: "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u0432\u0438\u0434\u0438\u0442 \u0433\u043B\u0430\u0432\u043D\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435, \u043F\u043E\u043A\u0430 \u0447\u0438\u0442\u0430\u0435\u0442 \u0432\u0435\u0441\u044C \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439 \u0432\u043D\u0435\u0434\u0440\u0435\u043D\u0438\u044F",
-            caption: "Sticky rail \u0437\u0434\u0435\u0441\u044C \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u043A\u0430\u043A \u0441\u043F\u043E\u043A\u043E\u0439\u043D\u044B\u0439 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0439 \u044F\u043A\u043E\u0440\u044C: \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 promise, \u043E\u0434\u0438\u043D visual \u0438 \u0447\u0443\u0432\u0441\u0442\u0432\u043E \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0441\u0442\u0438 \u0431\u0435\u0437 \u0442\u044F\u0436\u0435\u043B\u043E\u0433\u043E dashboard look.",
-            imageAlt: "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u0438\u0441\u0442\u0438\u0447\u043D\u044B\u0439 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0439 \u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B \u0441 \u043C\u0430\u043A\u0435\u0442\u0430\u043C\u0438"
-          } : {
-            eyebrow: "Product frame",
-            title: "The team keeps the core offer in view while reading the full delivery narrative",
-            caption: "The sticky rail acts as a calm product anchor: one promise, one visual and a sense of structure without falling into a dashboard look.",
-            imageAlt: "Minimal product workspace with strategy mockups"
-          }
-        )
-      ],
-      secondary: [
-        patchBlockProps(
-          cloneSplitAreaBlock(baseDocument, "editorial-split-showcase", 1, 0),
-          locale === "ru" ? {
-            eyebrow: "Product operating model",
-            title: "\u0421\u0430\u0439\u0442 \u043C\u043E\u0436\u0435\u0442 \u043E\u0431\u044A\u044F\u0441\u043D\u044F\u0442\u044C \u043D\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E \u0432\u044B \u0434\u0435\u043B\u0430\u0435\u0442\u0435, \u043D\u043E \u0438 \u043A\u0430\u043A \u0438\u043C\u0435\u043D\u043D\u043E \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044F \u0440\u0430\u0431\u043E\u0442\u0430",
-            content: "<p>Paper Flow \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u0443\u044E \u043A\u043E\u043C\u0430\u043D\u0434\u0443 \u0438\u043B\u0438 \u0441\u0442\u0443\u0434\u0438\u044E, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u043F\u0440\u043E\u0434\u0430\u0435\u0442 \u043D\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B, \u0430 \u0445\u043E\u0434 \u0440\u0430\u0431\u043E\u0442\u044B: \u0438\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0435, framing, \u0437\u0430\u043F\u0443\u0441\u043A, \u0441\u043E\u043F\u0440\u043E\u0432\u043E\u0436\u0434\u0435\u043D\u0438\u0435.</p><p>\u041F\u043E\u044D\u0442\u043E\u043C\u0443 \u0432 narrative stack \u0432\u0430\u0436\u043D\u044B \u0441\u043F\u043E\u043A\u043E\u0439\u043D\u044B\u0435 \u0430\u0431\u0437\u0430\u0446\u044B \u0438 \u0430\u043A\u043A\u0443\u0440\u0430\u0442\u043D\u0430\u044F \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u043E\u0441\u0442\u044C:</p><ul><li>\u0447\u0442\u043E \u0432\u0445\u043E\u0434\u0438\u0442 \u0432 discovery</li><li>\u043A\u0430\u043A \u043E\u0444\u043E\u0440\u043C\u043B\u044F\u044E\u0442\u0441\u044F deliverables</li><li>\u043A\u0430\u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0430 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 \u0437\u0430\u043F\u0443\u0441\u043A \u043F\u043E\u0441\u043B\u0435 \u0440\u0435\u043B\u0438\u0437\u0430</li></ul><blockquote>\u041F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0439 light preset \u0434\u043E\u043B\u0436\u0435\u043D \u043E\u0449\u0443\u0449\u0430\u0442\u044C\u0441\u044F \u043A\u0430\u043A \u0443\u0432\u0435\u0440\u0435\u043D\u043D\u044B\u0439 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442, \u0430 \u043D\u0435 \u043A\u0430\u043A \u0442\u0430 \u0436\u0435 dark demo \u0432 \u0434\u0440\u0443\u0433\u0438\u0445 \u0446\u0432\u0435\u0442\u0430\u0445.</blockquote>",
-            asideLabel: "Delivery lens",
-            asideValue: "Discovery, framing, launch and iteration described in one continuous service story."
-          } : {
-            eyebrow: "Product operating model",
-            title: "The site can explain not just what you do, but how the work actually moves",
-            content: "<p>Paper Flow should present a product team or studio that sells the shape of the work, not just isolated pages: discovery, framing, launch and iteration.</p><p>That is why the narrative stack needs calmer paragraphs and a clearer sequence:</p><ul><li>what discovery includes</li><li>how deliverables are packaged</li><li>how the team supports launch after release</li></ul><blockquote>A good light preset should feel like a confident product document, not the same dark demo recolored.</blockquote>",
-            asideLabel: "Delivery lens",
-            asideValue: "Discovery, framing, launch and iteration described in one continuous service story."
-          }
-        ),
-        patchBlockProps(
-          cloneSplitAreaBlock(baseDocument, "editorial-split-showcase", 1, 1),
-          locale === "ru" ? {
-            tag: "case-note",
-            title: "\u041A\u0435\u0439\u0441\u044B \u0438 service notes \u043C\u043E\u0433\u0443\u0442 \u0447\u0438\u0442\u0430\u0442\u044C\u0441\u044F \u043A\u0430\u043A \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u043E\u0433\u043E narrative, \u0430 \u043D\u0435 \u043A\u0430\u043A \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0439 \u043A\u0430\u0442\u0430\u043B\u043E\u0433",
-            excerpt: "\u0412\u043C\u0435\u0441\u0442\u043E \u0433\u0440\u043E\u043C\u043E\u0437\u0434\u043A\u043E\u0439 \u043A\u0435\u0439\u0441\u043E\u0442\u0435\u043A\u0438 Paper Flow \u043C\u043E\u0436\u0435\u0442 \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u0432\u043D\u0438\u043C\u0430\u043D\u0438\u0435 \u043C\u0435\u0436\u0434\u0443 \u043F\u043E\u0434\u0445\u043E\u0434\u043E\u043C, \u0430\u0440\u0442\u0435\u0444\u0430\u043A\u0442\u0430\u043C\u0438 \u0438 \u043A\u0440\u0430\u0442\u043A\u0438\u043C\u0438 \u0438\u0441\u0442\u043E\u0440\u0438\u044F\u043C\u0438 \u0432\u043D\u0435\u0434\u0440\u0435\u043D\u0438\u044F.",
-            author: "Service design team",
-            readTime: "4 \u043C\u0438\u043D\u0443\u0442\u044B",
-            ctaLabel: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u0435\u0439\u0441"
-          } : {
-            tag: "case-note",
-            title: "Case notes can extend the service narrative instead of behaving like a detached portfolio grid",
-            excerpt: "Paper Flow can move attention between method, deliverables and short implementation stories without collapsing into a heavy case-study catalog.",
-            author: "Service design team",
-            readTime: "4 min read",
-            ctaLabel: "Open case note"
-          }
-        )
-      ]
-    }
-  );
-  const featureGrid = patchBlockProps(
-    cloneDocumentBlockById(baseDocument, "feature-grid"),
-    locale === "ru" ? {
-      eyebrow: "Service lines",
-      title: "\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044F, \u0434\u0438\u0437\u0430\u0439\u043D \u0441\u0438\u0441\u0442\u0435\u043C\u044B \u0438 \u0432\u043D\u0435\u0434\u0440\u0435\u043D\u0438\u0435 \u0436\u0438\u0432\u0443\u0442 \u043A\u0430\u043A \u043E\u0434\u0438\u043D \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0439 \u043F\u0430\u043A\u0435\u0442",
-      body: "Paper Flow \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u0435\u0437\u0435\u043D\u0442\u043E\u0432\u0430\u0442\u044C studio offer, \u0430 \u043D\u0435 \u0444\u0440\u0435\u0439\u043C\u0432\u043E\u0440\u043A. \u041F\u043E\u044D\u0442\u043E\u043C\u0443 \u0441\u0435\u043A\u0446\u0438\u0438 \u043D\u0438\u0436\u0435 \u043E\u0431\u044A\u044F\u0441\u043D\u044F\u044E\u0442 service lines \u0438 deliverables, \u0430 \u043D\u0435 \u0432\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u043E\u0441\u0442\u0438 builder.",
-      features: [
-        {
-          title: "Discovery sprint",
-          body: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E, \u043A\u0430\u0440\u0442\u0430 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430, framing \u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u0435, \u0447\u0442\u043E \u0438\u043C\u0435\u043D\u043D\u043E \u0434\u043E\u043B\u0436\u043D\u043E \u043E\u043A\u0430\u0437\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u0436\u0438\u0432\u043E\u043C \u0441\u0430\u0439\u0442\u0435."
-        },
-        {
-          title: "Narrative system",
-          body: "\u0421\u0435\u043A\u0446\u0438\u0438 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u0432 \u043F\u043E\u043D\u044F\u0442\u043D\u044B\u0439 flow: promise, method, proof, offer \u0438 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0448\u0430\u0433."
-        },
-        {
-          title: "Launch support",
-          body: "\u041F\u043E\u0441\u043B\u0435 \u0440\u0435\u043B\u0438\u0437\u0430 \u043A\u043E\u043C\u0430\u043D\u0434\u0430 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442 \u0438\u0442\u0435\u0440\u0430\u0446\u0438\u0438 \u043F\u043E \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0443, \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0435 \u0438 conversion story."
-        }
-      ]
-    } : {
-      eyebrow: "Service lines",
-      title: "Strategy, systems design and rollout live as one productized offer",
-      body: "Paper Flow should present a studio offer, not a framework pitch. The sections below explain service lines and deliverables instead of builder internals.",
-      features: [
-        {
-          title: "Discovery sprint",
-          body: "Interviews, product mapping, framing and a decision on what should appear on the live site."
-        },
-        {
-          title: "Narrative system",
-          body: "Sections compose into a readable flow: promise, method, proof, offer and the next step."
-        },
-        {
-          title: "Launch support",
-          body: "After release the team continues iterating on content, structure and conversion story."
-        }
-      ]
-    }
-  );
-  const cta = patchBlockProps(
-    cloneDocumentBlockById(baseDocument, "command-center-cta"),
-    locale === "ru" ? {
-      badge: "Studio offer",
-      title: "\u0421\u0434\u0435\u043B\u0430\u0439\u0442\u0435 \u0438\u0437 \u043F\u0440\u0435\u0441\u0435\u0442\u0430 \u043D\u0435 \u043E\u0431\u0449\u0443\u044E \u0434\u0435\u043C\u043A\u0443, \u0430 \u0433\u043E\u0442\u043E\u0432\u0443\u044E service-story \u0434\u043B\u044F \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u043E\u0439 \u043A\u043E\u043C\u0430\u043D\u0434\u044B",
-      body: "Paper Flow \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u0441\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u044B\u043C light preset \u0441\u043E \u0441\u0432\u043E\u0438\u043C frontend-\u043B\u0438\u0446\u043E\u043C: \u0441\u043F\u043E\u043A\u043E\u0439\u043D\u044B\u0439 \u0441\u0435\u0440\u0432\u0438\u0441\u043D\u044B\u0439 narrative, \u0434\u0440\u0443\u0433\u0438\u0435 \u0431\u043B\u043E\u043A\u0438 \u0438 \u0434\u0440\u0443\u0433\u0430\u044F \u0442\u0435\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u043B\u0435\u043A\u0441\u0438\u043A\u0430.",
-      primaryLabel: "\u0421\u043E\u0431\u0440\u0430\u0442\u044C service page",
-      secondaryLabel: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C deliverables",
-      panelEyebrow: "Offer package",
-      panelLabel: "Productized service surface",
-      panelItems: [
-        "Hero \u043F\u0440\u043E\u0434\u0430\u0435\u0442 promise, \u0430 \u043D\u0435 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 builder.",
-        "Split layout \u043E\u0431\u044A\u044F\u0441\u043D\u044F\u0435\u0442 \u043C\u0435\u0442\u043E\u0434 \u0438 \u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0445\u043E\u0434 \u043A\u043E\u043C\u0430\u043D\u0434\u044B.",
-        "\u041D\u0438\u0436\u043D\u0438\u0435 \u0441\u0435\u043A\u0446\u0438\u0438 \u0441\u043E\u0431\u0438\u0440\u0430\u044E\u0442 offer, proof \u0438 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0448\u0430\u0433."
-      ]
-    } : {
-      badge: "Studio offer",
-      title: "Make the preset a real service story, not a generic demo in lighter colors",
-      body: "Paper Flow should stand as its own light preset with a different frontend face: calmer service narrative, different block composition and different product language.",
-      primaryLabel: "Assemble service page",
-      secondaryLabel: "Open deliverables",
-      panelEyebrow: "Offer package",
-      panelLabel: "Productized service surface",
-      panelItems: [
-        "The hero sells the promise instead of the builder toolchain.",
-        "The split layout explains method and delivery motion.",
-        "Lower sections package the offer, proof and the next step."
-      ]
-    }
-  );
-  return {
-    ...cloneBaseDocument(baseDocument),
-    blocks: [hero, split, featureGrid, cta]
-  };
-};
-
 // src/profile-presets/preset-scenarios.ts
 var createPresetScenarioDocument = (presetId, baseDocument, locale) => {
   switch (presetId) {
     case "init-landing":
       return createInitLandingDocument(baseDocument, locale);
-    case "paper-flow":
-      return createPaperFlowDocument(baseDocument, locale);
     default:
       return clonePhotonValue2(baseDocument);
   }
@@ -992,6 +761,22 @@ var createDefaultSiteRegionEntries = (locale, document) => {
               showLoginAction: false,
               loginLabel: locale === "ru" ? "\u0412\u0445\u043E\u0434 \u0434\u043B\u044F \u0430\u0434\u043C\u0438\u043D\u0430" : "Admin sign in",
               sticky: true,
+              mobile: {
+                sticky: false,
+                menu: {
+                  type: "drawer",
+                  fixedTrigger: true,
+                  scrollLock: true,
+                  floating: false,
+                  disableFloatingOnSmallScreens: true
+                },
+                bottomMenu: {
+                  enabled: true,
+                  showBurger: true,
+                  floating: false,
+                  disableFloatingOnSmallScreens: true
+                }
+              },
               compactOnScroll: true,
               categoryLinks: locale === "ru" ? [
                 { label: "\u0418\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430", href: "/infrastructure" },
@@ -1170,15 +955,6 @@ var marketingDemoDesignTemplateCatalog = [
     sourcePresetId: "aurora-current",
     snapshotRef: "marketing-demo-template/aurora-current",
     previewRoute: "/template/aurora-current"
-  },
-  {
-    id: "paper-flow-template",
-    label: "Paper Flow Template",
-    labelRu: "\u0428\u0430\u0431\u043B\u043E\u043D Paper Flow",
-    description: "A frameless editorial blueprint tuned for airy storytelling and print-inspired pacing.",
-    sourcePresetId: "paper-flow",
-    snapshotRef: "marketing-demo-template/paper-flow",
-    previewRoute: "/template/paper-flow"
   },
   {
     id: "init-landing-template",

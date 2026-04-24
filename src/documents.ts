@@ -441,7 +441,6 @@ export type MarketingDemoProfileStarterPreset = {
 
 export type MarketingDemoDesignTemplateId =
 	| "aurora-current-template"
-	| "paper-flow-template"
 	| "init-landing-template";
 
 export type MarketingDemoDesignTemplate = {
@@ -551,6 +550,22 @@ const createDefaultSiteRegionEntries = (
 							showLoginAction: false,
 							loginLabel: locale === "ru" ? "Вход для админа" : "Admin sign in",
 							sticky: true,
+							mobile: {
+								sticky: false,
+								menu: {
+									type: "drawer",
+									fixedTrigger: true,
+									scrollLock: true,
+									floating: false,
+									disableFloatingOnSmallScreens: true,
+								},
+								bottomMenu: {
+									enabled: true,
+									showBurger: true,
+									floating: false,
+									disableFloatingOnSmallScreens: true,
+								},
+							},
 							compactOnScroll: true,
 							categoryLinks:
 								locale === "ru"
@@ -779,16 +794,6 @@ const marketingDemoDesignTemplateCatalog: Array<{
 		sourcePresetId: "aurora-current",
 		snapshotRef: "marketing-demo-template/aurora-current",
 		previewRoute: "/template/aurora-current",
-	},
-	{
-		id: "paper-flow-template",
-		label: "Paper Flow Template",
-		labelRu: "Шаблон Paper Flow",
-		description:
-			"A frameless editorial blueprint tuned for airy storytelling and print-inspired pacing.",
-		sourcePresetId: "paper-flow",
-		snapshotRef: "marketing-demo-template/paper-flow",
-		previewRoute: "/template/paper-flow",
 	},
 	{
 		id: "init-landing-template",

@@ -16,7 +16,7 @@ type MarketingDemoProfileStarterPreset = {
         type: "marketing-home-profile";
     };
 };
-type MarketingDemoDesignTemplateId = "aurora-current-template" | "paper-flow-template" | "init-landing-template";
+type MarketingDemoDesignTemplateId = "aurora-current-template" | "init-landing-template";
 type MarketingDemoDesignTemplate = {
     id: MarketingDemoDesignTemplateId;
     label: string;

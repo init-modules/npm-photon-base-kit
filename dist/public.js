@@ -18,7 +18,7 @@ import {
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-KU7IJI5N.js";
+} from "./chunk-QS3WKOFT.js";
 import "./chunk-C3ON53CY.js";
 
 // src/public.tsx
