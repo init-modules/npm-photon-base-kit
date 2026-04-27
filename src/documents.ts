@@ -927,8 +927,58 @@ export {
 	marketingDemoDesignPresets,
 };
 
+const marketingNotFoundLabels: Record<MarketingDemoLocale, { name: string; eyebrow: string; title: string; body: string; primaryLabel: string; secondaryLabel: string }> = {
+	en: {
+		name: "Page not found",
+		eyebrow: "404",
+		title: "This page is off the map",
+		body: "The link you followed may be broken, or the page may have been moved. Pick a destination below — the rest of the site is still online.",
+		primaryLabel: "Back to homepage",
+		secondaryLabel: "Browse the site",
+	},
+	ru: {
+		name: "Страница не найдена",
+		eyebrow: "404",
+		title: "Такой страницы здесь нет",
+		body: "Ссылка может быть устаревшей, либо страницу перенесли. Выберите, куда отправиться дальше — остальной сайт работает как обычно.",
+		primaryLabel: "На главную",
+		secondaryLabel: "Посмотреть сайт",
+	},
+};
+
+export const createMarketingDemoNotFoundDocument = (
+	locale: MarketingDemoLocale = "en",
+): PhotonDocument => {
+	const labels = marketingNotFoundLabels[locale];
+
+	return {
+		id: "photon-not-found",
+		name: labels.name,
+		route: "/__not_found",
+		updatedAt: "2026-04-28T00:00:00.000Z",
+		blocks: [
+			{
+				id: "not-found-hero",
+				module: "marketing-demo",
+				type: "not-found",
+				props: {
+					variant: "default",
+					eyebrow: labels.eyebrow,
+					title: labels.title,
+					body: labels.body,
+					primaryLabel: labels.primaryLabel,
+					primaryHref: "/",
+					secondaryLabel: labels.secondaryLabel,
+					secondaryHref: "/",
+				},
+			},
+		],
+	};
+};
+
 export const marketingPhotonDocuments: PhotonDocumentsMap = {
 	home: createMarketingDemoDocument("en"),
+	notFound: createMarketingDemoNotFoundDocument("en"),
 	...Object.fromEntries(
 		marketingDemoDesignTemplates.map((template) => [
 			`template-${template.id}`,

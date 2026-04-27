@@ -92,6 +92,7 @@ declare const createMarketingDemoProfileDocumentFromPresetSource: (presetId: Mar
 declare const createMarketingDemoProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
 declare const marketingDemoDesignTemplates: MarketingDemoDesignTemplate[];
 
+declare const createMarketingDemoNotFoundDocument: (locale?: MarketingDemoLocale) => PhotonDocument;
 declare const marketingPhotonDocuments: PhotonDocumentsMap;
 declare const baseDesignTemplates: MarketingDemoDesignTemplate[];
 declare const baseProfileStarterPresets: MarketingDemoProfileStarterPreset[];
@@ -101,4 +102,4 @@ declare const createBaseDesignTemplateDocument: (templateId: MarketingDemoDesign
 declare const createBaseProfileDocumentFromPresetSource: (presetId: MarketingDemoDesignPresetId, locale?: MarketingDemoLocale) => PhotonDocument;
 declare const createBaseProfileDocumentFromTemplateSource: (templateId: MarketingDemoDesignTemplateId, locale?: MarketingDemoLocale) => PhotonDocument;
 
-export { type BaseProfileStarterSource, type MarketingDemoDesignTemplate, type MarketingDemoDesignTemplateId, type MarketingDemoLocale, type MarketingDemoProfileStarterPreset, baseDesignTemplates, basePhotonDocuments, baseProfileStarterPresets, createBaseDesignTemplateDocument, createBasePhotonDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignPresets, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingPhotonDocuments };
+export { type BaseProfileStarterSource, type MarketingDemoDesignTemplate, type MarketingDemoDesignTemplateId, type MarketingDemoLocale, type MarketingDemoProfileStarterPreset, baseDesignTemplates, basePhotonDocuments, baseProfileStarterPresets, createBaseDesignTemplateDocument, createBasePhotonDocument, createBaseProfileDocumentFromPresetSource, createBaseProfileDocumentFromTemplateSource, createBaseStarterProfileTree, createInitLandingFooterDocument, createInitLandingHeaderDocument, createMarketingDemoDesignTemplateDocument, createMarketingDemoDocument, createMarketingDemoNotFoundDocument, createMarketingDemoProfileDocumentFromPresetSource, createMarketingDemoProfileDocumentFromTemplateSource, marketingDemoDesignPresets, marketingDemoDesignTemplates, marketingDemoProfileStarterPresets, marketingPhotonDocuments };

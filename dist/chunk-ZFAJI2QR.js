@@ -5633,6 +5633,194 @@ var richTextDefinition = definePhotonBlockDefinition18({
   ]
 });
 
+// src/blocks/not-found.tsx
+import {
+  createPhotonLocalizedDefault as createPhotonLocalizedDefault19,
+  definePhotonBlockDefinition as definePhotonBlockDefinition19,
+  EditableText as EditableText18,
+  EditableTextarea as EditableTextarea14,
+  usePhotonRenderDepth as usePhotonRenderDepth10,
+  usePhotonStore as usePhotonStore15,
+  PhotonLink as PhotonLink9
+} from "@init/photon/public";
+import { jsx as jsx29, jsxs as jsxs26 } from "react/jsx-runtime";
+var NotFoundBlock = ({
+  block
+}) => {
+  const siteDesign = usePhotonStore15((state) => state.site.settings.design);
+  const variant = resolveMarketingDemoBlockVariant({
+    blockType: "not-found",
+    explicitVariant: block.props.variant,
+    siteDesign
+  });
+  const theme = getMarketingDemoVariantTheme(variant);
+  const renderDepth = usePhotonRenderDepth10();
+  const frameless = theme.surfaceStyle === "frameless";
+  return /* @__PURE__ */ jsx29(
+    "section",
+    {
+      className: `${theme.heroSurface} px-6 py-16 sm:px-10 sm:py-24`,
+      style: getMarketingDemoFramelessBleedStyle(frameless, renderDepth === 0),
+      "data-testid": "marketing-demo-not-found",
+      "data-marketing-demo-variant": variant,
+      "data-marketing-demo-surface-style": theme.surfaceStyle,
+      children: /* @__PURE__ */ jsxs26("div", { className: "mx-auto flex min-w-0 max-w-3xl flex-col items-center text-center", children: [
+        /* @__PURE__ */ jsx29(
+          EditableText18,
+          {
+            blockId: block.id,
+            path: "eyebrow",
+            className: `${theme.pill} mx-auto`
+          }
+        ),
+        /* @__PURE__ */ jsx29(
+          EditableText18,
+          {
+            blockId: block.id,
+            path: "title",
+            as: "h1",
+            className: `mt-6 block text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl ${theme.emphasisText}`
+          }
+        ),
+        /* @__PURE__ */ jsx29(
+          EditableTextarea14,
+          {
+            blockId: block.id,
+            path: "body",
+            className: `mt-5 max-w-xl ${theme.body}`
+          }
+        ),
+        /* @__PURE__ */ jsxs26("div", { className: "mt-8 flex flex-wrap justify-center gap-3", children: [
+          /* @__PURE__ */ jsx29(
+            PhotonLink9,
+            {
+              href: String(block.props.primaryHref),
+              className: theme.primaryButton,
+              children: /* @__PURE__ */ jsx29(
+                EditableText18,
+                {
+                  blockId: block.id,
+                  path: "primaryLabel",
+                  className: "text-sm font-semibold"
+                }
+              )
+            }
+          ),
+          /* @__PURE__ */ jsx29(
+            PhotonLink9,
+            {
+              href: String(block.props.secondaryHref),
+              className: theme.secondaryButton,
+              children: /* @__PURE__ */ jsx29(
+                EditableText18,
+                {
+                  blockId: block.id,
+                  path: "secondaryLabel",
+                  className: "text-sm font-semibold"
+                }
+              )
+            }
+          )
+        ] })
+      ] })
+    }
+  );
+};
+var notFoundDefinition = definePhotonBlockDefinition19({
+  type: "not-found",
+  label: "Page not found",
+  labelKey: "marketingDemoKit.blocks.notFound.label",
+  description: "Friendly 404 hero with home and back-to-site CTAs.",
+  descriptionKey: "marketingDemoKit.blocks.notFound.description",
+  category: "Utility",
+  icon: "compass",
+  component: NotFoundBlock,
+  defaults: {
+    variant: "default",
+    eyebrow: createPhotonLocalizedDefault19({
+      en: "404",
+      ru: "404"
+    }),
+    title: createPhotonLocalizedDefault19({
+      en: "This page is off the map",
+      ru: "\u0422\u0430\u043A\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0437\u0434\u0435\u0441\u044C \u043D\u0435\u0442"
+    }),
+    body: createPhotonLocalizedDefault19({
+      en: "The link you followed may be broken, or the page may have been moved. Pick a destination below \u2014 the rest of the site is still online.",
+      ru: "\u0421\u0441\u044B\u043B\u043A\u0430 \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u0443\u0441\u0442\u0430\u0440\u0435\u0432\u0448\u0435\u0439, \u043B\u0438\u0431\u043E \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u043B\u0438. \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435, \u043A\u0443\u0434\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F \u0434\u0430\u043B\u044C\u0448\u0435 \u2014 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0441\u0430\u0439\u0442 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u043A\u0430\u043A \u043E\u0431\u044B\u0447\u043D\u043E."
+    }),
+    primaryLabel: createPhotonLocalizedDefault19({
+      en: "Back to homepage",
+      ru: "\u041D\u0430 \u0433\u043B\u0430\u0432\u043D\u0443\u044E"
+    }),
+    primaryHref: "/",
+    secondaryLabel: createPhotonLocalizedDefault19({
+      en: "Browse the site",
+      ru: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u0439\u0442"
+    }),
+    secondaryHref: "/"
+  },
+  fields: [
+    {
+      path: "variant",
+      label: "Variant",
+      kind: "select",
+      group: "style",
+      localization: "shared",
+      options: marketingDemoBlockVariantOptions
+    },
+    {
+      path: "eyebrow",
+      label: "Eyebrow",
+      kind: "text",
+      group: "content",
+      localization: "localized"
+    },
+    {
+      path: "title",
+      label: "Title",
+      kind: "textarea",
+      group: "content",
+      localization: "localized"
+    },
+    {
+      path: "body",
+      label: "Body",
+      kind: "textarea",
+      group: "content",
+      localization: "localized"
+    },
+    {
+      path: "primaryLabel",
+      label: "Primary CTA",
+      kind: "text",
+      group: "content",
+      localization: "localized"
+    },
+    {
+      path: "primaryHref",
+      label: "Primary link",
+      kind: "url",
+      group: "content",
+      localization: "shared"
+    },
+    {
+      path: "secondaryLabel",
+      label: "Secondary CTA",
+      kind: "text",
+      group: "content",
+      localization: "localized"
+    },
+    {
+      path: "secondaryHref",
+      label: "Secondary link",
+      kind: "url",
+      group: "content",
+      localization: "shared"
+    }
+  ]
+});
+
 export {
   breadcrumbsDefinition,
   commandCenterCtaDefinition,
@@ -5655,6 +5843,7 @@ export {
   initLandingTestimonialsDefinition,
   initLandingWhyUsDefinition,
   mediaFrameDefinition,
+  notFoundDefinition,
   mediaGalleryDefinition,
   proofStripDefinition,
   publicationSpotlightDefinition,

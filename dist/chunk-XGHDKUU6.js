@@ -1042,8 +1042,53 @@ var marketingDemoDesignTemplates = marketingDemoDesignTemplateCatalog.map((templ
   snapshotRef: template.snapshotRef,
   previewRoute: template.previewRoute
 }));
+var marketingNotFoundLabels = {
+  en: {
+    name: "Page not found",
+    eyebrow: "404",
+    title: "This page is off the map",
+    body: "The link you followed may be broken, or the page may have been moved. Pick a destination below \u2014 the rest of the site is still online.",
+    primaryLabel: "Back to homepage",
+    secondaryLabel: "Browse the site"
+  },
+  ru: {
+    name: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430",
+    eyebrow: "404",
+    title: "\u0422\u0430\u043A\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0437\u0434\u0435\u0441\u044C \u043D\u0435\u0442",
+    body: "\u0421\u0441\u044B\u043B\u043A\u0430 \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u0443\u0441\u0442\u0430\u0440\u0435\u0432\u0448\u0435\u0439, \u043B\u0438\u0431\u043E \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u043B\u0438. \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435, \u043A\u0443\u0434\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F \u0434\u0430\u043B\u044C\u0448\u0435 \u2014 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0441\u0430\u0439\u0442 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u043A\u0430\u043A \u043E\u0431\u044B\u0447\u043D\u043E.",
+    primaryLabel: "\u041D\u0430 \u0433\u043B\u0430\u0432\u043D\u0443\u044E",
+    secondaryLabel: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u0439\u0442"
+  }
+};
+var createMarketingDemoNotFoundDocument = (locale = "en") => {
+  const labels = marketingNotFoundLabels[locale];
+  return {
+    id: "photon-not-found",
+    name: labels.name,
+    route: "/__not_found",
+    updatedAt: "2026-04-28T00:00:00.000Z",
+    blocks: [
+      {
+        id: "not-found-hero",
+        module: "marketing-demo",
+        type: "not-found",
+        props: {
+          variant: "default",
+          eyebrow: labels.eyebrow,
+          title: labels.title,
+          body: labels.body,
+          primaryLabel: labels.primaryLabel,
+          primaryHref: "/",
+          secondaryLabel: labels.secondaryLabel,
+          secondaryHref: "/"
+        }
+      }
+    ]
+  };
+};
 var marketingPhotonDocuments = {
   home: createMarketingDemoDocument("en"),
+  notFound: createMarketingDemoNotFoundDocument("en"),
   ...Object.fromEntries(
     marketingDemoDesignTemplates.map((template) => [
       `template-${template.id}`,
@@ -1069,6 +1114,7 @@ export {
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
+  createMarketingDemoNotFoundDocument,
   marketingPhotonDocuments,
   baseDesignTemplates,
   baseProfileStarterPresets,

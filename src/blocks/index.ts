@@ -12,6 +12,7 @@ export * from "./init-landing/init-landing-services";
 export * from "./init-landing/init-landing-testimonials";
 export * from "./init-landing/init-landing-why-us";
 export * from "./media-frame";
+export * from "./not-found";
 export * from "./media-gallery";
 export * from "./proof-strip";
 export * from "./publication-spotlight";

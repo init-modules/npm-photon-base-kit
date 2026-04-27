@@ -21,6 +21,7 @@ import {
 	initLandingWhyUsDefinition,
 	mediaFrameDefinition,
 	mediaGalleryDefinition,
+	notFoundDefinition,
 	proofStripDefinition,
 	publicationSpotlightDefinition,
 	richTextDefinition,
@@ -28,6 +29,7 @@ import {
 import {
 	createMarketingDemoDesignTemplateDocument,
 	createMarketingDemoDocument,
+	createMarketingDemoNotFoundDocument,
 	createMarketingDemoProfileDocumentFromPresetSource,
 	createMarketingDemoProfileDocumentFromTemplateSource,
 	marketingDemoDesignTemplates,
@@ -47,6 +49,7 @@ export const marketingPhotonModule: PhotonModule = {
 		featureGridDefinition,
 		mediaFrameDefinition,
 		mediaGalleryDefinition,
+		notFoundDefinition,
 		richTextDefinition,
 		publicationSpotlightDefinition,
 		commandCenterCtaDefinition,
@@ -66,6 +69,7 @@ export const marketingPhotonModule: PhotonModule = {
 export {
 	createMarketingDemoDesignTemplateDocument,
 	createMarketingDemoDocument,
+	createMarketingDemoNotFoundDocument,
 	createMarketingDemoProfileDocumentFromPresetSource,
 	createMarketingDemoProfileDocumentFromTemplateSource,
 	marketingDemoDesignPresets,

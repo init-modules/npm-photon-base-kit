@@ -11,12 +11,13 @@ import {
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
   createMarketingDemoDocument,
+  createMarketingDemoNotFoundDocument,
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingPhotonDocuments
-} from "./chunk-BYNTZ7U7.js";
+} from "./chunk-XGHDKUU6.js";
 import {
   marketingDemoDesignPresets
 } from "./chunk-XBR4MLWG.js";
@@ -34,6 +35,7 @@ export {
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
   createMarketingDemoDocument,
+  createMarketingDemoNotFoundDocument,
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignPresets,

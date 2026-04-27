@@ -21,10 +21,11 @@ import {
   initLandingWhyUsDefinition,
   mediaFrameDefinition,
   mediaGalleryDefinition,
+  notFoundDefinition,
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-NG2NPRDF.js";
+} from "./chunk-ZFAJI2QR.js";
 import "./chunk-JF3FEQHL.js";
 import {
   baseDesignTemplates,
@@ -39,12 +40,13 @@ import {
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
   createMarketingDemoDocument,
+  createMarketingDemoNotFoundDocument,
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   marketingDemoDesignTemplates,
   marketingDemoProfileStarterPresets,
   marketingPhotonDocuments
-} from "./chunk-BYNTZ7U7.js";
+} from "./chunk-XGHDKUU6.js";
 import {
   basePhotonThemes,
   marketingDemoDesignPresets,
@@ -79,6 +81,7 @@ var marketingPhotonModule = {
     featureGridDefinition,
     mediaFrameDefinition,
     mediaGalleryDefinition,
+    notFoundDefinition,
     richTextDefinition,
     publicationSpotlightDefinition,
     commandCenterCtaDefinition,
@@ -126,6 +129,7 @@ export {
   createInitLandingHeaderDocument,
   createMarketingDemoDesignTemplateDocument,
   createMarketingDemoDocument,
+  createMarketingDemoNotFoundDocument,
   createMarketingDemoProfileDocumentFromPresetSource,
   createMarketingDemoProfileDocumentFromTemplateSource,
   createMarketingDemoVariantMap,
