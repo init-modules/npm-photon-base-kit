@@ -1,0 +1,7 @@
+{
+	"project_slug": "photon-base-kit",
+	"name": "@init/photon-base-kit",
+	"entry_type": "package",
+	"scope": "package:@init/photon-base-kit",
+	"package_name": "@init/photon-base-kit"
+}
