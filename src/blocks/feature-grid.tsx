@@ -211,7 +211,7 @@ export const featureGridDefinition =
 				path: "features",
 				label: "Feature cards",
 				kind: "repeater",
-				group: "data",
+				group: "content",
 				localization: "localized",
 				itemLabelPath: "title",
 				addLabel: "Add feature card",

@@ -24,7 +24,7 @@ import {
   proofStripDefinition,
   publicationSpotlightDefinition,
   richTextDefinition
-} from "./chunk-QS3WKOFT.js";
+} from "./chunk-NG2NPRDF.js";
 import "./chunk-JF3FEQHL.js";
 import {
   baseDesignTemplates,

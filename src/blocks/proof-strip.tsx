@@ -184,7 +184,7 @@ export const proofStripDefinition =
 				path: "items",
 				label: "Metric items",
 				kind: "repeater",
-				group: "data",
+				group: "content",
 				localization: "localized",
 				itemLabelPath: "label",
 				addLabel: "Add metric item",

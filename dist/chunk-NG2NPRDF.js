@@ -1,3 +1,4 @@
+"use client";
 import {
   getMarketingDemoFramelessBleedStyle,
   getMarketingDemoVariantTheme,
@@ -649,7 +650,7 @@ var featureGridDefinition = definePhotonBlockDefinition3({
       path: "features",
       label: "Feature cards",
       kind: "repeater",
-      group: "data",
+      group: "content",
       localization: "localized",
       itemLabelPath: "title",
       addLabel: "Add feature card",
@@ -1142,7 +1143,7 @@ var fields = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -3575,7 +3576,7 @@ var fields5 = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -3896,7 +3897,7 @@ var fields6 = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -4099,7 +4100,7 @@ var fields7 = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -4294,7 +4295,7 @@ var fields8 = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -4478,7 +4479,7 @@ var fields9 = [
     path: "sectionId",
     label: "Section id",
     kind: "text",
-    group: "content",
+    group: "layout",
     localization: "shared"
   },
   {
@@ -5298,7 +5299,7 @@ var proofStripDefinition = definePhotonBlockDefinition16({
       path: "items",
       label: "Metric items",
       kind: "repeater",
-      group: "data",
+      group: "content",
       localization: "localized",
       itemLabelPath: "label",
       addLabel: "Add metric item",

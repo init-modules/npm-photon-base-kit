@@ -43,7 +43,7 @@
 		"publicInstallableKitImportPath": "@init/photon-base-kit/public"
 	},
 	"scripts": {
-		"build": "tsup src/index.ts src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean",
+		"build": "tsup src/index.ts src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean && node scripts/stamp-use-client.mjs",
 		"storybook": "storybook dev -p 6006 -c .storybook",
 		"build-storybook": "storybook build -c .storybook -o storybook-static",
 		"test-storybook": "test-storybook --url http://127.0.0.1:6006",

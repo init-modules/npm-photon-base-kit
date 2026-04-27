@@ -31,7 +31,7 @@ const fields: PhotonField[] = [
 		path: "sectionId",
 		label: "Section id",
 		kind: "text",
-		group: "content",
+		group: "layout",
 		localization: "shared",
 	},
 	{
