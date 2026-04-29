@@ -138,7 +138,12 @@ export const loadPhotonProfileCatalog = async (
 ): Promise<PhotonProfileCatalog> => {
 	const fallback = options.fallback ?? photonBaseProfileCatalogFallback;
 	try {
-		return await fetchPhotonProfileCatalog({ ...options, fallback });
+		return await fetchPhotonProfileCatalog({
+			backendUrl: options.backendUrl,
+			locale: options.locale,
+			signal: options.signal,
+			fetchImpl: options.fetchImpl,
+		});
 	} catch (error) {
 		console.warn(
 			"[photon-base-kit] loadPhotonProfileCatalog: live fetch failed, returning fallback",
