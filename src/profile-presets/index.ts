@@ -10,3 +10,7 @@ export {
 	createBaseProfileDocumentFromPresetSource,
 	createBaseProfileDocumentFromTemplateSource,
 } from "../documents";
+export {
+	loadPhotonProfileCatalog,
+	photonBaseProfileCatalogFallback,
+} from "./load";
