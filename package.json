@@ -21,6 +21,11 @@
 			"import": "./dist/public.js",
 			"default": "./dist/public.js"
 		},
+		"./module": {
+			"types": "./dist/module.d.ts",
+			"import": "./dist/module.js",
+			"default": "./dist/module.js"
+		},
 		"./themes": {
 			"types": "./dist/themes/index.d.ts",
 			"import": "./dist/themes/index.js",
@@ -35,15 +40,21 @@
 			"types": "./dist/documents.d.ts",
 			"import": "./dist/documents.js",
 			"default": "./dist/documents.js"
+		},
+		"./demo": {
+			"types": "./dist/demo/index.d.ts",
+			"import": "./dist/demo/index.js",
+			"default": "./dist/demo/index.js"
 		}
 	},
 	"photon": {
 		"installableKitExport": "basePhotonKit",
+		"installableKitImportPath": "@init/photon-base-kit/module",
 		"publicInstallableKitExport": "basePublicPhotonKit",
 		"publicInstallableKitImportPath": "@init/photon-base-kit/public"
 	},
 	"scripts": {
-		"build": "tsup src/index.ts src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts --format esm --dts --clean && node scripts/stamp-use-client.mjs",
+		"build": "tsup src/index.ts src/module.tsx src/public.tsx src/documents.ts src/themes/index.ts src/profile-presets/index.ts src/demo/index.ts --format esm --dts --clean && node scripts/stamp-use-client.mjs",
 		"storybook": "storybook dev -p 6006 -c .storybook",
 		"build-storybook": "storybook build -c .storybook -o storybook-static",
 		"test-storybook": "test-storybook --url http://127.0.0.1:6006",

@@ -6,6 +6,10 @@ import {
 	type PhotonDocumentsMap,
 } from "@init/photon/server";
 import { applyPhotonSiteDesignPreset } from "@init/photon/shared";
+import type {
+	PhotonProfileCatalog,
+	PhotonProfileTemplate,
+} from "@init/photon/sdk";
 import { createPresetScenarioDocument } from "./profile-presets/preset-scenarios";
 import {
 	createInitLandingFooterDocument,
@@ -675,9 +679,47 @@ const createDefaultSiteRegionEntries = (
 	};
 };
 
+export type BaseStarterProfileTreeOptions = {
+	/**
+	 * Live profile catalog from the PHP backend. When supplied, the resulting
+	 * starter tree's home document is enriched with metadata derived from the
+	 * matching catalog row (slug → name → meta), and the chosen design preset
+	 * follows the catalog row's `designPresetSlug`. When omitted, the kit
+	 * builds the tree purely from in-package marketing-demo fixtures.
+	 *
+	 * Honours wildcard rows (locale === "*") as a fallback when no row exists
+	 * for the requested locale, matching the PHP `whereIn(locale, [$locale,
+	 * '*'])` server contract.
+	 */
+	catalog?: PhotonProfileCatalog;
+	/**
+	 * Override the catalog template lookup slug. By default, when `catalog` is
+	 * supplied the lookup slug is derived from `source.sourceId`.
+	 */
+	templateSlug?: string;
+};
+
+const findCatalogTemplate = (
+	catalog: PhotonProfileCatalog,
+	slug: string | undefined,
+	locale: string,
+): PhotonProfileTemplate | undefined => {
+	if (!slug) return undefined;
+	const exact = catalog.templates.find(
+		(template) => template.slug === slug && template.locale === locale,
+	);
+	if (exact) return exact;
+	const wildcard = catalog.templates.find(
+		(template) => template.slug === slug && template.locale === "*",
+	);
+	if (wildcard) return wildcard;
+	return catalog.templates.find((template) => template.slug === slug);
+};
+
 export const createBaseStarterProfileTree = (
 	locale: MarketingDemoLocale,
 	source: BaseProfileStarterSource,
+	options: BaseStarterProfileTreeOptions = {},
 ) => {
 	if (source.type === "blank") {
 		return {
@@ -714,23 +756,57 @@ export const createBaseStarterProfileTree = (
 		};
 	}
 
-	const document =
-		source.type === "preset"
-			? createMarketingDemoProfileDocumentFromPresetSource(
-					source.sourceId as MarketingDemoDesignPresetId,
-					locale,
-				)
-			: createMarketingDemoProfileDocumentFromTemplateSource(
+	const isKnownPreset =
+		source.type === "preset" &&
+		marketingDemoProfileStarterPresets.some(
+			(preset) => preset.id === source.sourceId,
+		);
+	const isKnownTemplate =
+		source.type === "template" &&
+		marketingDemoDesignTemplates.some(
+			(template) => template.id === source.sourceId,
+		);
+
+	const baseDocument = isKnownPreset
+		? createMarketingDemoProfileDocumentFromPresetSource(
+				source.sourceId as MarketingDemoDesignPresetId,
+				locale,
+			)
+		: isKnownTemplate
+			? createMarketingDemoProfileDocumentFromTemplateSource(
 					source.sourceId as MarketingDemoDesignTemplateId,
 					locale,
-				);
+				)
+			: createMarketingDemoDocument(locale);
+
+	const catalogTemplate = options.catalog
+		? findCatalogTemplate(
+				options.catalog,
+				options.templateSlug ?? source.sourceId,
+				locale,
+			)
+		: undefined;
+
+	// When a live catalog row matches the source slug, the starter tree's
+	// home document name + id reflect the PHP catalog (not the in-kit
+	// marketing fixture). Block content still flows from the kit fixture
+	// because the catalog rows ship with `structure: null` / `copy: null`
+	// today; tightening this is a separate slice.
+	const document = catalogTemplate
+		? {
+				...baseDocument,
+				id: `photon-${catalogTemplate.slug}`,
+				name: catalogTemplate.name,
+			}
+		: baseDocument;
 
 	const sourcePresetId =
-		source.type === "preset"
+		catalogTemplate?.designPresetSlug ??
+		(source.type === "preset"
 			? source.sourceId
 			: marketingDemoDesignTemplates.find(
 					(template) => template.id === source.sourceId,
-				)?.sourcePresetId;
+				)?.sourcePresetId);
 
 	const siteRegions =
 		sourcePresetId === "init-landing"
@@ -772,6 +848,17 @@ export const createBaseStarterProfileTree = (
 		},
 		meta: {
 			source: "photon-starter",
+			...(catalogTemplate
+				? {
+						catalogTemplate: {
+							slug: catalogTemplate.slug,
+							locale: catalogTemplate.locale,
+							familySlug: catalogTemplate.familySlug,
+							colorSchemeSlug: catalogTemplate.colorSchemeSlug,
+							designPresetSlug: catalogTemplate.designPresetSlug,
+						},
+					}
+				: {}),
 		},
 	};
 };
